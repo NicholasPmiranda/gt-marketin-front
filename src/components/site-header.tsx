@@ -10,11 +10,13 @@ export function SiteHeader() {
   const pathname = usePathname()
 
   const titulo =
-    pathname.startsWith("/app/contas-bancarias")
-      ? "Contas bancarias"
-      : pathname.startsWith("/app/cartoes")
-        ? "Cartoes"
-        : "Dashboard"
+    pathname.startsWith("/app/configuracoes")
+      ? "Configuracoes"
+      : pathname.startsWith("/app/contas-bancarias")
+        ? "Contas bancarias"
+        : pathname.startsWith("/app/cartoes")
+          ? "Cartoes"
+          : "Dashboard"
 
   return (
     <header className="flex h-(--header-height) shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height)">

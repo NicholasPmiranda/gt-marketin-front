@@ -16,7 +16,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { LayoutDashboardIcon } from "lucide-react"
+import { LayoutDashboardIcon, SettingsIcon } from "lucide-react"
 
 type NavItem = {
   title: string
@@ -38,9 +38,9 @@ const data = {
     },
 
     {
-      title: "teste",
-      url: "/app/teste",
-      icon: <LayoutDashboardIcon />,
+      title: "Configuracoes",
+      url: "/app/configuracoes",
+      icon: <SettingsIcon />,
     },
   ] satisfies NavItem[],
 }

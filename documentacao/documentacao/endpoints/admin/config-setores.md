@@ -1,5 +1,37 @@
 # Documentacao de Endpoints - Configuracoes de Setores
 
+## Listar todos os setores (sem paginacao)
+
+### GET /api/config/setores/todos
+
+Lista todos os setores sem paginacao, ordenados pelos mais recentes.
+
+**Autenticacao:**
+- Obrigatoria (`auth:sanctum`).
+
+**Resposta (200):**
+```json
+[
+  {
+    "id": 2,
+    "nome": "Operacoes",
+    "created_at": "2026-04-03T00:20:00.000000Z",
+    "updated_at": "2026-04-03T00:20:00.000000Z"
+  },
+  {
+    "id": 1,
+    "nome": "Financeiro",
+    "created_at": "2026-04-03T00:10:00.000000Z",
+    "updated_at": "2026-04-03T00:10:00.000000Z"
+  }
+]
+```
+
+**Erros:**
+- `401` - Nao autenticado
+
+---
+
 ## Listar setores
 
 ### GET /api/config/setor
