@@ -14,3 +14,9 @@ padrao obrigatorio de componentizacao para paginas com tabs:
 - evitar prop drilling de handlers, estados e listas entre page e tabs.
 - a page deve apenas orquestrar a estrutura de layout/navegacao (tabs) e renderizar os componentes das tabs.
 - para fluxos distintos, manter componentes distintos (nao unificar com mode/create/edit em um mesmo componente principal).
+
+padrao obrigatorio para arquivos page.tsx (next app router):
+
+- nao criar page.tsx apenas como wrapper retornando um unico componente filho (ex.: return <AlgumPageContent />).
+- manter no page.tsx a orquestracao principal da tela (estado da pagina, carregamento principal e composicao de blocos).
+- extrair para componentes apenas blocos com responsabilidade clara (cards, tabelas, modais, formularios e skeletons).
