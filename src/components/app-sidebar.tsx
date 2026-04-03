@@ -16,7 +16,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { FolderKanbanIcon, LayoutDashboardIcon, SettingsIcon } from "lucide-react"
+import { FolderKanbanIcon, LayoutDashboardIcon, ListTodoIcon, SettingsIcon } from "lucide-react"
 
 type NavItem = {
   title: string
@@ -46,6 +46,11 @@ const data = {
       title: "Projetos",
       url: "/app/projetos",
       icon: <FolderKanbanIcon />,
+    },
+    {
+      title: "Tarefas",
+      url: "/app/tarefas",
+      icon: <ListTodoIcon />,
     },
   ] satisfies NavItem[],
 }

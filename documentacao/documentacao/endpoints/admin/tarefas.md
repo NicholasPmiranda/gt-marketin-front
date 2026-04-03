@@ -26,6 +26,8 @@ Lista tarefas com paginacao (50 por pagina), com filtro opcional por projeto, in
       "nome": "Criar layout",
       "descricao": "Tela inicial",
       "status": "em andamento",
+      "agendamento_inicio": "2026-04-03T14:00:00.000000Z",
+      "agendamento_fim": null,
       "projeto": {
         "id": 1,
         "nome": "Novo Site"
@@ -77,6 +79,8 @@ Lista tarefas sem paginacao, com filtro opcional por projeto e agrupadas por `st
       "nome": "Criar layout",
       "descricao": "Tela inicial",
       "status": "pendente",
+      "agendamento_inicio": null,
+      "agendamento_fim": null,
       "projeto": {
         "id": 1,
         "nome": "Novo Site"
@@ -102,6 +106,8 @@ Lista tarefas sem paginacao, com filtro opcional por projeto e agrupadas por `st
       "nome": "Ajustar SEO",
       "descricao": "Meta tags",
       "status": "em andamento",
+      "agendamento_inicio": "2026-04-03T15:00:00.000000Z",
+      "agendamento_fim": null,
       "projeto": {
         "id": 1,
         "nome": "Novo Site"
@@ -187,6 +193,8 @@ Tambem permite criacao por modelo com `tarefa_modelo_id`.
   "nome": "Criar layout",
   "descricao": "Tela inicial",
   "status": "pendente",
+  "agendamento_inicio": null,
+  "agendamento_fim": null,
   "responsaveis": [
     {
       "id": 2,
@@ -230,6 +238,8 @@ Retorna tarefa com projeto, subtarefas, responsaveis, etiquetas e comentarios co
   "nome": "Criar layout",
   "descricao": "Tela inicial",
   "status": "em andamento",
+  "agendamento_inicio": "2026-04-03T14:00:00.000000Z",
+  "agendamento_fim": null,
   "subtarefas": [
     {
       "id": 12,
@@ -277,6 +287,10 @@ Retorna tarefa com projeto, subtarefas, responsaveis, etiquetas e comentarios co
 
 Atualiza dados da tarefa e sincroniza responsaveis/etiquetas.
 
+**Regra de negocio (agendamento):**
+- Ao mover para `em andamento`, o sistema grava `agendamento_inicio` com data/hora atual.
+- Ao mover para `finalizado`, o sistema grava `agendamento_fim` com data/hora atual.
+
 **Autenticacao:**
 - Obrigatoria (`auth:sanctum`).
 
@@ -312,7 +326,9 @@ Atualiza dados da tarefa e sincroniza responsaveis/etiquetas.
 {
   "id": 10,
   "nome": "Criar layout home",
-  "status": "revisao"
+  "status": "revisao",
+  "agendamento_inicio": "2026-04-03T14:00:00.000000Z",
+  "agendamento_fim": null
 }
 ```
 
@@ -328,6 +344,10 @@ Atualiza dados da tarefa e sincroniza responsaveis/etiquetas.
 ### POST /api/tarefa/update-status-{tarefa}
 
 Atualiza somente o campo `status` da tarefa. Endpoint indicado para fluxo de kanban (arrastar e soltar entre colunas).
+
+**Regra de negocio (agendamento):**
+- Ao mover para `em andamento`, o sistema grava `agendamento_inicio` com data/hora atual.
+- Ao mover para `finalizado`, o sistema grava `agendamento_fim` com data/hora atual.
 
 **Autenticacao:**
 - Obrigatoria (`auth:sanctum`).
@@ -354,6 +374,8 @@ Atualiza somente o campo `status` da tarefa. Endpoint indicado para fluxo de kan
   "nome": "Criar layout home",
   "descricao": "Tela inicial atualizada",
   "status": "em andamento",
+  "agendamento_inicio": "2026-04-03T15:20:00.000000Z",
+  "agendamento_fim": null,
   "responsaveis": [
     {
       "id": 2,

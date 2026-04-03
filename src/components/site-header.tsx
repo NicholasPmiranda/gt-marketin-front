@@ -12,9 +12,13 @@ export function SiteHeader() {
   const titulo =
     pathname.startsWith("/app/configuracoes")
       ? "Configuracoes"
+      : pathname.startsWith("/app/tarefas")
+        ? "Tarefas"
+        : pathname.startsWith("/app/projetos")
+          ? "Projetos"
       : pathname.startsWith("/app/contas-bancarias")
         ? "Contas bancarias"
-        : pathname.startsWith("/app/cartoes")
+      : pathname.startsWith("/app/cartoes")
           ? "Cartoes"
           : "Dashboard"
 
