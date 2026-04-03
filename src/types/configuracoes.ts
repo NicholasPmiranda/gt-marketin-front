@@ -1,4 +1,6 @@
-export type ConfigTab = "users" | "setores" | "etiquetas"
+import type { TarefaStatus } from "@/types/tarefas"
+
+export type ConfigTab = "users" | "setores" | "etiquetas" | "tarefas-modelo"
 
 export type UserConfigItem = {
   id: number
@@ -20,6 +22,20 @@ export type SetorConfigItem = {
 export type EtiquetaConfigItem = {
   id: number
   nome: string
+}
+
+export type TarefaModeloResponsavel = {
+  id: number
+  name: string
+}
+
+export type TarefaModeloConfigItem = {
+  id: number
+  nome: string
+  descricao: string | null
+  status: TarefaStatus
+  responsaveis: TarefaModeloResponsavel[]
+  etiquetas: EtiquetaConfigItem[]
 }
 
 export type CreateUserPayload = {
@@ -44,3 +60,13 @@ export type UpdateUserPayload = CreateUserPayload
 export type UpdateSetorPayload = CreateSetorPayload
 
 export type UpdateEtiquetaPayload = CreateEtiquetaPayload
+
+export type CreateTarefaModeloPayload = {
+  nome: string
+  descricao?: string
+  status: TarefaStatus
+  responsavel_ids: number[]
+  etiqueta_ids?: number[]
+}
+
+export type UpdateTarefaModeloPayload = CreateTarefaModeloPayload

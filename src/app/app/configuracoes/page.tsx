@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { LayersIcon, TagsIcon, UsersIcon } from "lucide-react"
+import { LayersIcon, ListTodoIcon, TagsIcon, UsersIcon } from "lucide-react"
 
 import type { ConfigTab } from "@/types/configuracoes"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -10,6 +10,7 @@ import {
   SetoresTabContent,
   UsersTabContent,
 } from "./components/configuracoes-tabs"
+import { TarefasModeloTabContent } from "./components/tarefas-modelo-tab-content"
 
 export default function Page() {
   const [activeTab, setActiveTab] = useState<ConfigTab>("users")
@@ -35,11 +36,16 @@ export default function Page() {
             <TagsIcon className="size-4" />
             Etiquetas
           </TabsTrigger>
+          <TabsTrigger value="tarefas-modelo">
+            <ListTodoIcon className="size-4" />
+            Tarefa modelo
+          </TabsTrigger>
         </TabsList>
 
         {activeTab === "users" && <UsersTabContent />}
         {activeTab === "setores" && <SetoresTabContent />}
         {activeTab === "etiquetas" && <EtiquetasTabContent />}
+        {activeTab === "tarefas-modelo" && <TarefasModeloTabContent />}
       </Tabs>
     </div>
   )

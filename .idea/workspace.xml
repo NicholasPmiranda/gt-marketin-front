@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e7fddfb5-2083-46ab-a350-c03f1d2d5fb2" name="Changes" comment="Improve task filters and visuals: update global styles, add subtask badge, and enhance task filter options">
+    <list default="true" id="e7fddfb5-2083-46ab-a350-c03f1d2d5fb2" name="Changes" comment="Add table view for task management with dynamic status, priority badges, and subtasks integration">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/documentacao/documentacao/endpoints/admin/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/documentacao/documentacao/endpoints/admin/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/documentacao/documentacao/endpoints/admin/tarefas.md" beforeDir="false" afterPath="$PROJECT_DIR$/documentacao/documentacao/endpoints/admin/tarefas.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/app/tarefas/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app/tarefas/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/app/configuracoes/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app/configuracoes/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/globals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/configuracoes-api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/configuracoes-api.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types/configuracoes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/configuracoes.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,7 +129,7 @@
       <workItem from="1775175255708" duration="2304000" />
       <workItem from="1775177565449" duration="1610000" />
       <workItem from="1775179686609" duration="1482000" />
-      <workItem from="1775220262640" duration="20598000" />
+      <workItem from="1775220262640" duration="21832000" />
     </task>
     <task id="LOCAL-00001" summary="wip">
       <option name="closed" value="true" />
@@ -394,14 +395,21 @@
       <option name="project" value="LOCAL" />
       <updated>1775248628174</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="Add table view for task management with dynamic status, priority badges, and subtasks integration">
+      <option name="closed" value="true" />
+      <created>1775250867720</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1775250867720</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: add authentication context and integrate login/logout functionality" />
     <MESSAGE value="feat: add bank logo assets" />
     <MESSAGE value="feat: implement finance management pages and UI components&#10;&#10;Add reusable UI components for dialogs and cards, integrate finance management pages for bank accounts and cards with data fetching and creation functionalities, and enhance navigation structure for seamless user experience." />
     <MESSAGE value="refactor: modularize finance management components&#10;&#10;Extract shared components for finance management into reusable modules, replace generic page implementation with specific components for bank accounts and cards, and improve overall structure for better maintainability." />
@@ -426,7 +434,8 @@
     <MESSAGE value="Update task views to improve layout, typography, and accessibility" />
     <MESSAGE value="Refactor task status styles into a reusable function and integrate it across task views." />
     <MESSAGE value="Improve task filters and visuals: update global styles, add subtask badge, and enhance task filter options" />
-    <option name="LAST_COMMIT_MESSAGE" value="Improve task filters and visuals: update global styles, add subtask badge, and enhance task filter options" />
+    <MESSAGE value="Add table view for task management with dynamic status, priority badges, and subtasks integration" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add table view for task management with dynamic status, priority badges, and subtasks integration" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

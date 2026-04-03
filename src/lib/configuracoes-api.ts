@@ -1,22 +1,41 @@
 import api from "@/lib/axios"
 import type {
+  CreateTarefaModeloPayload,
   CreateEtiquetaPayload,
   CreateSetorPayload,
   CreateUserPayload,
   EtiquetaConfigItem,
   SetorConfigItem,
+  TarefaModeloConfigItem,
+  TarefaModeloResponsavel,
+  UpdateTarefaModeloPayload,
   UpdateEtiquetaPayload,
   UpdateSetorPayload,
   UpdateUserPayload,
   UserConfigItem,
 } from "@/types/configuracoes"
+import type { TarefaStatus } from "@/types/tarefas"
 
 const endpointMap = {
   users: "/api/config/user",
+  usersTodos: "/api/config/user/todos",
   setores: "/api/config/setor",
   setoresTodos: "/api/config/setor/todos",
   etiquetas: "/api/config/etiqueta",
+  etiquetasTodos: "/api/config/etiqueta/todos",
+  tarefasModelo: "/api/config/tarefa-modelo",
+  tarefasModeloTodos: "/api/config/tarefa-modelo/todos",
 } as const
+
+const statusOrdenado: TarefaStatus[] = ["pendente", "em andamento", "revisao", "finalizado"]
+
+function normalizarStatus(status: unknown): TarefaStatus {
+  if (typeof status === "string" && statusOrdenado.includes(status as TarefaStatus)) {
+    return status as TarefaStatus
+  }
+
+  return "pendente"
+}
 
 function normalizarUser(payload: unknown): UserConfigItem {
   const item = (payload ?? {}) as {
@@ -56,6 +75,54 @@ function normalizarSetor(payload: unknown): SetorConfigItem {
   }
 }
 
+function normalizarResponsavelTarefaModelo(payload: unknown): TarefaModeloResponsavel {
+  const item = (payload ?? {}) as {
+    id?: number
+    name?: string
+  }
+
+  return {
+    id: item.id ?? 0,
+    name: item.name ?? "",
+  }
+}
+
+function normalizarEtiqueta(payload: unknown): EtiquetaConfigItem {
+  const item = (payload ?? {}) as {
+    id?: number
+    nome?: string
+  }
+
+  return {
+    id: item.id ?? 0,
+    nome: item.nome ?? "",
+  }
+}
+
+function normalizarTarefaModelo(payload: unknown): TarefaModeloConfigItem {
+  const item = (payload ?? {}) as {
+    id?: number
+    nome?: string
+    descricao?: string | null
+    status?: string
+    responsaveis?: unknown[]
+    etiquetas?: unknown[]
+  }
+
+  return {
+    id: item.id ?? 0,
+    nome: item.nome ?? "",
+    descricao: item.descricao ?? null,
+    status: normalizarStatus(item.status),
+    responsaveis: Array.isArray(item.responsaveis)
+      ? item.responsaveis.map((responsavel) => normalizarResponsavelTarefaModelo(responsavel))
+      : [],
+    etiquetas: Array.isArray(item.etiquetas)
+      ? item.etiquetas.map((etiqueta) => normalizarEtiqueta(etiqueta))
+      : [],
+  }
+}
+
 function normalizarLista<T>(payload: unknown): T[] {
   if (Array.isArray(payload)) {
     return payload as T[]
@@ -88,6 +155,12 @@ export async function listarUsersConfig() {
   return lista.map((item) => normalizarUser(item))
 }
 
+export async function listarUsersTodosConfig() {
+  const response = await api.get(endpointMap.usersTodos)
+  const lista = normalizarLista<unknown>(response.data)
+  return lista.map((item) => normalizarUser(item))
+}
+
 export async function listarSetoresConfig() {
   const response = await api.get(endpointMap.setores)
   const lista = normalizarLista<unknown>(response.data)
@@ -102,7 +175,26 @@ export async function listarSetoresTodosConfig() {
 
 export async function listarEtiquetasConfig() {
   const response = await api.get(endpointMap.etiquetas)
-  return normalizarLista<EtiquetaConfigItem>(response.data)
+  const lista = normalizarLista<unknown>(response.data)
+  return lista.map((item) => normalizarEtiqueta(item))
+}
+
+export async function listarEtiquetasTodosConfig() {
+  const response = await api.get(endpointMap.etiquetasTodos)
+  const lista = normalizarLista<unknown>(response.data)
+  return lista.map((item) => normalizarEtiqueta(item))
+}
+
+export async function listarTarefasModeloConfig() {
+  const response = await api.get(endpointMap.tarefasModelo)
+  const lista = normalizarLista<unknown>(response.data)
+  return lista.map((item) => normalizarTarefaModelo(item))
+}
+
+export async function listarTarefasModeloTodosConfig() {
+  const response = await api.get(endpointMap.tarefasModeloTodos)
+  const lista = normalizarLista<unknown>(response.data)
+  return lista.map((item) => normalizarTarefaModelo(item))
 }
 
 export async function criarUserConfig(payload: CreateUserPayload) {
@@ -116,8 +208,13 @@ export async function criarSetorConfig(payload: CreateSetorPayload) {
 }
 
 export async function criarEtiquetaConfig(payload: CreateEtiquetaPayload) {
-  const response = await api.post<EtiquetaConfigItem>(endpointMap.etiquetas, payload)
-  return response.data
+  const response = await api.post(endpointMap.etiquetas, payload)
+  return normalizarEtiqueta(response.data)
+}
+
+export async function criarTarefaModeloConfig(payload: CreateTarefaModeloPayload) {
+  const response = await api.post(endpointMap.tarefasModelo, payload)
+  return normalizarTarefaModelo(response.data)
 }
 
 export async function atualizarUserConfig(userId: number, payload: UpdateUserPayload) {
@@ -142,13 +239,28 @@ export async function atualizarEtiquetaConfig(
   etiquetaId: number,
   payload: UpdateEtiquetaPayload
 ) {
-  const response = await api.post<EtiquetaConfigItem>(
+  const response = await api.post(
     `${endpointMap.etiquetas}/update-${etiquetaId}`,
     payload
   )
-  return response.data
+  return normalizarEtiqueta(response.data)
 }
 
 export async function excluirEtiquetaConfig(etiquetaId: number) {
   await api.delete(`${endpointMap.etiquetas}/${etiquetaId}`)
+}
+
+export async function atualizarTarefaModeloConfig(
+  tarefaModeloId: number,
+  payload: UpdateTarefaModeloPayload
+) {
+  const response = await api.post(
+    `${endpointMap.tarefasModelo}/update-${tarefaModeloId}`,
+    payload
+  )
+  return normalizarTarefaModelo(response.data)
+}
+
+export async function excluirTarefaModeloConfig(tarefaModeloId: number) {
+  await api.delete(`${endpointMap.tarefasModelo}/${tarefaModeloId}`)
 }
