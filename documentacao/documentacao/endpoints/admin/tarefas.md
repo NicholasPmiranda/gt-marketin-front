@@ -4,7 +4,7 @@
 
 ### GET /api/tarefa
 
-Lista tarefas com paginacao (50 por pagina), com filtro opcional por projeto, incluindo projeto, responsaveis e etiquetas.
+Lista tarefas com paginacao (50 por pagina), com filtros opcionais, incluindo projeto, responsaveis e etiquetas.
 
 **Autenticacao:**
 - Obrigatoria (`auth:sanctum`).
@@ -65,7 +65,7 @@ Lista tarefas com paginacao (50 por pagina), com filtro opcional por projeto, in
 
 ### GET /api/tarefa/kanban
 
-Lista tarefas sem paginacao, com filtro opcional por projeto e agrupadas por `status` para uso em quadro kanban.
+Lista tarefas sem paginacao, com filtros opcionais e agrupadas por `status` para uso em quadro kanban.
 
 **Autenticacao:**
 - Obrigatoria (`auth:sanctum`).
@@ -73,6 +73,12 @@ Lista tarefas sem paginacao, com filtro opcional por projeto e agrupadas por `st
 **Parametros de Query:**
 - `projeto_id` (opcional) - ID do projeto para filtrar tarefas
 - `search` (opcional) - filtra por nome ou descricao
+- `status` (opcional) - filtra por status (`pendente`, `revisao`, `em andamento`, `finalizado`)
+- `prioridade` (opcional) - filtra por prioridade (`baixa`, `media`, `alta`)
+- `responsavel_id` (opcional) - ID do responsavel vinculado a tarefa
+- `agendamento` (opcional) - filtra pela data de agendamento (`YYYY-MM-DD`)
+- `inicio` (opcional) - filtra pela data de inicio (`YYYY-MM-DD`)
+- `fim` (opcional) - filtra pela data de fim (`YYYY-MM-DD`)
 
 **Resposta (200):**
 ```json
@@ -144,7 +150,6 @@ Lista tarefas sem paginacao, com filtro opcional por projeto e agrupadas por `st
 ### POST /api/tarefa
 
 Cria tarefa ou subtarefa (quando `tarefa_pai_id` for enviado), com responsaveis e etiquetas.
-Tambem permite criacao por modelo com `tarefa_modelo_id`.
 
 **Autenticacao:**
 - Obrigatoria (`auth:sanctum`).
@@ -154,40 +159,28 @@ Tambem permite criacao por modelo com `tarefa_modelo_id`.
 {
   "projeto_id": 1,
   "tarefa_pai_id": null,
-  "tarefa_modelo_id": null,
+  "agendamento": "2026-04-03 14:00:00",
   "nome": "Criar layout",
   "descricao": "Tela inicial",
   "status": "pendente",
+  "prioridade": "media",
   "responsavel_ids": [2, 3],
   "etiqueta_ids": [1]
-}
-```
-
-**Corpo da Requisicao (criacao por modelo):**
-```json
-{
-  "projeto_id": 1,
-  "tarefa_pai_id": null,
-  "tarefa_modelo_id": 4
 }
 ```
 
 **Regras de Validacao:**
 - `projeto_id` - obrigatorio, inteiro, deve existir em `projetos.id`
 - `tarefa_pai_id` - opcional, inteiro, deve existir em `tarefas.id`
-- `tarefa_modelo_id` - opcional, inteiro, deve existir em `tarefa_modelos.id`
-- `nome` - obrigatorio quando `tarefa_modelo_id` nao for enviado, string, maximo 255 caracteres
+- `nome` - obrigatorio, string, maximo 255 caracteres
 - `descricao` - opcional, string
-- `status` - obrigatorio quando `tarefa_modelo_id` nao for enviado, string, valores permitidos: `pendente`, `revisao`, `em andamento`, `finalizado`
-- `responsavel_ids` - obrigatorio quando `tarefa_modelo_id` nao for enviado, array, minimo 1 item
+- `status` - obrigatorio, string, valores permitidos: `pendente`, `revisao`, `em andamento`, `finalizado`
+- `agendamento` - opcional, data valida
+- `prioridade` - opcional, string
+- `responsavel_ids` - obrigatorio, array, minimo 1 item
 - `responsavel_ids.*` - inteiro, deve existir em `users.id`
 - `etiqueta_ids` - opcional, array
 - `etiqueta_ids.*` - inteiro, deve existir em `etiquetas.id`
-
-**Regra de negocio (criacao por modelo):**
-- Quando `tarefa_modelo_id` for enviado, os dados da tarefa sao copiados do modelo base.
-- Nesse fluxo, o sistema usa do modelo: `nome`, `descricao`, `status`, `responsaveis` e `etiquetas`.
-- Os campos manuais de conteudo da tarefa deixam de ser obrigatorios nesse caso.
 
 **Resposta (201):**
 ```json
@@ -195,6 +188,70 @@ Tambem permite criacao por modelo com `tarefa_modelo_id`.
   "id": 10,
   "projeto_id": 1,
   "tarefa_pai_id": null,
+  "nome": "Criar layout",
+  "descricao": "Tela inicial",
+  "status": "pendente",
+  "agendamento_inicio": null,
+  "agendamento_fim": null,
+  "responsaveis": [
+    {
+      "id": 2,
+      "name": "Ana Souza"
+    }
+  ],
+  "etiquetas": [
+    {
+      "id": 1,
+      "nome": "Urgente"
+    }
+  ]
+}
+```
+
+**Erros:**
+- `401` - Nao autenticado
+- `422` - Erro de validacao dos dados
+
+---
+
+## Criar tarefa a partir de modelo
+
+### POST /api/tarefa/criar-por-modelo
+
+Cria tarefa ou subtarefa a partir de um modelo de tarefa ja cadastrado em configuracoes.
+
+**Autenticacao:**
+- Obrigatoria (`auth:sanctum`).
+
+**Corpo da Requisicao:**
+```json
+{
+  "projeto_id": 1,
+  "tarefa_pai_id": null,
+  "tarefa_modelo_id": 4,
+  "agendamento": "2026-04-03 14:00:00",
+  "prioridade": "media"
+}
+```
+
+**Regras de Validacao:**
+- `projeto_id` - obrigatorio, inteiro, deve existir em `projetos.id`
+- `tarefa_modelo_id` - obrigatorio, inteiro, deve existir em `tarefa_modelos.id`
+- `tarefa_pai_id` - opcional, inteiro, deve existir em `tarefas.id`
+- `agendamento` - opcional, data valida
+- `prioridade` - opcional, string
+
+**Regra de negocio:**
+- O sistema copia do modelo os campos `nome`, `descricao`, `status`, `responsaveis` e `etiquetas`.
+- O campo `tarefa_modelo_id` e salvo na tarefa criada para rastreabilidade.
+
+**Resposta (201):**
+```json
+{
+  "id": 10,
+  "projeto_id": 1,
+  "tarefa_pai_id": null,
+  "tarefa_modelo_id": 4,
   "nome": "Criar layout",
   "descricao": "Tela inicial",
   "status": "pendente",

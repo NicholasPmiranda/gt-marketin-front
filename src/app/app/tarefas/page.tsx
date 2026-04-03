@@ -3,7 +3,7 @@
 import {useEffect, useMemo, useRef, useState} from "react"
 import {format} from "date-fns"
 import {ptBR} from "date-fns/locale"
-import {ChevronDownIcon, Columns3Icon, LayoutGridIcon, SearchIcon} from "lucide-react"
+import {ChevronDownIcon, Columns3Icon, LayoutGridIcon, SearchIcon, Table2Icon} from "lucide-react"
 import {toast} from "sonner"
 
 import {listarUsersConfig} from "@/lib/configuracoes-api"
@@ -22,8 +22,9 @@ import {CriarTarefaModal} from "./components/criar-tarefa-modal"
 import {TarefasGradeView} from "./components/tarefas-grade-view"
 import {TarefasKanbanView} from "./components/tarefas-kanban-view"
 import {TarefasListSkeleton} from "./components/tarefas-list-skeleton"
+import {TarefasTabelaView} from "./components/tarefas-tabela-view"
 
-type ViewMode = "grade" | "kanban"
+type ViewMode = "grade" | "kanban" | "tabela"
 type StatusFilter = TarefaStatus | "todos"
 type PrioridadeFilter = "todos" | "baixa" | "media" | "alta"
 
@@ -89,7 +90,7 @@ export default function Page() {
     useEffect(() => {
         const savedView = localStorage.getItem(STORAGE_VIEW_KEY)
 
-        if (savedView === "grade" || savedView === "kanban") {
+        if (savedView === "grade" || savedView === "kanban" || savedView === "tabela") {
             setViewMode(savedView)
         }
 
@@ -160,7 +161,7 @@ export default function Page() {
                 setIsLoading(true)
             }
 
-            if (viewMode === "grade") {
+            if (viewMode !== "kanban") {
                 const response = await listarTarefas({
                     page: pageAtual,
                     projetoId,
@@ -440,6 +441,15 @@ export default function Page() {
                                 <LayoutGridIcon className="size-4"/>
                                 Grade
                             </Button>
+                            <Button
+                                type="button"
+                                variant={viewMode === "tabela" ? "default" : "outline"}
+                                onClick={() => handleViewChange("tabela")}
+                                disabled={isRefreshing || isLoading}
+                            >
+                                <Table2Icon className="size-4"/>
+                                Tabela
+                            </Button>
                         </div>
                     </div>
 
@@ -597,9 +607,19 @@ export default function Page() {
 
             {isLoading ? (
                 <TarefasListSkeleton/>
-            ) : viewMode === "grade" ? (
+            ) : viewMode === "kanban" ? (
+                <TarefasKanbanView
+                    tarefas={tarefasKanban}
+                    movingTaskId={movingTaskId}
+                    onMove={handleKanbanMove}
+                />
+            ) : (
                 <>
-                    <TarefasGradeView tarefas={tarefasGrade}/>
+                    {viewMode === "grade" ? (
+                        <TarefasGradeView tarefas={tarefasGrade}/>
+                    ) : (
+                        <TarefasTabelaView tarefas={tarefasGrade}/>
+                    )}
                     <div className="flex items-center justify-end gap-2">
                         <Button
                             type="button"
@@ -622,12 +642,6 @@ export default function Page() {
                         </Button>
                     </div>
                 </>
-            ) : (
-                <TarefasKanbanView
-                    tarefas={tarefasKanban}
-                    movingTaskId={movingTaskId}
-                    onMove={handleKanbanMove}
-                />
             )}
         </div>
     )

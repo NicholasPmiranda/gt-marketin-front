@@ -4,15 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e7fddfb5-2083-46ab-a350-c03f1d2d5fb2" name="Changes" comment="Refactor task status styles into a reusable function and integrate it across task views.">
+    <list default="true" id="e7fddfb5-2083-46ab-a350-c03f1d2d5fb2" name="Changes" comment="Improve task filters and visuals: update global styles, add subtask badge, and enhance task filter options">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/documentacao/documentacao/endpoints/admin/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/documentacao/documentacao/endpoints/admin/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/documentacao/documentacao/endpoints/admin/tarefas.md" beforeDir="false" afterPath="$PROJECT_DIR$/documentacao/documentacao/endpoints/admin/tarefas.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/app/tarefas/components/tarefas-grade-view.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app/tarefas/components/tarefas-grade-view.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/app/tarefas/components/tarefas-kanban-view.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app/tarefas/components/tarefas-kanban-view.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/app/tarefas/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app/tarefas/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/globals.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/tarefas-api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/tarefas-api.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/types/tarefas.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/tarefas.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,7 +128,7 @@
       <workItem from="1775175255708" duration="2304000" />
       <workItem from="1775177565449" duration="1610000" />
       <workItem from="1775179686609" duration="1482000" />
-      <workItem from="1775220262640" duration="19774000" />
+      <workItem from="1775220262640" duration="20598000" />
     </task>
     <task id="LOCAL-00001" summary="wip">
       <option name="closed" value="true" />
@@ -390,7 +386,15 @@
       <option name="project" value="LOCAL" />
       <updated>1775242823304</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="Improve task filters and visuals: update global styles, add subtask badge, and enhance task filter options">
+      <option name="closed" value="true" />
+      <created>1775248628174</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1775248628174</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -421,7 +425,8 @@
     <MESSAGE value="Add modals for creating and editing tasks and subtasks with form validation" />
     <MESSAGE value="Update task views to improve layout, typography, and accessibility" />
     <MESSAGE value="Refactor task status styles into a reusable function and integrate it across task views." />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactor task status styles into a reusable function and integrate it across task views." />
+    <MESSAGE value="Improve task filters and visuals: update global styles, add subtask badge, and enhance task filter options" />
+    <option name="LAST_COMMIT_MESSAGE" value="Improve task filters and visuals: update global styles, add subtask badge, and enhance task filter options" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

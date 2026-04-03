@@ -7,6 +7,7 @@
 - [Config - Etiquetas](./config-etiquetas.md)
 - [Config - Setores](./config-setores.md)
 - [Config - Usuarios](./config-usuarios.md)
+- [Config - Tarefas Modelo](./config-tarefas-modelo.md)
 - [Projetos](./projetos.md)
 - [Tarefas](./tarefas.md)
 - [Comentarios de Tarefa](./tarefa-comentarios.md)
@@ -30,6 +31,9 @@
 
 ### Configuracoes de Usuarios (`config-usuarios.md`)
 - **Usuarios (Config)** - CRUD completo de usuarios com perfil, setor, ativo e envio de senha inicial por email.
+
+### Configuracoes de Tarefas Modelo (`config-tarefas-modelo.md`)
+- **Tarefas Modelo (Config)** - CRUD completo de modelos de tarefa com responsaveis e etiquetas.
 
 ### Projetos (`projetos.md`)
 - **Projetos** - CRUD completo de projetos com equipe (many-to-many com usuarios).
