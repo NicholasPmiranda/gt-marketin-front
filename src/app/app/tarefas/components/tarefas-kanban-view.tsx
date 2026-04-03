@@ -21,6 +21,7 @@ import {
 import type { TarefaItem, TarefasKanban, TarefaStatus } from "@/types/tarefas"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { getTarefaStatusStyles } from "./tarefas-status-styles"
 
 const colunas: Array<{ status: TarefaStatus; titulo: string }> = [
   { status: "pendente", titulo: "Pendente" },
@@ -28,38 +29,6 @@ const colunas: Array<{ status: TarefaStatus; titulo: string }> = [
   { status: "revisao", titulo: "Em revisao" },
   { status: "finalizado", titulo: "Finalizado" },
 ]
-
-function getStatusStyles(status: TarefaStatus) {
-  if (status === "pendente") {
-    return {
-      coluna: "border-orange-500/60",
-      chip: "bg-orange-500/10 text-orange-600 dark:text-orange-300",
-      card: "border-l-2 border-l-orange-500",
-    }
-  }
-
-  if (status === "em andamento") {
-    return {
-      coluna: "border-blue-500/60",
-      chip: "bg-blue-500/10 text-blue-600 dark:text-blue-300",
-      card: "border-l-2 border-l-blue-500",
-    }
-  }
-
-  if (status === "revisao") {
-    return {
-      coluna: "border-violet-500/60",
-      chip: "bg-violet-500/10 text-violet-600 dark:text-violet-300",
-      card: "border-l-2 border-l-violet-500",
-    }
-  }
-
-  return {
-    coluna: "border-emerald-500/60",
-    chip: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-300",
-    card: "border-l-2 border-l-emerald-500",
-  }
-}
 
 function getPrioridadeLabel(prioridade: TarefaItem["prioridade"]) {
   if (prioridade === "alto") {
@@ -100,7 +69,7 @@ function KanbanColumn({
     id: `coluna-${status}`,
     data: { status },
   })
-  const styles = getStatusStyles(status)
+  const styles = getTarefaStatusStyles(status)
 
   return (
     <Card className={`h-fit border-t-2 ${styles.coluna}`}>
@@ -135,7 +104,7 @@ function KanbanTaskCard({
       status,
     },
   })
-  const styles = getStatusStyles(status)
+  const styles = getTarefaStatusStyles(status)
 
   return (
     <Card
@@ -193,7 +162,7 @@ function KanbanTaskDragPreview({
   tarefa: TarefaItem
   status: TarefaStatus
 }) {
-  const styles = getStatusStyles(status)
+  const styles = getTarefaStatusStyles(status)
 
   return (
     <Card className={`w-72 shadow-xl ${styles.card}`}>

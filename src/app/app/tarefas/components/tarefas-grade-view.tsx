@@ -3,6 +3,7 @@ import Link from "next/link"
 import type { TarefaItem } from "@/types/tarefas"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { getTarefaStatusStyles } from "./tarefas-status-styles"
 
 function getStatusLabel(status: TarefaItem["status"]) {
   if (status === "em andamento") {
@@ -57,25 +58,29 @@ export function TarefasGradeView({ tarefas }: { tarefas: TarefaItem[] }) {
 
   return (
     <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-      {tarefas.map((tarefa) => (
-        <Link href={`/app/tarefas/${tarefa.id}`} key={tarefa.id}>
-          <Card className="h-full transition-colors hover:bg-muted/40">
-            <CardHeader className="space-y-3">
-              <CardTitle className="line-clamp-2 text-lg leading-snug">{tarefa.nome}</CardTitle>
-              <Badge variant="outline" className="w-fit">
-                {getStatusLabel(tarefa.status)}
-              </Badge>
-              <Badge className={`w-fit ${getPrioridadeClassName(tarefa.prioridade)}`}>
-                Prioridade: {getPrioridadeLabel(tarefa.prioridade)}
-              </Badge>
-            </CardHeader>
-            <CardContent className="space-y-2 text-sm text-muted-foreground">
-              <p className="truncate"><b>Responsavel:</b> {tarefa.responsaveis[0]?.name ?? "Nao definido"}</p>
-              <p className="truncate"><b>Projeto: </b>{tarefa.projeto?.nome ?? "Sem projeto"}</p>
-            </CardContent>
-          </Card>
-        </Link>
-      ))}
+      {tarefas.map((tarefa) => {
+        const statusStyles = getTarefaStatusStyles(tarefa.status)
+
+        return (
+          <Link href={`/app/tarefas/${tarefa.id}`} key={tarefa.id}>
+            <Card className={`h-full transition-colors hover:bg-muted/40 ${statusStyles.card}`}>
+              <CardHeader className="space-y-3">
+                <CardTitle className="line-clamp-2 text-lg leading-snug">{tarefa.nome}</CardTitle>
+                <Badge className={`w-fit ${statusStyles.chip}`}>
+                  {getStatusLabel(tarefa.status)}
+                </Badge>
+                <Badge className={`w-fit ${getPrioridadeClassName(tarefa.prioridade)}`}>
+                  Prioridade: {getPrioridadeLabel(tarefa.prioridade)}
+                </Badge>
+              </CardHeader>
+              <CardContent className="space-y-2 text-sm text-muted-foreground">
+                <p className="truncate"><b>Responsavel:</b> {tarefa.responsaveis[0]?.name ?? "Nao definido"}</p>
+                <p className="truncate"><b>Projeto: </b>{tarefa.projeto?.nome ?? "Sem projeto"}</p>
+              </CardContent>
+            </Card>
+          </Link>
+        )
+      })}
     </div>
   )
 }

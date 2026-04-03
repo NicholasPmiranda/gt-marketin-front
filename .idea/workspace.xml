@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e7fddfb5-2083-46ab-a350-c03f1d2d5fb2" name="Changes" comment="Update workspace metadata and tasks to reflect recent project restructuring">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/documentacao/documentacao/endpoints/admin/tarefas.md" beforeDir="false" afterPath="$PROJECT_DIR$/documentacao/documentacao/endpoints/admin/tarefas.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/app/tarefas/[tarefaId]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app/tarefas/[tarefaId]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/app-sidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/app-sidebar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/site-header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/site-header.tsx" afterDir="false" />
-    </list>
+    <list default="true" id="e7fddfb5-2083-46ab-a350-c03f1d2d5fb2" name="Changes" comment="Update task views to improve layout, typography, and accessibility" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -129,7 +123,7 @@
       <workItem from="1775175255708" duration="2304000" />
       <workItem from="1775177565449" duration="1610000" />
       <workItem from="1775179686609" duration="1482000" />
-      <workItem from="1775220262640" duration="14659000" />
+      <workItem from="1775220262640" duration="15523000" />
     </task>
     <task id="LOCAL-00001" summary="wip">
       <option name="closed" value="true" />
@@ -363,7 +357,23 @@
       <option name="project" value="LOCAL" />
       <updated>1775228212677</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="Add modals for creating and editing tasks and subtasks with form validation">
+      <option name="closed" value="true" />
+      <created>1775240058038</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1775240058038</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Update task views to improve layout, typography, and accessibility">
+      <option name="closed" value="true" />
+      <created>1775242350700</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1775242350700</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -390,7 +400,10 @@
     <MESSAGE value="add doc" />
     <MESSAGE value="Add project management components, structure, and API integration" />
     <MESSAGE value="Update workspace metadata and tasks to reflect recent project restructuring" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update workspace metadata and tasks to reflect recent project restructuring" />
+    <MESSAGE value="Add modal components for task creation, editing, and subtask creation" />
+    <MESSAGE value="Add modals for creating and editing tasks and subtasks with form validation" />
+    <MESSAGE value="Update task views to improve layout, typography, and accessibility" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update task views to improve layout, typography, and accessibility" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
