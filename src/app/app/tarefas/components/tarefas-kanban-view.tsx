@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { type ReactNode, useState } from "react"
+import { EyeIcon } from "lucide-react"
 import { CSS } from "@dnd-kit/utilities"
 import {
   DndContext,
@@ -149,16 +150,24 @@ function KanbanTaskCard({
       {...listeners}
     >
       <CardContent className="space-y-2 p-4">
-        <p className="inline-flex cursor-grab items-center rounded-sm border px-2 py-1 text-xs text-muted-foreground active:cursor-grabbing">
-          Arrastar
-        </p>
+        <div className="flex items-center justify-between gap-2">
+          <p className="inline-flex cursor-grab items-center rounded-sm border px-2 py-1 text-xs text-muted-foreground active:cursor-grabbing">
+            Arrastar
+          </p>
 
-        <Link
-          href={`/app/tarefas/${tarefa.id}`}
-          className="block"
-          onPointerDown={(event) => event.stopPropagation()}
-        >
-          <p className="line-clamp-2 text-sm font-medium">{tarefa.nome}</p>
+          <Link
+            href={`/app/tarefas/${tarefa.id}`}
+            className="inline-flex items-center justify-center rounded-sm border p-1 text-muted-foreground transition-colors hover:bg-muted"
+            onPointerDown={(event) => event.stopPropagation()}
+            onClick={(event) => event.stopPropagation()}
+          >
+            <EyeIcon className="size-4" />
+            <span className="sr-only">Visualizar tarefa</span>
+          </Link>
+        </div>
+
+        <div>
+          <p className="line-clamp-2 text-base font-medium leading-snug">{tarefa.nome}</p>
           <Badge className={`mt-2 w-fit ${getPrioridadeClassName(tarefa.prioridade)}`}>
             Prioridade: {getPrioridadeLabel(tarefa.prioridade)}
           </Badge>
@@ -171,7 +180,7 @@ function KanbanTaskCard({
               ? tarefa.responsaveis.map((item) => item.name).join(", ")
               : "Nao definido"}
           </p>
-        </Link>
+        </div>
       </CardContent>
     </Card>
   )
@@ -192,7 +201,7 @@ function KanbanTaskDragPreview({
         <p className="inline-flex items-center rounded-sm border px-2 py-1 text-xs text-muted-foreground">
           Arrastando
         </p>
-        <p className="line-clamp-2 text-sm font-medium">{tarefa.nome}</p>
+        <p className="line-clamp-2 text-base font-medium leading-snug">{tarefa.nome}</p>
         <Badge className={`w-fit ${getPrioridadeClassName(tarefa.prioridade)}`}>
           Prioridade: {getPrioridadeLabel(tarefa.prioridade)}
         </Badge>

@@ -61,7 +61,7 @@ export function TarefasGradeView({ tarefas }: { tarefas: TarefaItem[] }) {
         <Link href={`/app/tarefas/${tarefa.id}`} key={tarefa.id}>
           <Card className="h-full transition-colors hover:bg-muted/40">
             <CardHeader className="space-y-3">
-              <CardTitle className="line-clamp-2 text-base">{tarefa.nome}</CardTitle>
+              <CardTitle className="line-clamp-2 text-lg leading-snug">{tarefa.nome}</CardTitle>
               <Badge variant="outline" className="w-fit">
                 {getStatusLabel(tarefa.status)}
               </Badge>
