@@ -4,12 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e7fddfb5-2083-46ab-a350-c03f1d2d5fb2" name="Changes" comment="Add table view for task management with dynamic status, priority badges, and subtasks integration">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/app/configuracoes/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app/configuracoes/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/globals.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/configuracoes-api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/configuracoes-api.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/types/configuracoes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/configuracoes.ts" afterDir="false" />
+    <list default="true" id="e7fddfb5-2083-46ab-a350-c03f1d2d5fb2" name="Changes" comment="Add `TarefasModeloTabContent` component for managing task templates with CRUD functionality, modals, and filtering options">
+      <change afterPath="$PROJECT_DIR$/documentacao/endpoints/admin/config-credenciais.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/documentacao/documentacao/endpoints/admin/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/documentacao/documentacao/endpoints/admin/autenticacao.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/documentacao/documentacao/endpoints/admin/config-etiquetas.md" beforeDir="false" afterPath="$PROJECT_DIR$/documentacao/endpoints/admin/config-etiquetas.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/documentacao/documentacao/endpoints/admin/config-setores.md" beforeDir="false" afterPath="$PROJECT_DIR$/documentacao/endpoints/admin/config-setores.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/documentacao/documentacao/endpoints/admin/config-tarefas-modelo.md" beforeDir="false" afterPath="$PROJECT_DIR$/documentacao/endpoints/admin/config-tarefas-modelo.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/documentacao/documentacao/endpoints/admin/config-usuarios.md" beforeDir="false" afterPath="$PROJECT_DIR$/documentacao/endpoints/admin/config-usuarios.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/documentacao/documentacao/endpoints/admin/perfil.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/documentacao/documentacao/endpoints/admin/projetos.md" beforeDir="false" afterPath="$PROJECT_DIR$/documentacao/endpoints/admin/projetos.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/documentacao/documentacao/endpoints/admin/recuperacao-senha.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/documentacao/documentacao/endpoints/admin/tarefa-comentarios.md" beforeDir="false" afterPath="$PROJECT_DIR$/documentacao/endpoints/admin/tarefa-comentarios.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/documentacao/documentacao/endpoints/admin/tarefas.md" beforeDir="false" afterPath="$PROJECT_DIR$/documentacao/endpoints/admin/tarefas.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/documentacao/endpoints/admin/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/documentacao/endpoints/admin/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,40 +59,40 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;javascript.preferred.runtime.type.id&quot;: &quot;node&quot;,
-    &quot;js.debugger.nextJs.config.created.client&quot;: &quot;true&quot;,
-    &quot;js.debugger.nextJs.config.created.server&quot;: &quot;true&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/nick/Projetos/front-gtmarketing/documentacao&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_interpreter_path&quot;: &quot;/home/nick/.nvm/versions/node/v22.19.0/bin/node&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;settings.javascript.runtime&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/home/nick/Projetos/front-gtmarketing/node_modules/typescript/lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "master",
+    "javascript.preferred.runtime.type.id": "node",
+    "js.debugger.nextJs.config.created.client": "true",
+    "js.debugger.nextJs.config.created.server": "true",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "/home/nick/Projetos/front-gtmarketing",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_interpreter_path": "/home/nick/.nvm/versions/node/v22.19.0/bin/node",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "settings.javascript.runtime",
+    "to.speed.mode.migration.done": "true",
+    "ts.external.directory.path": "/home/nick/Projetos/front-gtmarketing/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/documentacao" />
       <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/documentacao/endpoints/cliente" />
       <recent name="$PROJECT_DIR$/public" />
+      <recent name="$PROJECT_DIR$/documentacao" />
+      <recent name="$PROJECT_DIR$/documentacao/endpoints/cliente" />
     </key>
   </component>
   <component name="RunManager" selected="npm.Next.js: server-side">
@@ -129,7 +137,7 @@
       <workItem from="1775175255708" duration="2304000" />
       <workItem from="1775177565449" duration="1610000" />
       <workItem from="1775179686609" duration="1482000" />
-      <workItem from="1775220262640" duration="21832000" />
+      <workItem from="1775220262640" duration="22229000" />
     </task>
     <task id="LOCAL-00001" summary="wip">
       <option name="closed" value="true" />
@@ -403,14 +411,21 @@
       <option name="project" value="LOCAL" />
       <updated>1775250867720</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="Add `TarefasModeloTabContent` component for managing task templates with CRUD functionality, modals, and filtering options">
+      <option name="closed" value="true" />
+      <created>1775252114498</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1775252114498</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: add bank logo assets" />
     <MESSAGE value="feat: implement finance management pages and UI components&#10;&#10;Add reusable UI components for dialogs and cards, integrate finance management pages for bank accounts and cards with data fetching and creation functionalities, and enhance navigation structure for seamless user experience." />
     <MESSAGE value="refactor: modularize finance management components&#10;&#10;Extract shared components for finance management into reusable modules, replace generic page implementation with specific components for bank accounts and cards, and improve overall structure for better maintainability." />
     <MESSAGE value="feat: add update functionality for finance detail pages&#10;&#10;Introduce functionality to update bank accounts and cards in `FinanceDetalhePage`, enhance user flow with editable fields and institution selection, and integrate backend update APIs." />
@@ -435,7 +450,8 @@
     <MESSAGE value="Refactor task status styles into a reusable function and integrate it across task views." />
     <MESSAGE value="Improve task filters and visuals: update global styles, add subtask badge, and enhance task filter options" />
     <MESSAGE value="Add table view for task management with dynamic status, priority badges, and subtasks integration" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add table view for task management with dynamic status, priority badges, and subtasks integration" />
+    <MESSAGE value="Add `TarefasModeloTabContent` component for managing task templates with CRUD functionality, modals, and filtering options" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add `TarefasModeloTabContent` component for managing task templates with CRUD functionality, modals, and filtering options" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
