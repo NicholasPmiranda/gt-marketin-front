@@ -16,7 +16,13 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { FolderKanbanIcon, LayoutDashboardIcon, ListTodoIcon, SettingsIcon } from "lucide-react"
+import {
+  FolderKanbanIcon,
+  KeyRoundIcon,
+  LayoutDashboardIcon,
+  ListTodoIcon,
+  SettingsIcon,
+} from "lucide-react"
 
 type NavItem = {
   title: string
@@ -41,6 +47,11 @@ const data = {
       title: "Configuracoes",
       url: "/app/configuracoes",
       icon: <SettingsIcon />,
+    },
+    {
+      title: "Credenciais",
+      url: "/app/credenciais",
+      icon: <KeyRoundIcon />,
     },
     {
       title: "Projetos",

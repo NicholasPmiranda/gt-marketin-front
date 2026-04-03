@@ -4,20 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e7fddfb5-2083-46ab-a350-c03f1d2d5fb2" name="Changes" comment="Add `TarefasModeloTabContent` component for managing task templates with CRUD functionality, modals, and filtering options">
-      <change afterPath="$PROJECT_DIR$/documentacao/endpoints/admin/config-credenciais.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/documentacao/documentacao/endpoints/admin/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/documentacao/documentacao/endpoints/admin/autenticacao.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/documentacao/documentacao/endpoints/admin/config-etiquetas.md" beforeDir="false" afterPath="$PROJECT_DIR$/documentacao/endpoints/admin/config-etiquetas.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/documentacao/documentacao/endpoints/admin/config-setores.md" beforeDir="false" afterPath="$PROJECT_DIR$/documentacao/endpoints/admin/config-setores.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/documentacao/documentacao/endpoints/admin/config-tarefas-modelo.md" beforeDir="false" afterPath="$PROJECT_DIR$/documentacao/endpoints/admin/config-tarefas-modelo.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/documentacao/documentacao/endpoints/admin/config-usuarios.md" beforeDir="false" afterPath="$PROJECT_DIR$/documentacao/endpoints/admin/config-usuarios.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/documentacao/documentacao/endpoints/admin/perfil.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/documentacao/documentacao/endpoints/admin/projetos.md" beforeDir="false" afterPath="$PROJECT_DIR$/documentacao/endpoints/admin/projetos.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/documentacao/documentacao/endpoints/admin/recuperacao-senha.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/documentacao/documentacao/endpoints/admin/tarefa-comentarios.md" beforeDir="false" afterPath="$PROJECT_DIR$/documentacao/endpoints/admin/tarefa-comentarios.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/documentacao/documentacao/endpoints/admin/tarefas.md" beforeDir="false" afterPath="$PROJECT_DIR$/documentacao/endpoints/admin/tarefas.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/documentacao/endpoints/admin/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/documentacao/endpoints/admin/README.md" afterDir="false" />
+    <list default="true" id="e7fddfb5-2083-46ab-a350-c03f1d2d5fb2" name="Changes" comment="wip">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/app-sidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/app-sidebar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/site-header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/site-header.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -137,7 +127,7 @@
       <workItem from="1775175255708" duration="2304000" />
       <workItem from="1775177565449" duration="1610000" />
       <workItem from="1775179686609" duration="1482000" />
-      <workItem from="1775220262640" duration="22229000" />
+      <workItem from="1775220262640" duration="22999000" />
     </task>
     <task id="LOCAL-00001" summary="wip">
       <option name="closed" value="true" />
@@ -419,7 +409,23 @@
       <option name="project" value="LOCAL" />
       <updated>1775252114498</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="wip">
+      <option name="closed" value="true" />
+      <created>1775252514632</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1775252514632</updated>
+    </task>
+    <task id="LOCAL-00037" summary="wip">
+      <option name="closed" value="true" />
+      <created>1775252519451</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1775252519451</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -439,7 +445,6 @@
     <MESSAGE value="feat: add transaction list refresh on OFX import&#10;&#10;Introduce a transaction update mechanism triggered on successful OFX import in `CartaoOfxModal`. Enhance `CartaoTabTabela` to re-fetch data based on a new refresh parameter. Adjust related components and services to support the updated flow." />
     <MESSAGE value="feat: add parcelas tab and payment history for credit cards&#10;&#10;Introduce the `CartaoTabParcelas` component to display active credit card installments and their details. Add functionality to view payment history per installment through a dialog. Update services to fetch installment and payment data and enhance the credit card detail page with a new &quot;Parcelas&quot; tab for improved user workflow." />
     <MESSAGE value="feat: improve credit card filters with collapsible UI and month/year filtering&#10;&#10;Introduce collapsible filters in `CartaoLancamentosFiltros` for a cleaner user interface. Replace single &quot;fatura&quot; field with separate month and year filters, supported by a new `Popover` interaction. Enhance usability with a toggle for showing/hiding filters and refactor logic to align with updated design." />
-    <MESSAGE value="wip" />
     <MESSAGE value="Remove `configuracoes-page.tsx` and related components" />
     <MESSAGE value="add doc" />
     <MESSAGE value="Add project management components, structure, and API integration" />
@@ -451,7 +456,8 @@
     <MESSAGE value="Improve task filters and visuals: update global styles, add subtask badge, and enhance task filter options" />
     <MESSAGE value="Add table view for task management with dynamic status, priority badges, and subtasks integration" />
     <MESSAGE value="Add `TarefasModeloTabContent` component for managing task templates with CRUD functionality, modals, and filtering options" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add `TarefasModeloTabContent` component for managing task templates with CRUD functionality, modals, and filtering options" />
+    <MESSAGE value="wip" />
+    <option name="LAST_COMMIT_MESSAGE" value="wip" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
