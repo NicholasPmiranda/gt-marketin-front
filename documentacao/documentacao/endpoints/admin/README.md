@@ -7,6 +7,9 @@
 - [Config - Etiquetas](./config-etiquetas.md)
 - [Config - Setores](./config-setores.md)
 - [Config - Usuarios](./config-usuarios.md)
+- [Projetos](./projetos.md)
+- [Tarefas](./tarefas.md)
+- [Comentarios de Tarefa](./tarefa-comentarios.md)
 
 ## Estrutura da Documentacao
 ### Autenticacao (`autenticacao.md`)
@@ -27,6 +30,15 @@
 
 ### Configuracoes de Usuarios (`config-usuarios.md`)
 - **Usuarios (Config)** - CRUD completo de usuarios com perfil, setor, ativo e envio de senha inicial por email.
+
+### Projetos (`projetos.md`)
+- **Projetos** - CRUD completo de projetos com equipe (many-to-many com usuarios).
+
+### Tarefas (`tarefas.md`)
+- **Tarefas** - CRUD completo de tarefas e subtarefas com responsaveis e etiquetas.
+
+### Comentarios de Tarefa (`tarefa-comentarios.md`)
+- **Comentarios de Tarefa** - CRUD de comentarios com controle de autoria pelo usuario autenticado.
 
 ## Requisitos de Autenticacao
 - Tipo: Bearer Token (Sanctum)
@@ -57,3 +69,4 @@ Exemplo de erro:
 - O endpoint de perfil exige autenticacao com token Sanctum valido.
 - Login e recuperacao de senha sao publicos.
 - Endpoints de configuracoes exigem autenticacao com token Sanctum valido.
+- Endpoints de projetos, tarefas e comentarios exigem autenticacao com token Sanctum valido.

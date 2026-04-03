@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e7fddfb5-2083-46ab-a350-c03f1d2d5fb2" name="Changes" comment="wip">
+    <list default="true" id="e7fddfb5-2083-46ab-a350-c03f1d2d5fb2" name="Changes" comment="Remove `configuracoes-page.tsx` and related components">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AGENTS.md" beforeDir="false" afterPath="$PROJECT_DIR$/AGENTS.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/app/configuracoes/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app/configuracoes/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/configuracoes/configuracoes-page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/documentacao/documentacao/endpoints/admin/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/documentacao/documentacao/endpoints/admin/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/documentacao/documentacao/endpoints/admin/config-etiquetas.md" beforeDir="false" afterPath="$PROJECT_DIR$/documentacao/documentacao/endpoints/admin/config-etiquetas.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/documentacao/documentacao/endpoints/admin/config-usuarios.md" beforeDir="false" afterPath="$PROJECT_DIR$/documentacao/documentacao/endpoints/admin/config-usuarios.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,7 +128,7 @@
       <workItem from="1775175255708" duration="2304000" />
       <workItem from="1775177565449" duration="1610000" />
       <workItem from="1775179686609" duration="1482000" />
-      <workItem from="1775220262640" duration="1514000" />
+      <workItem from="1775220262640" duration="2421000" />
     </task>
     <task id="LOCAL-00001" summary="wip">
       <option name="closed" value="true" />
@@ -330,7 +330,15 @@
       <option name="project" value="LOCAL" />
       <updated>1775177574083</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Remove `configuracoes-page.tsx` and related components">
+      <option name="closed" value="true" />
+      <created>1775222069387</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1775222069387</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -353,7 +361,8 @@
     <MESSAGE value="feat: add parcelas tab and payment history for credit cards&#10;&#10;Introduce the `CartaoTabParcelas` component to display active credit card installments and their details. Add functionality to view payment history per installment through a dialog. Update services to fetch installment and payment data and enhance the credit card detail page with a new &quot;Parcelas&quot; tab for improved user workflow." />
     <MESSAGE value="feat: improve credit card filters with collapsible UI and month/year filtering&#10;&#10;Introduce collapsible filters in `CartaoLancamentosFiltros` for a cleaner user interface. Replace single &quot;fatura&quot; field with separate month and year filters, supported by a new `Popover` interaction. Enhance usability with a toggle for showing/hiding filters and refactor logic to align with updated design." />
     <MESSAGE value="wip" />
-    <option name="LAST_COMMIT_MESSAGE" value="wip" />
+    <MESSAGE value="Remove `configuracoes-page.tsx` and related components" />
+    <option name="LAST_COMMIT_MESSAGE" value="Remove `configuracoes-page.tsx` and related components" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

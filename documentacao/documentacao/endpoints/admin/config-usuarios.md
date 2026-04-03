@@ -1,5 +1,37 @@
 # Documentacao de Endpoints - Configuracoes de Usuarios
 
+## Listar todos os usuarios (id e nome)
+
+### GET /api/config/user/todos
+
+Lista todos os usuarios sem paginacao, retornando apenas `id` e `name`.
+
+**Autenticacao:**
+- Obrigatoria (`auth:sanctum`).
+
+**Resposta (200):**
+```json
+[
+  {
+    "id": 3,
+    "name": "Ana Souza"
+  },
+  {
+    "id": 2,
+    "name": "Carlos Lima"
+  },
+  {
+    "id": 1,
+    "name": "Joao Silva"
+  }
+]
+```
+
+**Erros:**
+- `401` - Nao autenticado
+
+---
+
 ## Listar usuarios
 
 ### GET /api/config/user

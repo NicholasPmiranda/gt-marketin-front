@@ -1,5 +1,37 @@
 # Documentacao de Endpoints - Configuracoes de Etiquetas
 
+## Listar todas as etiquetas (id e nome)
+
+### GET /api/config/etiqueta/todos
+
+Lista todas as etiquetas sem paginacao, retornando apenas `id` e `nome`.
+
+**Autenticacao:**
+- Obrigatoria (`auth:sanctum`).
+
+**Resposta (200):**
+```json
+[
+  {
+    "id": 3,
+    "nome": "Bug"
+  },
+  {
+    "id": 2,
+    "nome": "Urgente"
+  },
+  {
+    "id": 1,
+    "nome": "Backlog"
+  }
+]
+```
+
+**Erros:**
+- `401` - Nao autenticado
+
+---
+
 ## Listar etiquetas
 
 ### GET /api/config/etiqueta
