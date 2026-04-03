@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e7fddfb5-2083-46ab-a350-c03f1d2d5fb2" name="Changes" comment="wip">
+    <list default="true" id="e7fddfb5-2083-46ab-a350-c03f1d2d5fb2" name="Changes" comment="Add credential management components and API integration with modals for create, edit, and approval functionality">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/app-sidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/app-sidebar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/site-header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/site-header.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +34,18 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "nicholasmiranda"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/NicholasPmiranda/gt-marketin-front.git",
+    "accountId": "7887d2d9-b361-41e8-8347-9534416c4065"
+  }
+}]]></component>
   <component name="McpProjectServerCommands">
     <commands />
     <urls />
@@ -59,7 +69,7 @@
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "main",
     "javascript.preferred.runtime.type.id": "node",
     "js.debugger.nextJs.config.created.client": "true",
     "js.debugger.nextJs.config.created.server": "true",
@@ -127,7 +137,7 @@
       <workItem from="1775175255708" duration="2304000" />
       <workItem from="1775177565449" duration="1610000" />
       <workItem from="1775179686609" duration="1482000" />
-      <workItem from="1775220262640" duration="22999000" />
+      <workItem from="1775220262640" duration="24724000" />
     </task>
     <task id="LOCAL-00001" summary="wip">
       <option name="closed" value="true" />
@@ -425,14 +435,23 @@
       <option name="project" value="LOCAL" />
       <updated>1775252519451</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="Add credential management components and API integration with modals for create, edit, and approval functionality">
+      <option name="closed" value="true" />
+      <created>1775253405229</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1775253405229</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: implement finance management pages and UI components&#10;&#10;Add reusable UI components for dialogs and cards, integrate finance management pages for bank accounts and cards with data fetching and creation functionalities, and enhance navigation structure for seamless user experience." />
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="refactor: modularize finance management components&#10;&#10;Extract shared components for finance management into reusable modules, replace generic page implementation with specific components for bank accounts and cards, and improve overall structure for better maintainability." />
     <MESSAGE value="feat: add update functionality for finance detail pages&#10;&#10;Introduce functionality to update bank accounts and cards in `FinanceDetalhePage`, enhance user flow with editable fields and institution selection, and integrate backend update APIs." />
     <MESSAGE value="feat: add OFX import modal for bank accounts&#10;&#10;Introduce `ContaOfxModal` component to handle OFX file imports for bank accounts, including file processing, category editing, and transaction saving. Update related documentation and enhance npm dependencies for development." />
@@ -457,7 +476,9 @@
     <MESSAGE value="Add table view for task management with dynamic status, priority badges, and subtasks integration" />
     <MESSAGE value="Add `TarefasModeloTabContent` component for managing task templates with CRUD functionality, modals, and filtering options" />
     <MESSAGE value="wip" />
-    <option name="LAST_COMMIT_MESSAGE" value="wip" />
+    <MESSAGE value="Add credential management components and API integration with modals for create, edit, and approval functionality" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add credential management components and API integration with modals for create, edit, and approval functionality" />
+    <option name="NON_MODAL_COMMIT_POSTPONE_SLOW_CHECKS" value="false" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
