@@ -84,7 +84,7 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
               className="data-[slot=sidebar-menu-button]:p-1.5!"
               render={<Link href="/app" />}
             >
-              <span className="text-base font-semibold">Gt Marketing</span>
+              <span className="text-base font-semibold">Gt Maketing</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
