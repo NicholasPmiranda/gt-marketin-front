@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e7fddfb5-2083-46ab-a350-c03f1d2d5fb2" name="Changes" comment="wip" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="EmbeddingIndexingInfo">
+    <option name="cachedIndexableFilesCount" value="136" />
+    <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="/bin/php" />
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="3AuSl68P2zrxAlt4mqVkgBpCjl7" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "main",
+    "javascript.preferred.runtime.type.id": "node",
+    "js.debugger.nextJs.config.created.client": "true",
+    "js.debugger.nextJs.config.created.server": "true",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "/home/nick/Projetos/front-gtmarketing",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_interpreter_path": "/home/nick/.nvm/versions/node/v22.19.0/bin/node",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "settings.javascript.runtime",
+    "to.speed.mode.migration.done": "true",
+    "ts.external.directory.path": "/home/nick/Projetos/front-gtmarketing/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/documentacao/endpoints/cliente" />
+      <recent name="$PROJECT_DIR$/documentacao" />
+      <recent name="$PROJECT_DIR$/public" />
+    </key>
+  </component>
+  <component name="RunManager" selected="npm.Next.js: server-side">
+    <configuration name="Next.js: debug client-side" type="JavascriptDebugType" uri="http://localhost:3000/">
+      <method v="2" />
+    </configuration>
+    <configuration name="Next.js: server-side" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-3bd3a6803838-JavaScript-PS-261.22158.283" />
+        <option value="bundled-php-predefined-a98d8de5180a-a9a4ea3ee0f4-com.jetbrains.php.sharedIndexes-PS-261.22158.283" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e7fddfb5-2083-46ab-a350-c03f1d2d5fb2" name="Changes" comment="" />
+      <created>1773441109794</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1773441109794</updated>
+      <workItem from="1773441110832" duration="8286000" />
+      <workItem from="1773488484691" duration="1656000" />
+      <workItem from="1773576028382" duration="3836000" />
+      <workItem from="1773614639827" duration="796000" />
+      <workItem from="1773665222908" duration="206000" />
+      <workItem from="1773767764139" duration="626000" />
+      <workItem from="1775172031195" duration="994000" />
+      <workItem from="1775173832556" duration="636000" />
+      <workItem from="1775174963070" duration="47000" />
+      <workItem from="1775175255708" duration="857000" />
+    </task>
+    <task id="LOCAL-00001" summary="wip">
+      <option name="closed" value="true" />
+      <created>1773443230715</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1773443230715</updated>
+    </task>
+    <task id="LOCAL-00002" summary="feat: add authentication context and integrate login/logout functionality">
+      <option name="closed" value="true" />
+      <created>1773444904157</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1773444904157</updated>
+    </task>
+    <task id="LOCAL-00003" summary="feat: add bank logo assets">
+      <option name="closed" value="true" />
+      <created>1773445213304</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1773445213304</updated>
+    </task>
+    <task id="LOCAL-00004" summary="feat: implement finance management pages and UI components&#10;&#10;Add reusable UI components for dialogs and cards, integrate finance management pages for bank accounts and cards with data fetching and creation functionalities, and enhance navigation structure for seamless user experience.">
+      <option name="closed" value="true" />
+      <created>1773446272150</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1773446272150</updated>
+    </task>
+    <task id="LOCAL-00005" summary="refactor: modularize finance management components&#10;&#10;Extract shared components for finance management into reusable modules, replace generic page implementation with specific components for bank accounts and cards, and improve overall structure for better maintainability.">
+      <option name="closed" value="true" />
+      <created>1773447101551</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1773447101551</updated>
+    </task>
+    <task id="LOCAL-00006" summary="feat: add update functionality for finance detail pages&#10;&#10;Introduce functionality to update bank accounts and cards in `FinanceDetalhePage`, enhance user flow with editable fields and institution selection, and integrate backend update APIs.">
+      <option name="closed" value="true" />
+      <created>1773447874158</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1773447874158</updated>
+    </task>
+    <task id="LOCAL-00007" summary="feat: enhance bank account detail page with editable fields and institution selection&#10;&#10;Introduce editable fields for bank account names and institution selection modal. Add loading and error handling states, integrate toast notifications for updates, and simplify page structure for improved user experience.">
+      <option name="closed" value="true" />
+      <created>1773491991957</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1773491991957</updated>
+    </task>
+    <task id="LOCAL-00008" summary="feat: enhance bank account detail page with editable fields and institution selection&#10;&#10;Introduce editable fields for bank account names and institution selection modal. Add loading and error handling states, integrate toast notifications for updates, and simplify page structure for improved user experience.">
+      <option name="closed" value="true" />
+      <created>1773493405439</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1773493405439</updated>
+    </task>
+    <task id="LOCAL-00009" summary="feat: add filters and data table for bank transactions&#10;&#10;Introduce filtering functionality with `CategoriaCombobox` and `ContaBancariaLancamentosFiltros` components. Implement a responsive table in `ContaBancariaTabTabela` to display filtered transactions. Include pagination controls, skeleton loading states, and error handling for enhanced user experience.">
+      <option name="closed" value="true" />
+      <created>1773494472074</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1773494472075</updated>
+    </task>
+    <task id="LOCAL-00010" summary="feat: add calendar and date picker components for enhanced filtering&#10;&#10;Introduce `Calendar` component integrating `react-day-picker` for customizable date selection. Add `FiltroDatePicker` for improved filtering in `ContaBancariaLancamentosFiltros`. Update transaction table with totals for received and debit values. Enhance user experience with date formatting and dependency updates.">
+      <option name="closed" value="true" />
+      <created>1773495178047</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1773495178047</updated>
+    </task>
+    <task id="LOCAL-00011" summary="feat: add components for credit card management and transaction listing&#10;&#10;Introduce credit card management components, including `CartaoLancamentosFiltros`, `CartaoTabTabela`, and `CartaoTabDashboard`. Add OFX import functionality with `CartaoOfxModal` for transaction handling. Enhance credit card detail page with editable fields, institution selection, transaction filtering, and tabbed navigation for a better user experience. Update documentation and extend service types to support new features.">
+      <option name="closed" value="true" />
+      <created>1773499813557</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1773499813557</updated>
+    </task>
+    <task id="LOCAL-00012" summary="feat: update credit card filters to support statement-based filtering&#10;&#10;Replace year/month filters with a unified statement filter in `CartaoLancamentosFiltros`. Integrate fatura listing with `listarFaturasUnicas` and adapt the user interface for improved usability. Update related service methods and documentation to reflect the new behavior. Simplify total calculations and refactor table components for enhanced readability.">
+      <option name="closed" value="true" />
+      <created>1773500339576</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1773500339576</updated>
+    </task>
+    <task id="LOCAL-00013" summary="feat: add installment column to credit card transactions table&#10;&#10;Include a new &quot;Parcelas&quot; column in `CartaoTabTabela` to display installment details. Update service types to support installment data (`parcelamento`, `parcelas`, `parcela_atual`) and adjust table rendering logic accordingly.">
+      <option name="closed" value="true" />
+      <created>1773508841352</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1773508841352</updated>
+    </task>
+    <task id="LOCAL-00014" summary="feat: add transaction list refresh on OFX import&#10;&#10;Introduce a transaction update mechanism triggered on successful OFX import in `CartaoOfxModal`. Enhance `CartaoTabTabela` to re-fetch data based on a new refresh parameter. Adjust related components and services to support the updated flow.">
+      <option name="closed" value="true" />
+      <created>1773511393314</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1773511393314</updated>
+    </task>
+    <task id="LOCAL-00015" summary="feat: improve credit card filters with collapsible UI and month/year filtering&#10;&#10;Introduce collapsible filters in `CartaoLancamentosFiltros` for a cleaner user interface. Replace single &quot;fatura&quot; field with separate month and year filters, supported by a new `Popover` interaction. Enhance usability with a toggle for showing/hiding filters and refactor logic to align with updated design.">
+      <option name="closed" value="true" />
+      <created>1773513452221</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1773513452221</updated>
+    </task>
+    <task id="LOCAL-00016" summary="wip">
+      <option name="closed" value="true" />
+      <created>1773515012555</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1773515012555</updated>
+    </task>
+    <task id="LOCAL-00017" summary="wip">
+      <option name="closed" value="true" />
+      <created>1773516232433</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1773516232433</updated>
+    </task>
+    <task id="LOCAL-00018" summary="wip">
+      <option name="closed" value="true" />
+      <created>1773517609909</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1773517609909</updated>
+    </task>
+    <task id="LOCAL-00019" summary="wip">
+      <option name="closed" value="true" />
+      <created>1773520917072</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1773520917072</updated>
+    </task>
+    <task id="LOCAL-00020" summary="wip">
+      <option name="closed" value="true" />
+      <created>1773521476782</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1773521476782</updated>
+    </task>
+    <task id="LOCAL-00021" summary="wip">
+      <option name="closed" value="true" />
+      <created>1773525293451</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1773525293451</updated>
+    </task>
+    <task id="LOCAL-00022" summary="wip">
+      <option name="closed" value="true" />
+      <created>1773576032988</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1773576032988</updated>
+    </task>
+    <task id="LOCAL-00023" summary="wip">
+      <option name="closed" value="true" />
+      <created>1773590740573</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1773590740573</updated>
+    </task>
+    <task id="LOCAL-00024" summary="wip">
+      <option name="closed" value="true" />
+      <created>1773618041767</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1773618041767</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="feat: add authentication context and integrate login/logout functionality" />
+    <MESSAGE value="feat: add bank logo assets" />
+    <MESSAGE value="feat: implement finance management pages and UI components&#10;&#10;Add reusable UI components for dialogs and cards, integrate finance management pages for bank accounts and cards with data fetching and creation functionalities, and enhance navigation structure for seamless user experience." />
+    <MESSAGE value="refactor: modularize finance management components&#10;&#10;Extract shared components for finance management into reusable modules, replace generic page implementation with specific components for bank accounts and cards, and improve overall structure for better maintainability." />
+    <MESSAGE value="feat: add update functionality for finance detail pages&#10;&#10;Introduce functionality to update bank accounts and cards in `FinanceDetalhePage`, enhance user flow with editable fields and institution selection, and integrate backend update APIs." />
+    <MESSAGE value="feat: add OFX import modal for bank accounts&#10;&#10;Introduce `ContaOfxModal` component to handle OFX file imports for bank accounts, including file processing, category editing, and transaction saving. Update related documentation and enhance npm dependencies for development." />
+    <MESSAGE value="feat: enhance bank account detail page with editable fields and institution selection&#10;&#10;Introduce editable fields for bank account names and institution selection modal. Add loading and error handling states, integrate toast notifications for updates, and simplify page structure for improved user experience." />
+    <MESSAGE value="feat: add filters and data table for bank transactions&#10;&#10;Introduce filtering functionality with `CategoriaCombobox` and `ContaBancariaLancamentosFiltros` components. Implement a responsive table in `ContaBancariaTabTabela` to display filtered transactions. Include pagination controls, skeleton loading states, and error handling for enhanced user experience." />
+    <MESSAGE value="feat: add calendar and date picker components for enhanced filtering&#10;&#10;Introduce `Calendar` component integrating `react-day-picker` for customizable date selection. Add `FiltroDatePicker` for improved filtering in `ContaBancariaLancamentosFiltros`. Update transaction table with totals for received and debit values. Enhance user experience with date formatting and dependency updates." />
+    <MESSAGE value="feat: add components for credit card management and transaction listing&#10;&#10;Introduce credit card management components, including `CartaoLancamentosFiltros`, `CartaoTabTabela`, and `CartaoTabDashboard`. Add OFX import functionality with `CartaoOfxModal` for transaction handling. Enhance credit card detail page with editable fields, institution selection, transaction filtering, and tabbed navigation for a better user experience. Update documentation and extend service types to support new features." />
+    <MESSAGE value="feat: update credit card filters to support statement-based filtering&#10;&#10;Replace year/month filters with a unified statement filter in `CartaoLancamentosFiltros`. Integrate fatura listing with `listarFaturasUnicas` and adapt the user interface for improved usability. Update related service methods and documentation to reflect the new behavior. Simplify total calculations and refactor table components for enhanced readability." />
+    <MESSAGE value="feat: add installment column to credit card transactions table&#10;&#10;Include a new &quot;Parcelas&quot; column in `CartaoTabTabela` to display installment details. Update service types to support installment data (`parcelamento`, `parcelas`, `parcela_atual`) and adjust table rendering logic accordingly." />
+    <MESSAGE value="feat: add transaction list refresh on OFX import&#10;&#10;Introduce a transaction update mechanism triggered on successful OFX import in `CartaoOfxModal`. Enhance `CartaoTabTabela` to re-fetch data based on a new refresh parameter. Adjust related components and services to support the updated flow." />
+    <MESSAGE value="feat: add parcelas tab and payment history for credit cards&#10;&#10;Introduce the `CartaoTabParcelas` component to display active credit card installments and their details. Add functionality to view payment history per installment through a dialog. Update services to fetch installment and payment data and enhance the credit card detail page with a new &quot;Parcelas&quot; tab for improved user workflow." />
+    <MESSAGE value="feat: improve credit card filters with collapsible UI and month/year filtering&#10;&#10;Introduce collapsible filters in `CartaoLancamentosFiltros` for a cleaner user interface. Replace single &quot;fatura&quot; field with separate month and year filters, supported by a new `Popover` interaction. Enhance usability with a toggle for showing/hiding filters and refactor logic to align with updated design." />
+    <MESSAGE value="wip" />
+    <option name="LAST_COMMIT_MESSAGE" value="wip" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
