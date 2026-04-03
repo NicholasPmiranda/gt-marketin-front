@@ -173,6 +173,11 @@ export async function listarTarefas(params: ListarTarefasParams): Promise<Tarefa
       projeto_id: params.projetoId,
       search: params.search || undefined,
       status: params.status || undefined,
+      prioridade: params.prioridade || undefined,
+      responsavel_id: params.responsavelId,
+      agendamento: params.agendamento || undefined,
+      inicio: params.inicio || undefined,
+      fim: params.fim || undefined,
     },
   })
 
@@ -194,14 +199,32 @@ export async function listarTarefas(params: ListarTarefasParams): Promise<Tarefa
 export async function listarTarefasKanban({
   projetoId,
   search,
+  status,
+  prioridade,
+  responsavelId,
+  agendamento,
+  inicio,
+  fim,
 }: {
   projetoId?: number
   search?: string
+  status?: TarefaStatus
+  prioridade?: "baixa" | "media" | "alta"
+  responsavelId?: number
+  agendamento?: string
+  inicio?: string
+  fim?: string
 }) {
   const response = await api.get(endpointMap.tarefasKanban, {
     params: {
       projeto_id: projetoId,
       search: search || undefined,
+      status: status || undefined,
+      prioridade: prioridade || undefined,
+      responsavel_id: responsavelId,
+      agendamento: agendamento || undefined,
+      inicio: inicio || undefined,
+      fim: fim || undefined,
     },
   })
 

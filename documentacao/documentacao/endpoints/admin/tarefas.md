@@ -13,6 +13,11 @@ Lista tarefas com paginacao (50 por pagina), com filtro opcional por projeto, in
 - `projeto_id` (opcional) - ID do projeto para filtrar tarefas
 - `search` (opcional) - filtra por nome ou descricao
 - `status` (opcional) - filtra por status (`pendente`, `revisao`, `em andamento`, `finalizado`)
+- `prioridade` (opcional) - filtra por prioridade (`baixa`, `media`, `alta`)
+- `responsavel_id` (opcional) - ID do responsavel vinculado a tarefa
+- `agendamento` (opcional) - filtra pela data de agendamento (`YYYY-MM-DD`)
+- `inicio` (opcional) - filtra pela data de inicio (`YYYY-MM-DD`)
+- `fim` (opcional) - filtra pela data de fim (`YYYY-MM-DD`)
 
 **Resposta (200):**
 ```json

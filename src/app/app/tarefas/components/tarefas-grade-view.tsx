@@ -66,6 +66,11 @@ export function TarefasGradeView({ tarefas }: { tarefas: TarefaItem[] }) {
             <Card className={`h-full transition-colors hover:bg-muted/40 ${statusStyles.card}`}>
               <CardHeader className="space-y-3">
                 <CardTitle className="line-clamp-2 text-lg leading-snug">{tarefa.nome}</CardTitle>
+                {tarefa.tarefaPaiId ? (
+                  <Badge className="w-fit bg-yellow-500/10 text-yellow-700 dark:text-yellow-300">
+                    Sub-tarefa
+                  </Badge>
+                ) : null}
                 <Badge className={`w-fit ${statusStyles.chip}`}>
                   {getStatusLabel(tarefa.status)}
                 </Badge>

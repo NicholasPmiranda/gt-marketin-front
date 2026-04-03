@@ -137,6 +137,11 @@ function KanbanTaskCard({
 
         <div>
           <p className="line-clamp-2 text-base font-medium leading-snug">{tarefa.nome}</p>
+          {tarefa.tarefaPaiId ? (
+            <Badge className="mt-2 w-fit bg-yellow-500/10 text-yellow-700 dark:text-yellow-300">
+              Sub-tarefa
+            </Badge>
+          ) : null}
           <Badge className={`mt-2 w-fit ${getPrioridadeClassName(tarefa.prioridade)}`}>
             Prioridade: {getPrioridadeLabel(tarefa.prioridade)}
           </Badge>
@@ -171,6 +176,11 @@ function KanbanTaskDragPreview({
           Arrastando
         </p>
         <p className="line-clamp-2 text-base font-medium leading-snug">{tarefa.nome}</p>
+        {tarefa.tarefaPaiId ? (
+          <Badge className="w-fit bg-yellow-500/10 text-yellow-700 dark:text-yellow-300">
+            Sub-tarefa
+          </Badge>
+        ) : null}
         <Badge className={`w-fit ${getPrioridadeClassName(tarefa.prioridade)}`}>
           Prioridade: {getPrioridadeLabel(tarefa.prioridade)}
         </Badge>

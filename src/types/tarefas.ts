@@ -59,6 +59,11 @@ export type ListarTarefasParams = {
   projetoId?: number
   search?: string
   status?: TarefaStatus | ""
+  prioridade?: "baixa" | "media" | "alta" | ""
+  responsavelId?: number
+  agendamento?: string
+  inicio?: string
+  fim?: string
 }
 
 export type CriarTarefaPayload = {
