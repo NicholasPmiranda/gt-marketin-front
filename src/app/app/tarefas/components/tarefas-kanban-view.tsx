@@ -62,14 +62,17 @@ function KanbanColumn({
   const styles = getTarefaStatusStyles(status)
 
   return (
-    <Card className={`h-fit border-t-2 transition-colors ${styles.coluna} ${isHighlighted ? "bg-muted/20" : ""}`}>
+    <Card
+      className={`flex h-full min-h-0 overflow-hidden flex-col border-t-2 transition-colors ${styles.coluna} ${isHighlighted ? "bg-muted/20" : ""}`}
+    >
       <CardHeader className="flex-row items-center justify-between space-y-0 pb-3">
         <CardTitle className="text-base">{titulo}</CardTitle>
         <Badge className={styles.chip}>{total}</Badge>
       </CardHeader>
       <CardContent
         ref={ref}
-        className={`min-h-24 space-y-3 rounded-md p-3 transition-colors ${isDropTarget || isHighlighted ? "bg-muted/40" : ""}`}
+        className={`min-h-0 flex-1 space-y-3 overflow-y-auto rounded-md p-3 transition-colors ${isDropTarget || isHighlighted ? "bg-muted/40" : ""}`}
+        style={{ contain: "strict" }}
       >
         {children}
       </CardContent>
@@ -445,33 +448,35 @@ export function TarefasKanbanView({
       onDragOver={handleDragOver}
       onDragEnd={handleDragEnd}
     >
-      <div className="grid gap-4 xl:grid-cols-4">
-        {colunas.map((coluna) => (
-          <KanbanColumn
-            key={coluna.status}
-            status={coluna.status}
-            titulo={coluna.titulo}
-            total={tarefas[coluna.status].length}
-            isHighlighted={highlightedStatus === coluna.status}
-          >
-            {tarefas[coluna.status].map((tarefa, index) => (
-              <KanbanTaskCard
-                key={tarefa.id}
-                tarefa={tarefa}
-                index={index}
-                status={coluna.status}
-                isSaving={movingTaskId === tarefa.id}
-                isDropTarget={highlightedTaskId === tarefa.id}
-              />
-            ))}
+      <div className="h-screen overflow-hidden">
+        <div className="grid h-full min-h-0 gap-4 overflow-hidden xl:grid-cols-4">
+          {colunas.map((coluna) => (
+            <KanbanColumn
+              key={coluna.status}
+              status={coluna.status}
+              titulo={coluna.titulo}
+              total={tarefas[coluna.status].length}
+              isHighlighted={highlightedStatus === coluna.status}
+            >
+              {tarefas[coluna.status].map((tarefa, index) => (
+                <KanbanTaskCard
+                  key={tarefa.id}
+                  tarefa={tarefa}
+                  index={index}
+                  status={coluna.status}
+                  isSaving={movingTaskId === tarefa.id}
+                  isDropTarget={highlightedTaskId === tarefa.id}
+                />
+              ))}
 
-            {tarefas[coluna.status].length === 0 ? (
-              <div className="rounded-md border border-dashed p-3 text-center text-sm text-muted-foreground">
-                Solte uma tarefa aqui.
-              </div>
-            ) : null}
-          </KanbanColumn>
-        ))}
+              {tarefas[coluna.status].length === 0 ? (
+                <div className="rounded-md border border-dashed p-3 text-center text-sm text-muted-foreground">
+                  Solte uma tarefa aqui.
+                </div>
+              ) : null}
+            </KanbanColumn>
+          ))}
+        </div>
       </div>
       <DragOverlay>
         {activeTask ? <KanbanTaskDragPreview tarefa={activeTask.tarefa} status={activeTask.status} /> : null}
