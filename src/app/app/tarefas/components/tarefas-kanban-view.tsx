@@ -15,6 +15,7 @@ import {
   useSensors,
   type DragCancelEvent,
   type DragEndEvent,
+  type DragOverEvent,
   type DragStartEvent,
 } from "@dnd-kit/core"
 
@@ -58,11 +59,13 @@ function KanbanColumn({
   status,
   titulo,
   total,
+  isHighlighted,
   children,
 }: {
   status: TarefaStatus
   titulo: string
   total: number
+  isHighlighted: boolean
   children: ReactNode
 }) {
   const { setNodeRef, isOver } = useDroppable({
@@ -72,14 +75,14 @@ function KanbanColumn({
   const styles = getTarefaStatusStyles(status)
 
   return (
-    <Card className={`h-fit border-t-2 ${styles.coluna}`}>
+    <Card className={`h-fit border-t-2 transition-colors ${styles.coluna} ${isHighlighted ? "bg-muted/20" : ""}`}>
       <CardHeader className="flex-row items-center justify-between space-y-0 pb-3">
         <CardTitle className="text-base">{titulo}</CardTitle>
         <Badge className={styles.chip}>{total}</Badge>
       </CardHeader>
       <CardContent
         ref={setNodeRef}
-        className={`min-h-24 space-y-3 rounded-md p-3 transition-colors ${isOver ? "bg-muted/40" : ""}`}
+        className={`min-h-24 space-y-3 rounded-md p-3 transition-colors ${isOver || isHighlighted ? "bg-muted/40" : ""}`}
       >
         {children}
       </CardContent>
@@ -91,20 +94,36 @@ function KanbanTaskCard({
   tarefa,
   status,
   isSaving,
+  isDropTarget,
 }: {
   tarefa: TarefaItem
   status: TarefaStatus
   isSaving: boolean
+  isDropTarget: boolean
 }) {
-  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
+  const { attributes, listeners, setNodeRef: setDragRef, transform, isDragging } = useDraggable({
     id: `tarefa-${tarefa.id}`,
     data: {
       tarefaId: tarefa.id,
       tarefa,
       status,
+      type: "tarefa",
+    },
+  })
+  const { setNodeRef: setDropRef } = useDroppable({
+    id: `tarefa-${tarefa.id}`,
+    data: {
+      tarefaId: tarefa.id,
+      status,
+      type: "tarefa",
     },
   })
   const styles = getTarefaStatusStyles(status)
+
+  function setNodeRef(element: HTMLElement | null) {
+    setDragRef(element)
+    setDropRef(element)
+  }
 
   return (
     <Card
@@ -113,6 +132,8 @@ function KanbanTaskCard({
         transform: CSS.Translate.toString(transform),
       }}
       className={`transition-colors hover:bg-muted/40 ${styles.card} ${
+        isDropTarget ? "bg-muted/50" : ""
+      } ${
         isDragging || isSaving ? "opacity-30" : ""
       }`}
       {...attributes}
@@ -209,15 +230,19 @@ export function TarefasKanbanView({
     tarefaId,
     statusOrigem,
     statusDestino,
+    indexDestino,
   }: {
     tarefaId: number
     statusOrigem: TarefaStatus
     statusDestino: TarefaStatus
+    indexDestino?: number
   }) => Promise<void>
 }) {
   const [activeTask, setActiveTask] = useState<{ tarefa: TarefaItem; status: TarefaStatus } | null>(
     null
   )
+  const [highlightedStatus, setHighlightedStatus] = useState<TarefaStatus | null>(null)
+  const [highlightedTaskId, setHighlightedTaskId] = useState<number | null>(null)
   const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 6 } }))
 
   const totalTarefas =
@@ -237,8 +262,39 @@ export function TarefasKanbanView({
     setActiveTask({ tarefa, status })
   }
 
+  function getDropStatus(overId: string, overDataStatus: unknown): TarefaStatus | null {
+    if (typeof overDataStatus === "string") {
+      return overDataStatus as TarefaStatus
+    }
+
+    if (overId.startsWith("coluna-")) {
+      return overId.replace("coluna-", "") as TarefaStatus
+    }
+
+    return null
+  }
+
+  function handleDragOver(event: DragOverEvent) {
+    const { over } = event
+
+    if (!over) {
+      setHighlightedStatus(null)
+      setHighlightedTaskId(null)
+      return
+    }
+
+    const overId = String(over.id)
+    const overData = over.data.current
+    const status = getDropStatus(overId, overData?.status)
+
+    setHighlightedStatus(status)
+    setHighlightedTaskId(typeof overData?.tarefaId === "number" ? overData.tarefaId : null)
+  }
+
   function handleDragCancel(_: DragCancelEvent) {
     setActiveTask(null)
+    setHighlightedStatus(null)
+    setHighlightedTaskId(null)
   }
 
   async function handleDragEnd(event: DragEndEvent) {
@@ -246,16 +302,44 @@ export function TarefasKanbanView({
 
     if (!over) {
       setActiveTask(null)
+      setHighlightedStatus(null)
+      setHighlightedTaskId(null)
       return
     }
 
     const tarefaId = active.data.current?.tarefaId as number | undefined
     const statusOrigem = active.data.current?.status as TarefaStatus | undefined
+    const tarefaOrigemId = active.data.current?.type === "tarefa" ? (active.data.current.tarefaId as number | undefined) : undefined
     const overId = String(over.id)
-    const statusDestino = overId.replace("coluna-", "") as TarefaStatus
+    const overData = over.data.current
+    const statusDestino = getDropStatus(overId, overData?.status)
+    const tarefaDestinoId = overData?.type === "tarefa" ? (overData.tarefaId as number | undefined) : undefined
 
-    if (!tarefaId || !statusOrigem || !statusDestino || statusOrigem === statusDestino) {
+    let indexDestino: number | undefined
+
+    if (statusDestino && typeof tarefaDestinoId === "number") {
+      const indexEncontrado = tarefas[statusDestino].findIndex((item) => item.id === tarefaDestinoId)
+
+      if (indexEncontrado >= 0) {
+        indexDestino = indexEncontrado
+      }
+    }
+
+    if (statusDestino && indexDestino === undefined) {
+      indexDestino = tarefas[statusDestino].length
+    }
+
+    if (!tarefaId || !statusOrigem || !statusDestino) {
       setActiveTask(null)
+      setHighlightedStatus(null)
+      setHighlightedTaskId(null)
+      return
+    }
+
+    if (statusOrigem === statusDestino && tarefaOrigemId && tarefaDestinoId && tarefaOrigemId === tarefaDestinoId) {
+      setActiveTask(null)
+      setHighlightedStatus(null)
+      setHighlightedTaskId(null)
       return
     }
 
@@ -263,9 +347,12 @@ export function TarefasKanbanView({
       tarefaId,
       statusOrigem,
       statusDestino,
+      indexDestino,
     })
 
     setActiveTask(null)
+    setHighlightedStatus(null)
+    setHighlightedTaskId(null)
   }
 
   if (totalTarefas === 0) {
@@ -283,6 +370,7 @@ export function TarefasKanbanView({
       sensors={sensors}
       collisionDetection={closestCorners}
       onDragStart={handleDragStart}
+      onDragOver={handleDragOver}
       onDragCancel={handleDragCancel}
       onDragEnd={handleDragEnd}
     >
@@ -293,6 +381,7 @@ export function TarefasKanbanView({
             status={coluna.status}
             titulo={coluna.titulo}
             total={tarefas[coluna.status].length}
+            isHighlighted={highlightedStatus === coluna.status}
           >
             {tarefas[coluna.status].map((tarefa) => (
               <KanbanTaskCard
@@ -300,6 +389,7 @@ export function TarefasKanbanView({
                 tarefa={tarefa}
                 status={coluna.status}
                 isSaving={movingTaskId === tarefa.id}
+                isDropTarget={highlightedTaskId === tarefa.id}
               />
             ))}
 

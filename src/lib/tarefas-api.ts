@@ -102,6 +102,7 @@ function normalizarComentario(payload: unknown): TarefaComentario {
 function normalizarTarefa(payload: unknown): TarefaItem {
   const item = (payload ?? {}) as {
     id?: number
+    ordem_kanban?: number | null
     projeto_id?: number
     tarefa_pai_id?: number | null
     nome?: string
@@ -120,6 +121,7 @@ function normalizarTarefa(payload: unknown): TarefaItem {
 
   return {
     id: item.id ?? 0,
+    ordemKanban: typeof item.ordem_kanban === "number" ? item.ordem_kanban : null,
     projetoId: item.projeto_id ?? 0,
     tarefaPaiId: item.tarefa_pai_id ?? null,
     nome: item.nome ?? "",
@@ -159,7 +161,23 @@ function normalizarKanban(payload: unknown): TarefasKanban {
     const tarefas = data[status]
 
     if (Array.isArray(tarefas)) {
-      quadro[status] = tarefas.map((item) => normalizarTarefa(item))
+      quadro[status] = tarefas
+        .map((item) => normalizarTarefa(item))
+        .sort((a, b) => {
+          if (a.ordemKanban === null && b.ordemKanban === null) {
+            return 0
+          }
+
+          if (a.ordemKanban === null) {
+            return 1
+          }
+
+          if (b.ordemKanban === null) {
+            return -1
+          }
+
+          return a.ordemKanban - b.ordemKanban
+        })
     }
   })
 
@@ -265,12 +283,15 @@ export async function atualizarTarefa(tarefaId: number, payload: AtualizarTarefa
 export async function atualizarStatusTarefa({
   tarefaId,
   status,
+  index,
 }: {
   tarefaId: number
   status: TarefaStatus
+  index: number
 }) {
   const response = await api.post(`${endpointMap.tarefas}/update-status-${tarefaId}`, {
     status,
+    ordem_kanban: index,
   })
 
   return normalizarTarefa(response.data)

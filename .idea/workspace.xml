@@ -5,40 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e7fddfb5-2083-46ab-a350-c03f1d2d5fb2" name="Changes" comment="wip">
-      <change afterPath="$PROJECT_DIR$/public/logo.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bancos/118118-money.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bancos/99Pay.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bancos/amex.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bancos/asaas.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bancos/bb.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bancos/bradesco.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bancos/brb.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bancos/btgpactual.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bancos/bv.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bancos/c6bank.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bancos/caixa.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bancos/intermedium.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bancos/itau.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bancos/itaupersonnalite.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bancos/nubank.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bancos/picpay.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bancos/safra.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bancos/santander.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bancos/wise.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bancos/xp.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/documentacao/endpoints/admin/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/documentacao/endpoints/admin/autenticacao.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/documentacao/endpoints/admin/config-credenciais.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/documentacao/endpoints/admin/config-etiquetas.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/documentacao/endpoints/admin/config-setores.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/documentacao/endpoints/admin/config-tarefas-modelo.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/documentacao/endpoints/admin/config-usuarios.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/documentacao/endpoints/admin/perfil.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/documentacao/endpoints/admin/projetos.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/documentacao/endpoints/admin/recuperacao-senha.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/documentacao/endpoints/admin/tarefa-comentarios.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/documentacao/endpoints/admin/tarefas.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/app/tarefas/components/tarefas-kanban-view.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app/tarefas/components/tarefas-kanban-view.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/app/tarefas/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app/tarefas/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/tarefas-api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/tarefas-api.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types/tarefas.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/tarefas.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +20,7 @@
     <execution />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="118" />
+    <option name="cachedIndexableFilesCount" value="132" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
@@ -67,18 +38,18 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "nicholasmiranda"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;nicholasmiranda&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/NicholasPmiranda/gt-marketin-front.git",
-    "accountId": "7887d2d9-b361-41e8-8347-9534416c4065"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/NicholasPmiranda/gt-marketin-front.git&quot;,
+    &quot;accountId&quot;: &quot;7887d2d9-b361-41e8-8347-9534416c4065&quot;
   }
-}]]></component>
+}</component>
   <component name="McpProjectServerCommands">
     <commands />
     <urls />
@@ -92,34 +63,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.MCP Project settings loaded": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "main",
-    "javascript.preferred.runtime.type.id": "node",
-    "js.debugger.nextJs.config.created.client": "true",
-    "js.debugger.nextJs.config.created.server": "true",
-    "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "/home/nick/Projetos/front-gtmarketing/public",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_interpreter_path": "/home/nick/.nvm/versions/node/v22.19.0/bin/node",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "settings.javascript.runtime",
-    "to.speed.mode.migration.done": "true",
-    "ts.external.directory.path": "/home/nick/Projetos/front-gtmarketing/node_modules/typescript/lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;javascript.preferred.runtime.type.id&quot;: &quot;node&quot;,
+    &quot;js.debugger.nextJs.config.created.client&quot;: &quot;true&quot;,
+    &quot;js.debugger.nextJs.config.created.server&quot;: &quot;true&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/nick/Projetos/front-gtmarketing/public&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_interpreter_path&quot;: &quot;/home/nick/.nvm/versions/node/v22.19.0/bin/node&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.javascript.runtime&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/home/nick/Projetos/front-gtmarketing/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/public" />
@@ -171,6 +142,7 @@
       <workItem from="1775177565449" duration="1610000" />
       <workItem from="1775179686609" duration="1482000" />
       <workItem from="1775220262640" duration="26687000" />
+      <workItem from="1775309032706" duration="1584000" />
     </task>
     <task id="LOCAL-00001" summary="wip">
       <option name="closed" value="true" />

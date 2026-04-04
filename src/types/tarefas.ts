@@ -24,6 +24,7 @@ export type TarefaComentario = {
 
 export type TarefaItem = {
   id: number
+  ordemKanban: number | null
   projetoId: number
   tarefaPaiId: number | null
   nome: string

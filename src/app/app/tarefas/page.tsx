@@ -280,7 +280,8 @@ export default function Page() {
         quadro: TarefasKanban,
         tarefaId: number,
         statusOrigem: TarefaStatus,
-        statusDestino: TarefaStatus
+        statusDestino: TarefaStatus,
+        indexDestino = quadro[statusDestino].length
     ) {
         const tarefaMovida = quadro[statusOrigem].find((item) => item.id === tarefaId)
 
@@ -288,44 +289,68 @@ export default function Page() {
             return quadro
         }
 
+        const indexOrigem = quadro[statusOrigem].findIndex((item) => item.id === tarefaId)
+
+        if (indexOrigem < 0) {
+            return quadro
+        }
+
+        const quadroSemTarefa: TarefasKanban = {
+            pendente: quadro.pendente.filter((item) => item.id !== tarefaId),
+            "em andamento": quadro["em andamento"].filter((item) => item.id !== tarefaId),
+            revisao: quadro.revisao.filter((item) => item.id !== tarefaId),
+            finalizado: quadro.finalizado.filter((item) => item.id !== tarefaId),
+        }
+
+        const listaDestino = [...quadroSemTarefa[statusDestino]]
+        const posicaoInsercao = Math.min(
+            Math.max(indexDestino, 0),
+            listaDestino.length
+        )
+
+        listaDestino.splice(posicaoInsercao, 0, {
+            ...tarefaMovida,
+            status: statusDestino,
+            ordemKanban: posicaoInsercao,
+        })
+
+        const listaDestinoComOrdem = listaDestino.map((item, index) => ({
+            ...item,
+            ordemKanban: index,
+        }))
+
         return {
-            pendente:
-                statusDestino === "pendente"
-                    ? [...quadro.pendente, {...tarefaMovida, status: statusDestino}]
-                    : quadro.pendente.filter((item) => item.id !== tarefaId),
-            "em andamento":
-                statusDestino === "em andamento"
-                    ? [...quadro["em andamento"], {...tarefaMovida, status: statusDestino}]
-                    : quadro["em andamento"].filter((item) => item.id !== tarefaId),
-            revisao:
-                statusDestino === "revisao"
-                    ? [...quadro.revisao, {...tarefaMovida, status: statusDestino}]
-                    : quadro.revisao.filter((item) => item.id !== tarefaId),
-            finalizado:
-                statusDestino === "finalizado"
-                    ? [...quadro.finalizado, {...tarefaMovida, status: statusDestino}]
-                    : quadro.finalizado.filter((item) => item.id !== tarefaId),
+            ...quadroSemTarefa,
+            [statusDestino]: listaDestinoComOrdem,
         }
     }
 
     async function handleKanbanMove({
-                                        tarefaId,
-                                        statusOrigem,
-                                        statusDestino,
-                                    }: {
+                                         tarefaId,
+                                         statusOrigem,
+                                         statusDestino,
+                                         indexDestino = tarefasKanban[statusDestino].length,
+                                     }: {
         tarefaId: number
         statusOrigem: TarefaStatus
         statusDestino: TarefaStatus
+        indexDestino?: number
     }) {
         const snapshot = tarefasKanban
+        const indexOrigem = snapshot[statusOrigem].findIndex((item) => item.id === tarefaId)
+        const indexDestinoFinal =
+            statusOrigem === statusDestino && indexOrigem >= 0 && indexOrigem < indexDestino
+                ? indexDestino - 1
+                : indexDestino
 
         setMovingTaskId(tarefaId)
-        setTarefasKanban(moverItemKanban(snapshot, tarefaId, statusOrigem, statusDestino))
+        setTarefasKanban(moverItemKanban(snapshot, tarefaId, statusOrigem, statusDestino, indexDestinoFinal))
 
         try {
             await atualizarStatusTarefa({
                 tarefaId,
                 status: statusDestino,
+                index: indexDestinoFinal,
             })
 
             toast.success("Status da tarefa atualizado.")
