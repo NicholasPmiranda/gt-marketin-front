@@ -10,6 +10,7 @@
 - [Config - Tarefas Modelo](./config-tarefas-modelo.md)
 - [Config - Credenciais](./config-credenciais.md)
 - [Projetos](./projetos.md)
+- [Reunioes](./reunioes.md)
 - [Tarefas](./tarefas.md)
 - [Comentarios de Tarefa](./tarefa-comentarios.md)
 
@@ -42,8 +43,11 @@
 ### Projetos (`projetos.md`)
 - **Projetos** - CRUD completo de projetos com equipe (many-to-many com usuarios).
 
+### Reunioes (`reunioes.md`)
+- **Reunioes** - Listagem paginada com busca e detalhamento completo por ID.
+
 ### Tarefas (`tarefas.md`)
-- **Tarefas** - CRUD completo de tarefas e subtarefas com responsaveis e etiquetas.
+- **Tarefas** - CRUD completo de tarefas e subtarefas com responsaveis, etiquetas e endpoint dedicado de arquivamento.
 
 ### Comentarios de Tarefa (`tarefa-comentarios.md`)
 - **Comentarios de Tarefa** - CRUD de comentarios com controle de autoria pelo usuario autenticado.
@@ -77,4 +81,4 @@ Exemplo de erro:
 - O endpoint de perfil exige autenticacao com token Sanctum valido.
 - Login e recuperacao de senha sao publicos.
 - Endpoints de configuracoes exigem autenticacao com token Sanctum valido.
-- Endpoints de projetos, tarefas e comentarios exigem autenticacao com token Sanctum valido.
+- Endpoints de projetos, reunioes, tarefas e comentarios exigem autenticacao com token Sanctum valido.

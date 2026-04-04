@@ -482,3 +482,34 @@ Remove uma tarefa.
 - `404` - Recurso nao encontrado
 
 ---
+
+## Arquivar tarefa
+
+### POST /api/tarefa/arquivar-{tarefa}
+
+Atualiza somente o campo `arquivado_em` da tarefa com a data/hora atual para indicar arquivamento.
+
+**Autenticacao:**
+- Obrigatoria (`auth:sanctum`).
+
+**Parametros de URL:**
+- `tarefa` - ID da tarefa
+
+**Resposta (200):**
+```json
+{
+  "id": 10,
+  "projeto_id": 1,
+  "tarefa_pai_id": null,
+  "nome": "Criar layout home",
+  "descricao": "Tela inicial atualizada",
+  "status": "finalizado",
+  "arquivado_em": "2026-04-04T15:30:00.000000Z"
+}
+```
+
+**Erros:**
+- `401` - Nao autenticado
+- `404` - Recurso nao encontrado
+
+---
