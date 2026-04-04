@@ -284,14 +284,20 @@ export async function atualizarStatusTarefa({
   tarefaId,
   status,
   index,
+  listaItens,
 }: {
   tarefaId: number
   status: TarefaStatus
   index: number
+  listaItens: Array<{
+    id: number
+    ordem_kanban: number
+  }>
 }) {
   const response = await api.post(`${endpointMap.tarefas}/update-status-${tarefaId}`, {
     status,
     ordem_kanban: index,
+    lista_itens: listaItens,
   })
 
   return normalizarTarefa(response.data)

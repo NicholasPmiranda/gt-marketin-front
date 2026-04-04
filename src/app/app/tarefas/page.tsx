@@ -344,13 +344,25 @@ export default function Page() {
                 : indexDestino
 
         setMovingTaskId(tarefaId)
-        setTarefasKanban(moverItemKanban(snapshot, tarefaId, statusOrigem, statusDestino, indexDestinoFinal))
+        const quadroAtualizado = moverItemKanban(
+            snapshot,
+            tarefaId,
+            statusOrigem,
+            statusDestino,
+            indexDestinoFinal
+        )
+
+        setTarefasKanban(quadroAtualizado)
 
         try {
             await atualizarStatusTarefa({
                 tarefaId,
                 status: statusDestino,
                 index: indexDestinoFinal,
+                listaItens: quadroAtualizado[statusDestino].map((item, index) => ({
+                    id: item.id,
+                    ordem_kanban: index,
+                })),
             })
 
             toast.success("Status da tarefa atualizado.")

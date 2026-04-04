@@ -6,10 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="e7fddfb5-2083-46ab-a350-c03f1d2d5fb2" name="Changes" comment="wip">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/app/tarefas/components/tarefas-kanban-view.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app/tarefas/components/tarefas-kanban-view.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/app/tarefas/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app/tarefas/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lib/tarefas-api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/tarefas-api.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/types/tarefas.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/tarefas.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
