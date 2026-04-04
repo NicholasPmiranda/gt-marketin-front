@@ -6,7 +6,7 @@ import {ptBR} from "date-fns/locale"
 import {ChevronDownIcon, Columns3Icon, LayoutGridIcon, SearchIcon, Table2Icon} from "lucide-react"
 import {toast} from "sonner"
 
-import {listarUsersConfig} from "@/lib/configuracoes-api"
+import {listarUsersTodosConfig} from "@/lib/configuracoes-api"
 import {listarProjetos} from "@/lib/projetos-api"
 import {atualizarStatusTarefa, listarTarefas, listarTarefasKanban} from "@/lib/tarefas-api"
 import type {UserConfigItem} from "@/types/configuracoes"
@@ -16,6 +16,7 @@ import {Button} from "@/components/ui/button"
 import {Calendar} from "@/components/ui/calendar"
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card"
 import {Input} from "@/components/ui/input"
+import {Label} from "@/components/ui/label"
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover"
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue,} from "@/components/ui/select"
 import {CriarTarefaModal} from "./components/criar-tarefa-modal"
@@ -87,6 +88,21 @@ export default function Page() {
     const [isViewModeReady, setIsViewModeReady] = useState(false)
     const requestIdRef = useRef(0)
 
+    async function carregarTodosProjetos() {
+        const todosProjetos: ProjetoItem[] = []
+        let paginaAtual = 1
+        let ultimaPagina = 1
+
+        do {
+            const response = await listarProjetos({page: paginaAtual})
+            todosProjetos.push(...response.data)
+            ultimaPagina = response.lastPage
+            paginaAtual += 1
+        } while (paginaAtual <= ultimaPagina)
+
+        return todosProjetos
+    }
+
     useEffect(() => {
         const savedView = localStorage.getItem(STORAGE_VIEW_KEY)
 
@@ -101,11 +117,11 @@ export default function Page() {
         async function carregarDadosFiltros() {
             try {
                 const [projetosResponse, usuariosResponse] = await Promise.all([
-                    listarProjetos({page: 1}),
-                    listarUsersConfig(),
+                    carregarTodosProjetos(),
+                    listarUsersTodosConfig(),
                 ])
 
-                setProjetos(projetosResponse.data)
+                setProjetos(projetosResponse)
                 setResponsaveis(usuariosResponse)
             } catch (error) {
                 toast.error(getErrorMessage(error, "Nao foi possivel carregar os filtros de tarefas."))
@@ -392,6 +408,16 @@ export default function Page() {
         }
     }, [tarefasGrade, tarefasKanban, viewMode])
 
+    const projetoSelecionadoNome =
+        projetoFilter === "todos"
+            ? "Todos os projetos"
+            : projetos.find((item) => String(item.id) === projetoFilter)?.nome ?? "Todos os projetos"
+
+    const responsavelSelecionadoNome =
+        responsavelFilter === "todos"
+            ? "Todos os responsaveis"
+            : responsaveis.find((item) => String(item.id) === responsavelFilter)?.nome ?? "Todos os responsaveis"
+
     return (
         <div className="flex flex-1 flex-col gap-6 p-4 lg:p-6">
             <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
@@ -451,11 +477,15 @@ export default function Page() {
                 <CardContent className="space-y-3 p-4">
                     <div className="grid gap-2 lg:grid-cols-3">
                         <div className="flex gap-2 lg:col-span-2">
+                            <div className="w-full space-y-2">
+                                <Label htmlFor="filtro-busca-tarefa">Busca</Label>
                             <Input
-                                placeholder="Buscar por nome ou descricao"
+                                id="filtro-busca-tarefa"
+                                placeholder="Digite nome ou descricao da tarefa"
                                 value={search}
                                 onChange={(event) => setSearch(event.target.value)}
                             />
+                            </div>
                         </div>
 
                         <div className="flex gap-2">
@@ -491,63 +521,77 @@ export default function Page() {
                     </div>
 
                     <div className="grid gap-2 md:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-5">
-                        <Select value={projetoFilter} onValueChange={(value) => setProjetoFilter(value ?? "todos")}>
-                            <SelectTrigger className="w-full">
-                                <SelectValue placeholder="Todos os projetos"/>
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="todos">Todos os projetos</SelectItem>
-                                {projetos.map((projeto) => (
-                                    <SelectItem key={projeto.id} value={String(projeto.id)}>
-                                        {projeto.nome}
-                                    </SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
+                        <div className="space-y-2">
+                            <Label htmlFor="filtro-projeto">Projeto</Label>
+                            <Select value={projetoFilter} onValueChange={(value) => setProjetoFilter(value ?? "todos")}>
+                                <SelectTrigger id="filtro-projeto" className="w-full">
+                                    <SelectValue placeholder="Selecione o projeto">{projetoSelecionadoNome}</SelectValue>
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="todos">Todos os projetos</SelectItem>
+                                    {projetos.map((projeto) => (
+                                        <SelectItem key={projeto.id} value={String(projeto.id)}>
+                                            {projeto.nome}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                        </div>
 
-                        <Select value={statusFilter}
-                                onValueChange={(value) => setStatusFilter((value as StatusFilter) ?? "todos")}>
-                            <SelectTrigger className="w-full">
-                                <SelectValue placeholder="Todos os status"/>
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="todos">Todos os status</SelectItem>
-                                <SelectItem value="pendente">Pendente</SelectItem>
-                                <SelectItem value="em andamento">Em andamento</SelectItem>
-                                <SelectItem value="revisao">Em revisao</SelectItem>
-                                <SelectItem value="finalizado">Finalizado</SelectItem>
-                            </SelectContent>
-                        </Select>
+                        <div className="space-y-2">
+                            <Label htmlFor="filtro-status">Status</Label>
+                            <Select value={statusFilter}
+                                    onValueChange={(value) => setStatusFilter((value as StatusFilter) ?? "todos")}>
+                                <SelectTrigger id="filtro-status" className="w-full">
+                                    <SelectValue placeholder="Selecione o status"/>
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="todos">Todos os status</SelectItem>
+                                    <SelectItem value="pendente">Pendente</SelectItem>
+                                    <SelectItem value="em andamento">Em andamento</SelectItem>
+                                    <SelectItem value="revisao">Em revisao</SelectItem>
+                                    <SelectItem value="finalizado">Finalizado</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
 
-                        <Select value={prioridadeFilter}
-                                onValueChange={(value) => setPrioridadeFilter((value as PrioridadeFilter) ?? "todos")}>
-                            <SelectTrigger className="w-full">
-                                <SelectValue placeholder="Todas as prioridades"/>
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="todos">Todas as prioridades</SelectItem>
-                                <SelectItem value="baixa">Baixa</SelectItem>
-                                <SelectItem value="media">Media</SelectItem>
-                                <SelectItem value="alta">Alta</SelectItem>
-                            </SelectContent>
-                        </Select>
+                        <div className="space-y-2">
+                            <Label htmlFor="filtro-prioridade">Prioridade</Label>
+                            <Select value={prioridadeFilter}
+                                    onValueChange={(value) => setPrioridadeFilter((value as PrioridadeFilter) ?? "todos")}>
+                                <SelectTrigger id="filtro-prioridade" className="w-full">
+                                    <SelectValue placeholder="Selecione a prioridade"/>
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="todos">Todas as prioridades</SelectItem>
+                                    <SelectItem value="baixa">Baixa</SelectItem>
+                                    <SelectItem value="media">Media</SelectItem>
+                                    <SelectItem value="alta">Alta</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
 
-                        <Select value={responsavelFilter}
-                                onValueChange={(value) => setResponsavelFilter(value ?? "todos")}>
-                            <SelectTrigger className="w-full">
-                                <SelectValue placeholder="Todos os responsaveis"/>
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="todos">Todos os responsaveis</SelectItem>
-                                {responsaveis.map((responsavel) => (
-                                    <SelectItem key={responsavel.id} value={String(responsavel.id)}>
-                                        {responsavel.nome}
-                                    </SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
+                        <div className="space-y-2">
+                            <Label htmlFor="filtro-responsavel">Responsavel</Label>
+                            <Select value={responsavelFilter}
+                                    onValueChange={(value) => setResponsavelFilter(value ?? "todos")}>
+                                <SelectTrigger id="filtro-responsavel" className="w-full">
+                                    <SelectValue placeholder="Selecione o responsavel">{responsavelSelecionadoNome}</SelectValue>
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="todos">Todos os responsaveis</SelectItem>
+                                    {responsaveis.map((responsavel) => (
+                                        <SelectItem key={responsavel.id} value={String(responsavel.id)}>
+                                            {responsavel.nome}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                        </div>
 
-                        <Popover>
+                        <div className="space-y-2">
+                            <Label>Agendamento</Label>
+                            <Popover>
                             <PopoverTrigger
                                 render={
                                     <Button
@@ -557,7 +601,7 @@ export default function Page() {
                                         className="w-full justify-between text-left font-normal data-[empty=true]:text-muted-foreground"
                                     >
                                         {agendamentoFilter ? format(agendamentoFilter, "dd/MM/yyyy") :
-                                            <span>Agendamento</span>}
+                                            <span>Selecione o agendamento</span>}
                                         <ChevronDownIcon data-icon="inline-end"/>
                                     </Button>
                                 }
@@ -571,9 +615,12 @@ export default function Page() {
                                     defaultMonth={agendamentoFilter}
                                 />
                             </PopoverContent>
-                        </Popover>
+                            </Popover>
+                        </div>
 
-                        <Popover>
+                        <div className="space-y-2">
+                            <Label>Data inicial</Label>
+                            <Popover>
                             <PopoverTrigger
                                 render={
                                     <Button
@@ -582,7 +629,7 @@ export default function Page() {
                                         data-empty={!inicioFilter}
                                         className="w-full justify-between text-left font-normal data-[empty=true]:text-muted-foreground"
                                     >
-                                        {inicioFilter ? format(inicioFilter, "dd/MM/yyyy") : <span>Inicio</span>}
+                                        {inicioFilter ? format(inicioFilter, "dd/MM/yyyy") : <span>Selecione a data inicial</span>}
                                         <ChevronDownIcon data-icon="inline-end"/>
                                     </Button>
                                 }
@@ -596,9 +643,12 @@ export default function Page() {
                                     defaultMonth={inicioFilter}
                                 />
                             </PopoverContent>
-                        </Popover>
+                            </Popover>
+                        </div>
 
-                        <Popover>
+                        <div className="space-y-2">
+                            <Label>Data final</Label>
+                            <Popover>
                             <PopoverTrigger
                                 render={
                                     <Button
@@ -607,7 +657,7 @@ export default function Page() {
                                         data-empty={!fimFilter}
                                         className="w-full justify-between text-left font-normal data-[empty=true]:text-muted-foreground"
                                     >
-                                        {fimFilter ? format(fimFilter, "dd/MM/yyyy") : <span>Fim</span>}
+                                        {fimFilter ? format(fimFilter, "dd/MM/yyyy") : <span>Selecione a data final</span>}
                                         <ChevronDownIcon data-icon="inline-end"/>
                                     </Button>
                                 }
@@ -621,7 +671,8 @@ export default function Page() {
                                     defaultMonth={fimFilter}
                                 />
                             </PopoverContent>
-                        </Popover>
+                            </Popover>
+                        </div>
 
 
 

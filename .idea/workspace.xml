@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e7fddfb5-2083-46ab-a350-c03f1d2d5fb2" name="Changes" comment="wip">
+    <list default="true" id="e7fddfb5-2083-46ab-a350-c03f1d2d5fb2" name="Changes" comment="Refactor Kanban drag-and-drop: improve task reordering, optimize type handling, and refine status parsing logic.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/app/tarefas/components/tarefas-kanban-view.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app/tarefas/components/tarefas-kanban-view.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/app/tarefas/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app/tarefas/page.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -477,7 +478,15 @@
       <option name="project" value="LOCAL" />
       <updated>1775315939843</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="Refactor Kanban drag-and-drop: improve task reordering, optimize type handling, and refine status parsing logic.">
+      <option name="closed" value="true" />
+      <created>1775319238501</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1775319238501</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -497,7 +506,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="feat: add OFX import modal for bank accounts&#10;&#10;Introduce `ContaOfxModal` component to handle OFX file imports for bank accounts, including file processing, category editing, and transaction saving. Update related documentation and enhance npm dependencies for development." />
     <MESSAGE value="feat: enhance bank account detail page with editable fields and institution selection&#10;&#10;Introduce editable fields for bank account names and institution selection modal. Add loading and error handling states, integrate toast notifications for updates, and simplify page structure for improved user experience." />
     <MESSAGE value="feat: add filters and data table for bank transactions&#10;&#10;Introduce filtering functionality with `CategoriaCombobox` and `ContaBancariaLancamentosFiltros` components. Implement a responsive table in `ContaBancariaTabTabela` to display filtered transactions. Include pagination controls, skeleton loading states, and error handling for enhanced user experience." />
     <MESSAGE value="feat: add calendar and date picker components for enhanced filtering&#10;&#10;Introduce `Calendar` component integrating `react-day-picker` for customizable date selection. Add `FiltroDatePicker` for improved filtering in `ContaBancariaLancamentosFiltros`. Update transaction table with totals for received and debit values. Enhance user experience with date formatting and dependency updates." />
@@ -522,7 +530,8 @@
     <MESSAGE value="Add Netlify configuration and integrate `@netlify/plugin-nextjs` for deployment" />
     <MESSAGE value="wip" />
     <MESSAGE value="kaban-update" />
-    <option name="LAST_COMMIT_MESSAGE" value="kaban-update" />
+    <MESSAGE value="Refactor Kanban drag-and-drop: improve task reordering, optimize type handling, and refine status parsing logic." />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactor Kanban drag-and-drop: improve task reordering, optimize type handling, and refine status parsing logic." />
     <option name="NON_MODAL_COMMIT_POSTPONE_SLOW_CHECKS" value="false" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">

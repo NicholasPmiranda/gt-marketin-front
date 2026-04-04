@@ -294,6 +294,10 @@ export function TarefasKanbanView({
   const lastOverStatusRef = useRef<TarefaStatus | null>(null)
   const lastOverTaskIdRef = useRef<number | null>(null)
 
+  function deferStateUpdate(callback: () => void) {
+    queueMicrotask(callback)
+  }
+
   const totalTarefas =
     tarefas.pendente.length +
     tarefas["em andamento"].length +
@@ -301,11 +305,14 @@ export function TarefasKanbanView({
     tarefas.finalizado.length
 
   function clearHighlights() {
-    setActiveTask(null)
-    setHighlightedStatus(null)
-    setHighlightedTaskId(null)
     lastOverStatusRef.current = null
     lastOverTaskIdRef.current = null
+
+    deferStateUpdate(() => {
+      setActiveTask(null)
+      setHighlightedStatus(null)
+      setHighlightedTaskId(null)
+    })
   }
 
   function resolveSource(event: KanbanDragEvent) {
@@ -334,7 +341,10 @@ export function TarefasKanbanView({
 
     lastOverStatusRef.current = status
     lastOverTaskIdRef.current = tarefaId
-    setActiveTask({ tarefa, status })
+
+    deferStateUpdate(() => {
+      setActiveTask({ tarefa, status })
+    })
   }
 
   function handleDragOver(event: KanbanDragEvent) {
@@ -342,8 +352,11 @@ export function TarefasKanbanView({
     const targetData = getNodeData(target)
 
     if (!target) {
-      setHighlightedStatus(null)
-      setHighlightedTaskId(null)
+      deferStateUpdate(() => {
+        setHighlightedStatus(null)
+        setHighlightedTaskId(null)
+      })
+
       return
     }
 
@@ -355,8 +368,11 @@ export function TarefasKanbanView({
 
     lastOverStatusRef.current = status
     lastOverTaskIdRef.current = typeof tarefaId === "number" ? tarefaId : null
-    setHighlightedStatus(status)
-    setHighlightedTaskId(typeof tarefaId === "number" ? tarefaId : null)
+
+    deferStateUpdate(() => {
+      setHighlightedStatus(status)
+      setHighlightedTaskId(typeof tarefaId === "number" ? tarefaId : null)
+    })
   }
 
   function handleDragEnd(event: KanbanDragEvent) {
@@ -401,9 +417,6 @@ export function TarefasKanbanView({
 
     if (indexDestino === undefined) {
       indexDestino = tarefas[statusDestino].length
-    }
-
-    if (statusOrigem === statusDestino && tarefaId === tarefaDestinoId) {
     }
 
     void onMove({
