@@ -22,6 +22,7 @@ import {
   LayoutDashboardIcon,
   ListTodoIcon,
   SettingsIcon,
+  VideoIcon,
 } from "lucide-react"
 
 type NavItem = {
@@ -43,11 +44,7 @@ const data = {
       icon: <LayoutDashboardIcon />,
     },
 
-    {
-      title: "Configuracoes",
-      url: "/app/configuracoes",
-      icon: <SettingsIcon />,
-    },
+
     {
       title: "Credenciais",
       url: "/app/credenciais",
@@ -62,6 +59,16 @@ const data = {
       title: "Tarefas",
       url: "/app/tarefas",
       icon: <ListTodoIcon />,
+    },
+    {
+      title: "Reunioes",
+      url: "/app/reunioes",
+      icon: <VideoIcon />,
+    },
+    {
+      title: "Configuracoes",
+      url: "/app/configuracoes",
+      icon: <SettingsIcon />,
     },
   ] satisfies NavItem[],
 }
