@@ -1,12 +1,13 @@
 "use client"
 
 import { useState } from "react"
-import { LayersIcon, ListTodoIcon, TagsIcon, UsersIcon } from "lucide-react"
+import { KeyRoundIcon, LayersIcon, ListTodoIcon, TagsIcon, UsersIcon } from "lucide-react"
 
 import type { ConfigTab } from "@/types/configuracoes"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import {
   EtiquetasTabContent,
+  MeuPerfilTabContent,
   SetoresTabContent,
   UsersTabContent,
 } from "./components/configuracoes-tabs"
@@ -40,12 +41,17 @@ export default function Page() {
             <ListTodoIcon className="size-4" />
             Tarefa modelo
           </TabsTrigger>
+          <TabsTrigger value="meu-perfil">
+            <KeyRoundIcon className="size-4" />
+            Meu perfil
+          </TabsTrigger>
         </TabsList>
 
         {activeTab === "users" && <UsersTabContent />}
         {activeTab === "setores" && <SetoresTabContent />}
         {activeTab === "etiquetas" && <EtiquetasTabContent />}
         {activeTab === "tarefas-modelo" && <TarefasModeloTabContent />}
+        {activeTab === "meu-perfil" && <MeuPerfilTabContent />}
       </Tabs>
     </div>
   )

@@ -8,6 +8,7 @@ import type {
   SetorConfigItem,
   TarefaModeloConfigItem,
   TarefaModeloResponsavel,
+  TrocarSenhaPayload,
   UpdateTarefaModeloPayload,
   UpdateEtiquetaPayload,
   UpdateSetorPayload,
@@ -259,6 +260,11 @@ export async function atualizarTarefaModeloConfig(
     payload
   )
   return normalizarTarefaModelo(response.data)
+}
+
+export async function trocarSenhaUsuarioAutenticado(payload: TrocarSenhaPayload) {
+  const response = await api.post<{ message: string }>("/api/change-password", payload)
+  return response.data
 }
 
 export async function excluirTarefaModeloConfig(tarefaModeloId: number) {

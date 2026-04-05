@@ -8,6 +8,7 @@ import { toast } from "sonner"
 import {
   atualizarEtiquetaConfig,
   atualizarSetorConfig,
+  trocarSenhaUsuarioAutenticado,
   atualizarUserConfig,
   criarEtiquetaConfig,
   criarSetorConfig,
@@ -80,6 +81,7 @@ type UserFormData = {
   telefone: string
   setorId: string
   perfil: string
+  password?: string
 }
 
 type SetorFormData = {
@@ -88,6 +90,12 @@ type SetorFormData = {
 
 type EtiquetaFormData = {
   nome: string
+}
+
+type MeuPerfilSenhaFormData = {
+  senhaAtual: string
+  password: string
+  passwordConfirmation: string
 }
 
 function getErrorMessage(error: unknown, fallback: string) {
@@ -269,7 +277,7 @@ export function UsersTabContent() {
   })
 
   const { control: controlUserEdit, register: registerUserEdit, handleSubmit: handleSubmitUserEdit, formState: { errors: userEditErrors, isSubmitting: isSubmittingUserEdit }, reset: resetUserEdit } = useForm<UserFormData>({
-    defaultValues: { nome: "", email: "", telefone: "", setorId: "", perfil: "" },
+    defaultValues: { nome: "", email: "", telefone: "", setorId: "", perfil: "", password: "" },
   })
 
   async function carregarUsers() {
@@ -327,6 +335,7 @@ export function UsersTabContent() {
         setor_id: Number(data.setorId),
         perfil: data.perfil,
         ativo: isUsuarioEditAtivo,
+        ...(data.password ? { password: data.password } : {}),
       })
 
       setUsers((oldState) => oldState.map((item) => (item.id === userAtualizado.id ? userAtualizado : item)))
@@ -348,6 +357,7 @@ export function UsersTabContent() {
       telefone: formatarTelefone(getSafeText(user.telefone)),
       setorId: String(user.setorId ?? ""),
       perfil: user.perfil ?? "",
+      password: "",
     })
     setIsUserEditModalOpen(true)
   }
@@ -547,6 +557,13 @@ export function UsersTabContent() {
                         <FieldError>{userEditErrors.telefone?.message}</FieldError>
                       </Field>
                     </div>
+
+                    <Field>
+                      <FieldLabel htmlFor="password-user-edicao">Senha (opcional)</FieldLabel>
+                      <Input id="password-user-edicao" type="password" placeholder="Digite a nova senha" {...registerUserEdit("password")} />
+                      <FieldDescription>Preencha apenas se quiser alterar a senha atual.</FieldDescription>
+                      <FieldError>{userEditErrors.password?.message}</FieldError>
+                    </Field>
 
                     <div className="grid gap-4 md:grid-cols-2">
                       <Field>
@@ -1021,6 +1038,102 @@ export function EtiquetasTabContent() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+    </TabsContent>
+  )
+}
+
+export function MeuPerfilTabContent() {
+  const { register, handleSubmit, watch, reset, formState: { errors, isSubmitting } } = useForm<MeuPerfilSenhaFormData>({
+    defaultValues: {
+      senhaAtual: "",
+      password: "",
+      passwordConfirmation: "",
+    },
+  })
+
+  const novaSenha = watch("password")
+
+  async function onSubmit(data: MeuPerfilSenhaFormData) {
+    try {
+      const response = await trocarSenhaUsuarioAutenticado({
+        senha_atual: data.senhaAtual,
+        password: data.password,
+        password_confirmation: data.passwordConfirmation,
+      })
+
+      toast.success(response.message || "Senha atualizada com sucesso")
+      reset()
+    } catch (error: unknown) {
+      toast.error(getErrorMessage(error, "Nao foi possivel atualizar a senha."))
+    }
+  }
+
+  return (
+    <TabsContent value="meu-perfil" className="w-full">
+      <Card>
+        <CardHeader>
+          <CardTitle>Meu perfil</CardTitle>
+          <CardDescription>Atualize sua senha de acesso quando necessario.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <FieldGroup>
+              <Field>
+                <FieldLabel htmlFor="senha-atual">Senha atual</FieldLabel>
+                <Input
+                  id="senha-atual"
+                  type="password"
+                  placeholder="Digite sua senha atual"
+                  aria-invalid={errors.senhaAtual ? true : undefined}
+                  {...register("senhaAtual", {
+                    required: "Informe sua senha atual.",
+                  })}
+                />
+                <FieldError>{errors.senhaAtual?.message}</FieldError>
+              </Field>
+
+              <Field>
+                <FieldLabel htmlFor="nova-senha">Nova senha</FieldLabel>
+                <Input
+                  id="nova-senha"
+                  type="password"
+                  placeholder="Digite sua nova senha"
+                  aria-invalid={errors.password ? true : undefined}
+                  {...register("password", {
+                    required: "Informe a nova senha.",
+                    minLength: {
+                      value: 8,
+                      message: "A nova senha deve ter no minimo 8 caracteres.",
+                    },
+                  })}
+                />
+                <FieldError>{errors.password?.message}</FieldError>
+              </Field>
+
+              <Field>
+                <FieldLabel htmlFor="confirmacao-nova-senha">Confirmar nova senha</FieldLabel>
+                <Input
+                  id="confirmacao-nova-senha"
+                  type="password"
+                  placeholder="Confirme sua nova senha"
+                  aria-invalid={errors.passwordConfirmation ? true : undefined}
+                  {...register("passwordConfirmation", {
+                    required: "Confirme a nova senha.",
+                    validate: (value) => value === novaSenha || "A confirmacao precisa ser igual a nova senha.",
+                  })}
+                />
+                <FieldError>{errors.passwordConfirmation?.message}</FieldError>
+              </Field>
+
+              <div className="flex justify-end">
+                <Button type="submit" disabled={isSubmitting} aria-disabled={isSubmitting}>
+                  {isSubmitting ? "Salvando..." : "Atualizar senha"}
+                </Button>
+              </div>
+            </FieldGroup>
+          </form>
+        </CardContent>
+      </Card>
     </TabsContent>
   )
 }

@@ -1,6 +1,12 @@
 import type { TarefaStatus } from "@/types/tarefas"
 
-export type ConfigTab = "users" | "setores" | "etiquetas" | "tarefas-modelo"
+export type ConfigTab = "users" | "setores" | "etiquetas" | "tarefas-modelo" | "meu-perfil"
+
+export type TrocarSenhaPayload = {
+  senha_atual: string
+  password: string
+  password_confirmation: string
+}
 
 export type UserConfigItem = {
   id: number
@@ -55,7 +61,9 @@ export type CreateEtiquetaPayload = {
   nome: string
 }
 
-export type UpdateUserPayload = CreateUserPayload
+export type UpdateUserPayload = CreateUserPayload & {
+  password?: string
+}
 
 export type UpdateSetorPayload = CreateSetorPayload
 
