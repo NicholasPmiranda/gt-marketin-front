@@ -24,7 +24,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { CriarSubtarefaModal } from "./components/criar-subtarefa-modal"
-import { EditarTarefaModal } from "./components/editar-tarefa-modal"
+import { EditarTarefaForm } from "./components/editar-tarefa-modal"
 import { TarefaComentariosCard } from "./components/tarefa-comentarios-card"
 import { TarefaDetalheSkeleton } from "./components/tarefa-detalhe-skeleton"
 
@@ -283,11 +283,12 @@ export default function Page({
           </AlertDialogContent>
         </AlertDialog>
 
-        <EditarTarefaModal tarefa={tarefa} onUpdated={carregarTarefa} />
       </div>
 
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
         <div className="space-y-6">
+          <EditarTarefaForm tarefa={tarefa} onUpdated={carregarTarefa} />
+
           <Card>
             <CardHeader className="space-y-3">
               <CardTitle className="text-2xl">{tarefa.nome}</CardTitle>

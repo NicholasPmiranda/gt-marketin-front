@@ -13,15 +13,7 @@ import type { EtiquetaConfigItem, UserConfigItem } from "@/types/configuracoes"
 import type { TarefaDetalhe, TarefaPrioridade, TarefaStatus } from "@/types/tarefas"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
@@ -64,14 +56,13 @@ function getErrorMessage(error: unknown, fallback: string) {
   return fallback
 }
 
-export function EditarTarefaModal({
+export function EditarTarefaForm({
   tarefa,
   onUpdated,
 }: {
   tarefa: TarefaDetalhe
   onUpdated: () => Promise<void>
 }) {
-  const [isOpen, setIsOpen] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
   const [isLoadingDados, setIsLoadingDados] = useState(false)
   const [usuarios, setUsuarios] = useState<UserConfigItem[]>([])
@@ -102,10 +93,6 @@ export function EditarTarefaModal({
   }, [form, tarefa])
 
   useEffect(() => {
-    if (!isOpen) {
-      return
-    }
-
     async function carregarDados() {
       try {
         setIsLoadingDados(true)
@@ -123,7 +110,7 @@ export function EditarTarefaModal({
     }
 
     void carregarDados()
-  }, [isOpen])
+  }, [])
 
   async function onSubmit(values: EditarTarefaFormData) {
     try {
@@ -142,7 +129,6 @@ export function EditarTarefaModal({
       })
 
       toast.success("Tarefa atualizada com sucesso.")
-      setIsOpen(false)
       await onUpdated()
     } catch (error) {
       toast.error(getErrorMessage(error, "Nao foi possivel atualizar a tarefa."))
@@ -152,16 +138,15 @@ export function EditarTarefaModal({
   }
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger render={<Button type="button">Editar tarefa</Button>} />
-      <DialogContent className="sm:max-w-xl">
-        <DialogHeader>
-          <DialogTitle>Editar tarefa</DialogTitle>
-          <DialogDescription>Atualize os dados principais da tarefa.</DialogDescription>
-        </DialogHeader>
+    <Card>
+      <CardHeader>
+        <CardTitle>Editar tarefa</CardTitle>
+        <CardDescription>Atualize os dados principais da tarefa.</CardDescription>
+      </CardHeader>
 
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-          <FieldGroup className="px-4">
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <CardContent>
+          <FieldGroup>
             <div className="grid gap-4 md:grid-cols-2">
               <Field className="md:col-span-2">
                 <FieldLabel htmlFor="editar-tarefa-nome">Titulo</FieldLabel>
@@ -369,14 +354,14 @@ export function EditarTarefaModal({
               </Field>
             </div>
           </FieldGroup>
+        </CardContent>
 
-          <DialogFooter>
+        <CardFooter>
             <Button type="submit" disabled={isSaving || isLoadingDados}>
               {isSaving ? "Salvando..." : "Salvar alteracoes"}
             </Button>
-          </DialogFooter>
-        </form>
-      </DialogContent>
-    </Dialog>
+        </CardFooter>
+      </form>
+    </Card>
   )
 }
