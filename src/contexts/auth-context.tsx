@@ -8,6 +8,7 @@ type AuthUser = {
   id: number
   name: string
   email: string
+  perfil?: string | null
 }
 
 type LoginInput = {
@@ -18,13 +19,14 @@ type LoginInput = {
 type LoginResult = {
   success: boolean
   message?: string
+  redirectTo?: string
 }
 
 type AuthContextValue = {
   user: AuthUser | null
   loadingProfile: boolean
   login: (input: LoginInput) => Promise<LoginResult>
-  loadProfile: () => Promise<void>
+  loadProfile: () => Promise<AuthUser | null>
   logout: () => void
 }
 
@@ -40,9 +42,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       const response = await api.get<AuthUser>("/api/profile")
       setUser(response.data)
+      return response.data
     } catch {
       localStorage.removeItem("token")
       setUser(null)
+      return null
     } finally {
       setLoadingProfile(false)
     }
@@ -58,9 +62,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
         localStorage.setItem("token", response.data.token)
         setLoadingProfile(true)
-        await loadProfile()
+        const profile = await loadProfile()
 
-        return { success: true }
+        if (profile?.perfil === "funcionario") {
+          return { success: true, redirectTo: "/app/tarefas" }
+        }
+
+        return { success: true, redirectTo: "/app" }
       } catch (error: unknown) {
         const defaultMessage = "Nao foi possivel entrar. Verifique seus dados."
 

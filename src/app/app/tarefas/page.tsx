@@ -7,6 +7,7 @@ import {ChevronDownIcon, Columns3Icon, LayoutGridIcon, SearchIcon, Table2Icon} f
 import {toast} from "sonner"
 
 import {listarUsersTodosConfig} from "@/lib/configuracoes-api"
+import { usePermissaoPerfil } from "@/hooks/use-permissao-perfil"
 import {listarProjetos} from "@/lib/projetos-api"
 import {atualizarStatusTarefa, listarTarefas, listarTarefasKanban} from "@/lib/tarefas-api"
 import type {UserConfigItem} from "@/types/configuracoes"
@@ -66,6 +67,7 @@ function formatDateFilter(date?: Date) {
 }
 
 export default function Page() {
+    const { podeCriarTarefa, podeGerenciarTarefa } = usePermissaoPerfil()
     const [isLoading, setIsLoading] = useState(true)
     const [isRefreshing, setIsRefreshing] = useState(false)
     const [viewMode, setViewMode] = useState<ViewMode>("grade")
@@ -352,6 +354,11 @@ export default function Page() {
         statusDestino: TarefaStatus
         indexDestino?: number
     }) {
+        if (!podeGerenciarTarefa) {
+            toast.error("Voce nao tem permissao para esta operacao")
+            return
+        }
+
         const snapshot = tarefasKanban
         const indexOrigem = snapshot[statusOrigem].findIndex((item) => item.id === tarefaId)
         const indexDestinoFinal =
@@ -425,7 +432,7 @@ export default function Page() {
                     <h1 className="text-xl font-semibold">Central de tarefas</h1>
                     <p className="text-sm text-muted-foreground">Gerencie e acompanhe as tarefas da equipe.</p>
                 </div>
-                <CriarTarefaModal onCreated={() => carregarTarefas({silent: true})}/>
+                {podeCriarTarefa ? <CriarTarefaModal onCreated={() => carregarTarefas({silent: true})}/> : null}
             </div>
 
             <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-5">

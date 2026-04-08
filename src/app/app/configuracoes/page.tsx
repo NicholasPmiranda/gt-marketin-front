@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { KeyRoundIcon, LayersIcon, ListTodoIcon, TagsIcon, UsersIcon } from "lucide-react"
 
+import { usePermissaoPerfil } from "@/hooks/use-permissao-perfil"
 import type { ConfigTab } from "@/types/configuracoes"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import {
@@ -14,6 +15,7 @@ import {
 import { TarefasModeloTabContent } from "./components/tarefas-modelo-tab-content"
 
 export default function Page() {
+  const { podeAcessarUsuario, podeAcessarSetor, podeAcessarEtiqueta } = usePermissaoPerfil()
   const [activeTab, setActiveTab] = useState<ConfigTab>("users")
 
   return (
@@ -25,18 +27,24 @@ export default function Page() {
         className="gap-6"
       >
         <TabsList variant="line" className="min-w-52 items-start">
-          <TabsTrigger value="users">
-            <UsersIcon className="size-4" />
-            Equipe
-          </TabsTrigger>
-          <TabsTrigger value="setores">
-            <LayersIcon className="size-4" />
-            Setores
-          </TabsTrigger>
-          <TabsTrigger value="etiquetas">
-            <TagsIcon className="size-4" />
-            Etiquetas
-          </TabsTrigger>
+          {podeAcessarUsuario ? (
+            <TabsTrigger value="users">
+              <UsersIcon className="size-4" />
+              Equipe
+            </TabsTrigger>
+          ) : null}
+          {podeAcessarSetor ? (
+            <TabsTrigger value="setores">
+              <LayersIcon className="size-4" />
+              Setores
+            </TabsTrigger>
+          ) : null}
+          {podeAcessarEtiqueta ? (
+            <TabsTrigger value="etiquetas">
+              <TagsIcon className="size-4" />
+              Etiquetas
+            </TabsTrigger>
+          ) : null}
           <TabsTrigger value="tarefas-modelo">
             <ListTodoIcon className="size-4" />
             Tarefa modelo
@@ -47,9 +55,9 @@ export default function Page() {
           </TabsTrigger>
         </TabsList>
 
-        {activeTab === "users" && <UsersTabContent />}
-        {activeTab === "setores" && <SetoresTabContent />}
-        {activeTab === "etiquetas" && <EtiquetasTabContent />}
+        {activeTab === "users" && podeAcessarUsuario && <UsersTabContent />}
+        {activeTab === "setores" && podeAcessarSetor && <SetoresTabContent />}
+        {activeTab === "etiquetas" && podeAcessarEtiqueta && <EtiquetasTabContent />}
         {activeTab === "tarefas-modelo" && <TarefasModeloTabContent />}
         {activeTab === "meu-perfil" && <MeuPerfilTabContent />}
       </Tabs>

@@ -4,6 +4,7 @@ import { use, useEffect, useState } from "react"
 import { toast } from "sonner"
 
 import { detalharProjeto, listarTarefasProjeto } from "@/lib/projetos-api"
+import { usePermissaoPerfil } from "@/hooks/use-permissao-perfil"
 import type { ProjetoItem, ProjetoTarefaItem } from "@/types/projetos"
 import { EditarProjetoModal } from "./components/editar-projeto-modal"
 import { ProjetoDetalheSkeleton } from "./components/projeto-detalhe-skeleton"
@@ -41,6 +42,7 @@ export default function Page({
   const [isLoading, setIsLoading] = useState(true)
   const [projeto, setProjeto] = useState<ProjetoItem | null>(null)
   const [tarefas, setTarefas] = useState<ProjetoTarefaItem[]>([])
+  const { podeGerenciarProjeto } = usePermissaoPerfil()
 
   async function carregarDados() {
     try {
@@ -96,7 +98,7 @@ export default function Page({
             {projeto.ativo ? "Ativo" : "Inativo"}
           </Badge>
         </div>
-        <EditarProjetoModal projeto={projeto} onUpdated={carregarDados} />
+        {podeGerenciarProjeto ? <EditarProjetoModal projeto={projeto} onUpdated={carregarDados} /> : null}
       </div>
 
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">

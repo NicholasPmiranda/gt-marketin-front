@@ -77,6 +77,12 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
   const router = useRouter()
   const { user, logout } = useAuth()
 
+  const isFuncionario = user?.perfil === "funcionario"
+  const navMain = isFuncionario
+    ? data.navMain.filter((item) => item.url !== "/app")
+    : data.navMain
+  const homeUrl = isFuncionario ? "/app/tarefas" : "/app"
+
   function handleLogout() {
     logout()
     router.push("/auth")
@@ -87,17 +93,17 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton
-              className="data-[slot=sidebar-menu-button]:p-1.5!"
-              render={<Link href="/app" />}
-            >
+              <SidebarMenuButton
+                className="data-[slot=sidebar-menu-button]:p-1.5!"
+                render={<Link href={homeUrl} />}
+              >
               <span className="text-base font-semibold">Gt Maketing</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
+        <NavMain items={navMain} />
       </SidebarContent>
       <SidebarFooter>
         <NavUser

@@ -21,6 +21,7 @@ import {
   listarSetoresTodosConfig,
   listarUsersConfig,
 } from "@/lib/configuracoes-api"
+import { usePermissaoPerfil } from "@/hooks/use-permissao-perfil"
 import type {
   EtiquetaConfigItem,
   SetorConfigItem,
@@ -167,7 +168,7 @@ function ConfiguracoesSkeleton() {
   )
 }
 
-function UserCard({ user, onEdit, onDelete, isDeleting }: { user: UserConfigItem; onEdit: (user: UserConfigItem) => void; onDelete: (user: UserConfigItem) => void; isDeleting: boolean }) {
+function UserCard({ user, onEdit, onDelete, isDeleting, canManage }: { user: UserConfigItem; onEdit: (user: UserConfigItem) => void; onDelete: (user: UserConfigItem) => void; isDeleting: boolean; canManage: boolean }) {
   const nome = getSafeText(user.nome, "Sem nome")
   const email = getSafeText(user.email, "Sem email")
   const status = getSafeText(user.status, "Ativo")
@@ -200,65 +201,72 @@ function UserCard({ user, onEdit, onDelete, isDeleting }: { user: UserConfigItem
             <p>{setor}</p>
             <p>{telefone}</p>
           </div>
-          <div className="flex gap-2 pt-2">
-            <Button type="button" variant="outline" size="sm" onClick={() => onEdit(user)}>
-              <PencilIcon className="size-4" />
-              Editar
-            </Button>
-            <Button type="button" variant="outline" size="sm" onClick={() => onDelete(user)} disabled={isDeleting} aria-disabled={isDeleting}>
-              <Trash2Icon className="size-4 text-destructive" />
-              {isDeleting ? "Excluindo..." : "Excluir"}
-            </Button>
-          </div>
+          {canManage ? (
+            <div className="flex gap-2 pt-2">
+              <Button type="button" variant="outline" size="sm" onClick={() => onEdit(user)}>
+                <PencilIcon className="size-4" />
+                Editar
+              </Button>
+              <Button type="button" variant="outline" size="sm" onClick={() => onDelete(user)} disabled={isDeleting} aria-disabled={isDeleting}>
+                <Trash2Icon className="size-4 text-destructive" />
+                {isDeleting ? "Excluindo..." : "Excluir"}
+              </Button>
+            </div>
+          ) : null}
         </div>
       </CardContent>
     </Card>
   )
 }
 
-function SetorCard({ setor, onEdit, onDelete, isDeleting }: { setor: SetorConfigItem; onEdit: (setor: SetorConfigItem) => void; onDelete: (setor: SetorConfigItem) => void; isDeleting: boolean }) {
+function SetorCard({ setor, onEdit, onDelete, isDeleting, canManage }: { setor: SetorConfigItem; onEdit: (setor: SetorConfigItem) => void; onDelete: (setor: SetorConfigItem) => void; isDeleting: boolean; canManage: boolean }) {
   return (
     <Card>
       <CardHeader>
         <CardTitle className="text-base">{setor.nome}</CardTitle>
         <CardDescription>Setor da organizacao</CardDescription>
-        <div className="flex gap-2 pt-2">
-          <Button type="button" variant="outline" size="sm" onClick={() => onEdit(setor)}>
-            <PencilIcon className="size-4" />
-            Editar
-          </Button>
-          <Button type="button" variant="outline" size="sm" onClick={() => onDelete(setor)} disabled={isDeleting} aria-disabled={isDeleting}>
-            <Trash2Icon className="size-4 text-destructive" />
-            {isDeleting ? "Excluindo..." : "Excluir"}
-          </Button>
-        </div>
+        {canManage ? (
+          <div className="flex gap-2 pt-2">
+            <Button type="button" variant="outline" size="sm" onClick={() => onEdit(setor)}>
+              <PencilIcon className="size-4" />
+              Editar
+            </Button>
+            <Button type="button" variant="outline" size="sm" onClick={() => onDelete(setor)} disabled={isDeleting} aria-disabled={isDeleting}>
+              <Trash2Icon className="size-4 text-destructive" />
+              {isDeleting ? "Excluindo..." : "Excluir"}
+            </Button>
+          </div>
+        ) : null}
       </CardHeader>
     </Card>
   )
 }
 
-function EtiquetaCard({ etiqueta, onEdit, onDelete, isDeleting }: { etiqueta: EtiquetaConfigItem; onEdit: (etiqueta: EtiquetaConfigItem) => void; onDelete: (etiqueta: EtiquetaConfigItem) => void; isDeleting: boolean }) {
+function EtiquetaCard({ etiqueta, onEdit, onDelete, isDeleting, canManage }: { etiqueta: EtiquetaConfigItem; onEdit: (etiqueta: EtiquetaConfigItem) => void; onDelete: (etiqueta: EtiquetaConfigItem) => void; isDeleting: boolean; canManage: boolean }) {
   return (
     <Card>
       <CardHeader>
         <CardTitle className="text-base">{etiqueta.nome}</CardTitle>
         <CardDescription>Etiqueta da organizacao</CardDescription>
-        <div className="flex gap-2 pt-2">
-          <Button type="button" variant="outline" size="sm" onClick={() => onEdit(etiqueta)}>
-            <PencilIcon className="size-4" />
-            Editar
-          </Button>
-          <Button type="button" variant="outline" size="sm" onClick={() => onDelete(etiqueta)} disabled={isDeleting} aria-disabled={isDeleting}>
-            <Trash2Icon className="size-4 text-destructive" />
-            {isDeleting ? "Excluindo..." : "Excluir"}
-          </Button>
-        </div>
+        {canManage ? (
+          <div className="flex gap-2 pt-2">
+            <Button type="button" variant="outline" size="sm" onClick={() => onEdit(etiqueta)}>
+              <PencilIcon className="size-4" />
+              Editar
+            </Button>
+            <Button type="button" variant="outline" size="sm" onClick={() => onDelete(etiqueta)} disabled={isDeleting} aria-disabled={isDeleting}>
+              <Trash2Icon className="size-4 text-destructive" />
+              {isDeleting ? "Excluindo..." : "Excluir"}
+            </Button>
+          </div>
+        ) : null}
       </CardHeader>
     </Card>
   )
 }
 
 export function UsersTabContent() {
+  const { podeCriarUsuario, podeGerenciarUsuario } = usePermissaoPerfil()
   const [isLoading, setIsLoading] = useState(true)
   const [search, setSearch] = useState("")
   const [users, setUsers] = useState<UserConfigItem[]>([])
@@ -303,6 +311,11 @@ export function UsersTabContent() {
   }, [search, users])
 
   async function onSubmitUser(data: UserFormData) {
+    if (!podeCriarUsuario) {
+      toast.error("Voce nao tem permissao para esta operacao")
+      return
+    }
+
     try {
       const novoUser = await criarUserConfig({
         name: data.nome,
@@ -323,6 +336,11 @@ export function UsersTabContent() {
   }
 
   async function onSubmitUserEdicao(data: UserFormData) {
+    if (!podeGerenciarUsuario) {
+      toast.error("Voce nao tem permissao para esta operacao")
+      return
+    }
+
     if (!userSelecionado) {
       return
     }
@@ -349,6 +367,11 @@ export function UsersTabContent() {
   }
 
   function abrirModalEdicaoUser(user: UserConfigItem) {
+    if (!podeGerenciarUsuario) {
+      toast.error("Voce nao tem permissao para esta operacao")
+      return
+    }
+
     setUserSelecionado(user)
     setIsUsuarioEditAtivo(Boolean(user.ativo))
     resetUserEdit({
@@ -363,11 +386,21 @@ export function UsersTabContent() {
   }
 
   function solicitarExclusaoUser(user: UserConfigItem) {
+    if (!podeGerenciarUsuario) {
+      toast.error("Voce nao tem permissao para esta operacao")
+      return
+    }
+
     setUserParaExcluir(user)
     setIsDeleteUserDialogOpen(true)
   }
 
   async function confirmarExclusaoUser() {
+    if (!podeGerenciarUsuario) {
+      toast.error("Voce nao tem permissao para esta operacao")
+      return
+    }
+
     if (!userParaExcluir) {
       return
     }
@@ -395,10 +428,12 @@ export function UsersTabContent() {
             <CardDescription>Todos os usuarios cadastrados no sistema</CardDescription>
           </div>
           <Dialog open={isUserModalOpen} onOpenChange={setIsUserModalOpen}>
-            <DialogTrigger className={buttonVariants()}>
-              <PlusIcon />
-              Adicionar usuario
-            </DialogTrigger>
+            {podeCriarUsuario ? (
+              <DialogTrigger className={buttonVariants()}>
+                <PlusIcon />
+                Adicionar usuario
+              </DialogTrigger>
+            ) : null}
             <DialogContent>
               <DialogHeader>
                 <DialogTitle>Adicionar Novo Usuario</DialogTitle>
@@ -641,7 +676,7 @@ export function UsersTabContent() {
           ) : (
             <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
               {filteredUsers.map((item) => (
-                <UserCard key={item.id} user={item} onEdit={abrirModalEdicaoUser} onDelete={solicitarExclusaoUser} isDeleting={deletingUserId === item.id} />
+                <UserCard key={item.id} user={item} onEdit={abrirModalEdicaoUser} onDelete={solicitarExclusaoUser} isDeleting={deletingUserId === item.id} canManage={podeGerenciarUsuario} />
               ))}
             </div>
           )}
@@ -667,6 +702,7 @@ export function UsersTabContent() {
 }
 
 export function SetoresTabContent() {
+  const { podeCriarSetor, podeGerenciarSetor } = usePermissaoPerfil()
   const [isLoading, setIsLoading] = useState(true)
   const [search, setSearch] = useState("")
   const [setores, setSetores] = useState<SetorConfigItem[]>([])
@@ -702,6 +738,11 @@ export function SetoresTabContent() {
   }, [search, setores])
 
   async function onSubmitSetor(data: SetorFormData) {
+    if (!podeCriarSetor) {
+      toast.error("Voce nao tem permissao para esta operacao")
+      return
+    }
+
     try {
       const novoSetor = await criarSetorConfig({ nome: data.nome })
       setSetores((oldState) => [novoSetor, ...oldState])
@@ -714,6 +755,11 @@ export function SetoresTabContent() {
   }
 
   async function onSubmitSetorEdicao(data: SetorFormData) {
+    if (!podeGerenciarSetor) {
+      toast.error("Voce nao tem permissao para esta operacao")
+      return
+    }
+
     if (!setorSelecionado) {
       return
     }
@@ -731,17 +777,32 @@ export function SetoresTabContent() {
   }
 
   function abrirModalEdicaoSetor(setor: SetorConfigItem) {
+    if (!podeGerenciarSetor) {
+      toast.error("Voce nao tem permissao para esta operacao")
+      return
+    }
+
     setSetorSelecionado(setor)
     resetSetorEdit({ nome: setor.nome })
     setIsSetorEditModalOpen(true)
   }
 
   function solicitarExclusaoSetor(setor: SetorConfigItem) {
+    if (!podeGerenciarSetor) {
+      toast.error("Voce nao tem permissao para esta operacao")
+      return
+    }
+
     setSetorParaExcluir(setor)
     setIsDeleteSetorDialogOpen(true)
   }
 
   async function confirmarExclusaoSetor() {
+    if (!podeGerenciarSetor) {
+      toast.error("Voce nao tem permissao para esta operacao")
+      return
+    }
+
     if (!setorParaExcluir) {
       return
     }
@@ -770,7 +831,7 @@ export function SetoresTabContent() {
           </div>
 
           <Dialog open={isSetorModalOpen} onOpenChange={setIsSetorModalOpen}>
-            <DialogTrigger className={buttonVariants()}><PlusIcon />Adicionar setor</DialogTrigger>
+            {podeCriarSetor ? <DialogTrigger className={buttonVariants()}><PlusIcon />Adicionar setor</DialogTrigger> : null}
             <DialogContent>
               <DialogHeader>
                 <DialogTitle>Cadastrar setor</DialogTitle>
@@ -826,7 +887,7 @@ export function SetoresTabContent() {
           {isLoading ? <ConfiguracoesSkeleton /> : (
             <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
               {filteredSetores.map((item) => (
-                <SetorCard key={item.id} setor={item} onEdit={abrirModalEdicaoSetor} onDelete={solicitarExclusaoSetor} isDeleting={deletingSetorId === item.id} />
+                <SetorCard key={item.id} setor={item} onEdit={abrirModalEdicaoSetor} onDelete={solicitarExclusaoSetor} isDeleting={deletingSetorId === item.id} canManage={podeGerenciarSetor} />
               ))}
             </div>
           )}
@@ -852,6 +913,7 @@ export function SetoresTabContent() {
 }
 
 export function EtiquetasTabContent() {
+  const { podeCriarEtiqueta, podeGerenciarEtiqueta } = usePermissaoPerfil()
   const [isLoading, setIsLoading] = useState(true)
   const [search, setSearch] = useState("")
   const [etiquetas, setEtiquetas] = useState<EtiquetaConfigItem[]>([])
@@ -893,6 +955,11 @@ export function EtiquetasTabContent() {
   }, [search, etiquetas])
 
   async function onSubmitEtiqueta(data: EtiquetaFormData) {
+    if (!podeCriarEtiqueta) {
+      toast.error("Voce nao tem permissao para esta operacao")
+      return
+    }
+
     try {
       const novaEtiqueta = await criarEtiquetaConfig({ nome: data.nome })
       setEtiquetas((oldState) => [novaEtiqueta, ...oldState])
@@ -905,6 +972,11 @@ export function EtiquetasTabContent() {
   }
 
   async function onSubmitEtiquetaEdicao(data: EtiquetaFormData) {
+    if (!podeGerenciarEtiqueta) {
+      toast.error("Voce nao tem permissao para esta operacao")
+      return
+    }
+
     if (!etiquetaSelecionada) {
       return
     }
@@ -922,17 +994,32 @@ export function EtiquetasTabContent() {
   }
 
   function abrirModalEdicaoEtiqueta(etiqueta: EtiquetaConfigItem) {
+    if (!podeGerenciarEtiqueta) {
+      toast.error("Voce nao tem permissao para esta operacao")
+      return
+    }
+
     setEtiquetaSelecionada(etiqueta)
     resetEtiquetaEdit({ nome: etiqueta.nome })
     setIsEtiquetaEditModalOpen(true)
   }
 
   function solicitarExclusaoEtiqueta(etiqueta: EtiquetaConfigItem) {
+    if (!podeGerenciarEtiqueta) {
+      toast.error("Voce nao tem permissao para esta operacao")
+      return
+    }
+
     setEtiquetaParaExcluir(etiqueta)
     setIsDeleteEtiquetaDialogOpen(true)
   }
 
   async function confirmarExclusaoEtiqueta() {
+    if (!podeGerenciarEtiqueta) {
+      toast.error("Voce nao tem permissao para esta operacao")
+      return
+    }
+
     if (!etiquetaParaExcluir) {
       return
     }
@@ -961,7 +1048,7 @@ export function EtiquetasTabContent() {
           </div>
 
           <Dialog open={isEtiquetaModalOpen} onOpenChange={setIsEtiquetaModalOpen}>
-            <DialogTrigger className={buttonVariants()}><PlusIcon />Adicionar etiqueta</DialogTrigger>
+            {podeCriarEtiqueta ? <DialogTrigger className={buttonVariants()}><PlusIcon />Adicionar etiqueta</DialogTrigger> : null}
             <DialogContent>
               <DialogHeader>
                 <DialogTitle>Cadastrar etiqueta</DialogTitle>
@@ -1017,7 +1104,7 @@ export function EtiquetasTabContent() {
           {isLoading ? <ConfiguracoesSkeleton /> : (
             <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
               {filteredEtiquetas.map((item) => (
-                <EtiquetaCard key={item.id} etiqueta={item} onEdit={abrirModalEdicaoEtiqueta} onDelete={solicitarExclusaoEtiqueta} isDeleting={deletingEtiquetaId === item.id} />
+                <EtiquetaCard key={item.id} etiqueta={item} onEdit={abrirModalEdicaoEtiqueta} onDelete={solicitarExclusaoEtiqueta} isDeleting={deletingEtiquetaId === item.id} canManage={podeGerenciarEtiqueta} />
               ))}
             </div>
           )}

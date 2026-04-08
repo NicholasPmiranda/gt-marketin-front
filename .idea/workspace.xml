@@ -4,11 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e7fddfb5-2083-46ab-a350-c03f1d2d5fb2" name="Changes" comment="Add support for &quot;meu-perfil&quot; tab and password handling in configuration types">
+    <list default="true" id="e7fddfb5-2083-46ab-a350-c03f1d2d5fb2" name="Changes" comment="Add documentation for shadcn rules, CLI usage, and customization guidelines">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AGENTS.md" beforeDir="false" afterPath="$PROJECT_DIR$/AGENTS.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/app/tarefas/[tarefaId]/components/editar-tarefa-modal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app/tarefas/[tarefaId]/components/editar-tarefa-modal.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/app/configuracoes/components/configuracoes-tabs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app/configuracoes/components/configuracoes-tabs.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/app/configuracoes/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app/configuracoes/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/app/projetos/[projetoId]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app/projetos/[projetoId]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/app/projetos/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app/projetos/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/app/tarefas/[tarefaId]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app/tarefas/[tarefaId]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/app/tarefas/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app/tarefas/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/app-sidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/app-sidebar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/login-form.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/login-form.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/contexts/auth-context.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/contexts/auth-context.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -143,7 +150,7 @@
       <workItem from="1775220262640" duration="26687000" />
       <workItem from="1775309032706" duration="1584000" />
       <workItem from="1775480650065" duration="1664000" />
-      <workItem from="1775604263585" duration="893000" />
+      <workItem from="1775604263585" duration="2544000" />
     </task>
     <task id="LOCAL-00001" summary="wip">
       <option name="closed" value="true" />
@@ -521,7 +528,15 @@
       <option name="project" value="LOCAL" />
       <updated>1775353820557</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="Add documentation for shadcn rules, CLI usage, and customization guidelines">
+      <option name="closed" value="true" />
+      <created>1775606339329</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1775606339329</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -541,7 +556,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="feat: update credit card filters to support statement-based filtering&#10;&#10;Replace year/month filters with a unified statement filter in `CartaoLancamentosFiltros`. Integrate fatura listing with `listarFaturasUnicas` and adapt the user interface for improved usability. Update related service methods and documentation to reflect the new behavior. Simplify total calculations and refactor table components for enhanced readability." />
     <MESSAGE value="feat: add installment column to credit card transactions table&#10;&#10;Include a new &quot;Parcelas&quot; column in `CartaoTabTabela` to display installment details. Update service types to support installment data (`parcelamento`, `parcelas`, `parcela_atual`) and adjust table rendering logic accordingly." />
     <MESSAGE value="feat: add transaction list refresh on OFX import&#10;&#10;Introduce a transaction update mechanism triggered on successful OFX import in `CartaoOfxModal`. Enhance `CartaoTabTabela` to re-fetch data based on a new refresh parameter. Adjust related components and services to support the updated flow." />
     <MESSAGE value="feat: add parcelas tab and payment history for credit cards&#10;&#10;Introduce the `CartaoTabParcelas` component to display active credit card installments and their details. Add functionality to view payment history per installment through a dialog. Update services to fetch installment and payment data and enhance the credit card detail page with a new &quot;Parcelas&quot; tab for improved user workflow." />
@@ -566,7 +580,8 @@
     <MESSAGE value="Add documentation for Reuniões endpoints and task archiving functionality" />
     <MESSAGE value="Implement Reuniões feature with AI task approval, meeting details, and transcription functionalities" />
     <MESSAGE value="Add support for &quot;meu-perfil&quot; tab and password handling in configuration types" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add support for &quot;meu-perfil&quot; tab and password handling in configuration types" />
+    <MESSAGE value="Add documentation for shadcn rules, CLI usage, and customization guidelines" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add documentation for shadcn rules, CLI usage, and customization guidelines" />
     <option name="NON_MODAL_COMMIT_POSTPONE_SLOW_CHECKS" value="false" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">

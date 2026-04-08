@@ -7,6 +7,7 @@ import { differenceInCalendarDays, format, intervalToDuration, isValid, startOfD
 import { toast } from "sonner"
 
 import { criarComentarioTarefa, detalharTarefa, excluirTarefa } from "@/lib/tarefas-api"
+import { usePermissaoPerfil } from "@/hooks/use-permissao-perfil"
 import type { TarefaDetalhe } from "@/types/tarefas"
 import {
   AlertDialog,
@@ -193,6 +194,7 @@ export default function Page({
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
   const [isDeletingTask, setIsDeletingTask] = useState(false)
   const [tarefa, setTarefa] = useState<TarefaDetalhe | null>(null)
+  const { podeCriarTarefa, podeGerenciarTarefa } = usePermissaoPerfil()
 
   async function carregarTarefa() {
     try {
@@ -228,6 +230,11 @@ export default function Page({
   }
 
   async function handleExcluirTarefa() {
+    if (!podeGerenciarTarefa) {
+      toast.error("Voce nao tem permissao para esta operacao")
+      return
+    }
+
     try {
       setIsDeletingTask(true)
       await excluirTarefa(tarefaIdNumber)
@@ -261,33 +268,35 @@ export default function Page({
   return (
     <div className="flex flex-1 flex-col gap-6 p-4 lg:p-6">
       <div className="flex flex-wrap items-center justify-end gap-2">
-        <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
-          <AlertDialogTrigger render={<Button type="button" variant="destructive" />}>Excluir tarefa</AlertDialogTrigger>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Excluir tarefa</AlertDialogTitle>
-              <AlertDialogDescription>
-                Esta acao vai remover a tarefa {tarefa.nome}. Deseja continuar?
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel render={<Button type="button" variant="outline" />}>Cancelar</AlertDialogCancel>
-              <AlertDialogAction
-                render={<Button type="button" variant="destructive" />}
-                onClick={handleExcluirTarefa}
-                disabled={isDeletingTask}
-              >
-                {isDeletingTask ? "Excluindo..." : "Excluir"}
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
+        {podeGerenciarTarefa ? (
+          <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+            <AlertDialogTrigger render={<Button type="button" variant="destructive" />}>Excluir tarefa</AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Excluir tarefa</AlertDialogTitle>
+                <AlertDialogDescription>
+                  Esta acao vai remover a tarefa {tarefa.nome}. Deseja continuar?
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel render={<Button type="button" variant="outline" />}>Cancelar</AlertDialogCancel>
+                <AlertDialogAction
+                  render={<Button type="button" variant="destructive" />}
+                  onClick={handleExcluirTarefa}
+                  disabled={isDeletingTask}
+                >
+                  {isDeletingTask ? "Excluindo..." : "Excluir"}
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        ) : null}
 
       </div>
 
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
         <div className="space-y-6">
-          <EditarTarefaForm tarefa={tarefa} onUpdated={carregarTarefa} />
+          {podeGerenciarTarefa ? <EditarTarefaForm tarefa={tarefa} onUpdated={carregarTarefa} /> : null}
 
           <Card>
             <CardHeader className="space-y-3">
@@ -304,7 +313,7 @@ export default function Page({
           <Card>
             <CardHeader className="flex-row items-center justify-between">
               <CardTitle>Subtarefas</CardTitle>
-              <CriarSubtarefaModal tarefa={tarefa} onCreated={carregarTarefa} />
+              {podeCriarTarefa ? <CriarSubtarefaModal tarefa={tarefa} onCreated={carregarTarefa} /> : null}
             </CardHeader>
             <CardContent>
               {tarefa.subtarefas.length > 0 ? (

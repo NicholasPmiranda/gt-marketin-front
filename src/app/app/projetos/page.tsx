@@ -5,6 +5,7 @@ import { SearchIcon } from "lucide-react"
 import { toast } from "sonner"
 
 import { listarProjetos } from "@/lib/projetos-api"
+import { usePermissaoPerfil } from "@/hooks/use-permissao-perfil"
 import type { ProjetoItem } from "@/types/projetos"
 import { CriarProjetoModal } from "./components/criar-projeto-modal"
 import { ProjetoCard } from "./components/projeto-card"
@@ -32,6 +33,7 @@ function getErrorMessage(error: unknown, fallback: string) {
 }
 
 export default function Page() {
+  const { podeCriarProjeto } = usePermissaoPerfil()
   const [isLoading, setIsLoading] = useState(true)
   const [isRefreshing, setIsRefreshing] = useState(false)
   const [projetos, setProjetos] = useState<ProjetoItem[]>([])
@@ -86,9 +88,11 @@ export default function Page() {
           </Button>
         </div>
 
-        <div className="ml-auto">
-          <CriarProjetoModal onCreated={() => carregarProjetos(true)} />
-        </div>
+        {podeCriarProjeto ? (
+          <div className="ml-auto">
+            <CriarProjetoModal onCreated={() => carregarProjetos(true)} />
+          </div>
+        ) : null}
       </div>
 
       {isLoading ? (

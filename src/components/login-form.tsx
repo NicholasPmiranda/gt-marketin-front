@@ -50,7 +50,7 @@ export function LoginForm({
       return
     }
 
-    router.push("/app")
+    router.push(result.redirectTo ?? "/app")
   }
 
   return (
