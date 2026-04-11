@@ -4,18 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e7fddfb5-2083-46ab-a350-c03f1d2d5fb2" name="Changes" comment="Add documentation for shadcn rules, CLI usage, and customization guidelines">
+    <list default="true" id="e7fddfb5-2083-46ab-a350-c03f1d2d5fb2" name="Changes" comment="Add role-based permission handling for app features and UI components">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/app/configuracoes/components/configuracoes-tabs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app/configuracoes/components/configuracoes-tabs.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/app/configuracoes/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app/configuracoes/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/app/projetos/[projetoId]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app/projetos/[projetoId]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/app/projetos/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app/projetos/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/app/tarefas/[tarefaId]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app/tarefas/[tarefaId]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/app/tarefas/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app/tarefas/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/app-sidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/app-sidebar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/login-form.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/login-form.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/contexts/auth-context.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/contexts/auth-context.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,7 +17,7 @@
     <execution />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="155" />
+    <option name="cachedIndexableFilesCount" value="172" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
@@ -150,7 +141,10 @@
       <workItem from="1775220262640" duration="26687000" />
       <workItem from="1775309032706" duration="1584000" />
       <workItem from="1775480650065" duration="1664000" />
-      <workItem from="1775604263585" duration="2544000" />
+      <workItem from="1775604263585" duration="2886000" />
+      <workItem from="1775834002792" duration="14000" />
+      <workItem from="1775834581417" duration="2167000" />
+      <workItem from="1775908539647" duration="303000" />
     </task>
     <task id="LOCAL-00001" summary="wip">
       <option name="closed" value="true" />
@@ -536,7 +530,15 @@
       <option name="project" value="LOCAL" />
       <updated>1775606339329</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="Add role-based permission handling for app features and UI components">
+      <option name="closed" value="true" />
+      <created>1775608440268</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1775608440268</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -556,7 +558,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="feat: add installment column to credit card transactions table&#10;&#10;Include a new &quot;Parcelas&quot; column in `CartaoTabTabela` to display installment details. Update service types to support installment data (`parcelamento`, `parcelas`, `parcela_atual`) and adjust table rendering logic accordingly." />
     <MESSAGE value="feat: add transaction list refresh on OFX import&#10;&#10;Introduce a transaction update mechanism triggered on successful OFX import in `CartaoOfxModal`. Enhance `CartaoTabTabela` to re-fetch data based on a new refresh parameter. Adjust related components and services to support the updated flow." />
     <MESSAGE value="feat: add parcelas tab and payment history for credit cards&#10;&#10;Introduce the `CartaoTabParcelas` component to display active credit card installments and their details. Add functionality to view payment history per installment through a dialog. Update services to fetch installment and payment data and enhance the credit card detail page with a new &quot;Parcelas&quot; tab for improved user workflow." />
     <MESSAGE value="feat: improve credit card filters with collapsible UI and month/year filtering&#10;&#10;Introduce collapsible filters in `CartaoLancamentosFiltros` for a cleaner user interface. Replace single &quot;fatura&quot; field with separate month and year filters, supported by a new `Popover` interaction. Enhance usability with a toggle for showing/hiding filters and refactor logic to align with updated design." />
@@ -581,7 +582,8 @@
     <MESSAGE value="Implement Reuniões feature with AI task approval, meeting details, and transcription functionalities" />
     <MESSAGE value="Add support for &quot;meu-perfil&quot; tab and password handling in configuration types" />
     <MESSAGE value="Add documentation for shadcn rules, CLI usage, and customization guidelines" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add documentation for shadcn rules, CLI usage, and customization guidelines" />
+    <MESSAGE value="Add role-based permission handling for app features and UI components" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add role-based permission handling for app features and UI components" />
     <option name="NON_MODAL_COMMIT_POSTPONE_SLOW_CHECKS" value="false" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
