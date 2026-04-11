@@ -1,12 +1,13 @@
-export type DashPeriodo = "dia" | "semana" | "mes"
-
 export type DashFiltros = {
   projetoId?: number
-  setorId?: number
+  responsavelIds?: number[]
   dataInicio?: string
   dataFim?: string
-  periodo?: DashPeriodo
-  limite?: number
+}
+
+export type DashOpcaoFiltro = {
+  id: number
+  nome: string
 }
 
 export type DashCards = {

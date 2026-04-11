@@ -23,10 +23,7 @@ import type { DashFiltros } from "@/types/dash"
 export default function Page() {
   const router = useRouter()
   const { user, loadingProfile } = useAuth()
-  const [filtros, setFiltros] = useState<DashFiltros>({
-    periodo: "mes",
-    limite: 10,
-  })
+  const [filtros, setFiltros] = useState<DashFiltros>({})
 
   useEffect(() => {
     if (!loadingProfile && user?.perfil === "funcionario") {
