@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e7fddfb5-2083-46ab-a350-c03f1d2d5fb2" name="Changes" comment="Add dashboard components, data types, and API integration for analytics visualization">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/app/components/dashboard/dashboard-filtros.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app/components/dashboard/dashboard-filtros.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/dash-api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/dash-api.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/types/dash.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/dash.ts" afterDir="false" />
-    </list>
+    <list default="true" id="e7fddfb5-2083-46ab-a350-c03f1d2d5fb2" name="Changes" comment="Add dashboard components, data types, and API integration for analytics visualization" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -33,7 +27,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="setup-limpo" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />

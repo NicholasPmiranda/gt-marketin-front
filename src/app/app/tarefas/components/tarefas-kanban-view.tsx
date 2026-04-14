@@ -96,7 +96,7 @@ function KanbanTaskCard({
   const sortable = useSortable({
     id: `tarefa-${tarefa.id}`,
     index,
-    group: status,
+    group: "tarefas",
     type: "tarefa",
     accept: "tarefa",
     data: {
@@ -392,10 +392,11 @@ export function TarefasKanbanView({
     const tarefaId = sourceData?.tarefaId ?? parseTaskId(source?.id) ?? activeTask?.tarefa.id
     const statusOrigem = sourceData?.status ?? activeTask?.status
     const targetRawId = target?.id
+    const isSelfTarget = targetData?.type === "tarefa" && targetData.tarefaId === tarefaId
     const statusDestino =
-      targetData?.status ??
       highlightedStatus ??
       lastOverStatusRef.current ??
+      (!isSelfTarget ? targetData?.status : null) ??
       (typeof targetRawId === "string" ? parseStatusFromDropId(targetRawId) : null)
 
     if (typeof tarefaId !== "number" || !statusOrigem || !statusDestino) {
@@ -405,9 +406,9 @@ export function TarefasKanbanView({
 
     let indexDestino: number | undefined
     const tarefaDestinoId =
-      targetData?.tarefaId ??
       highlightedTaskId ??
       lastOverTaskIdRef.current ??
+      (!isSelfTarget ? targetData?.tarefaId : null) ??
       parseTaskId(targetRawId)
 
     if (typeof tarefaDestinoId === "number") {
