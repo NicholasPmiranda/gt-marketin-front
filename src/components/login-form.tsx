@@ -97,9 +97,6 @@ export function LoginForm({
                 <Button type="submit" disabled={isSubmitting}>
                   {isSubmitting ? "Entrando..." : "Entrar"}
                 </Button>
-                <FieldDescription className="text-center">
-                  Nao tem conta? <Link href="#">Criar conta</Link>
-                </FieldDescription>
               </Field>
             </FieldGroup>
           </form>
