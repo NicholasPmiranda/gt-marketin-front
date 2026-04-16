@@ -9,7 +9,7 @@ import {toast} from "sonner"
 import {listarUsersTodosConfig} from "@/lib/configuracoes-api"
 import { usePermissaoPerfil } from "@/hooks/use-permissao-perfil"
 import {listarProjetos} from "@/lib/projetos-api"
-import {atualizarStatusTarefa, listarTarefas, listarTarefasKanban} from "@/lib/tarefas-api"
+import {arquivarTarefa, atualizarStatusTarefa, listarTarefas, listarTarefasKanban} from "@/lib/tarefas-api"
 import type {UserConfigItem} from "@/types/configuracoes"
 import type {ProjetoItem} from "@/types/projetos"
 import type {TarefaItem, TarefasKanban, TarefaStatus} from "@/types/tarefas"
@@ -76,6 +76,7 @@ export default function Page() {
     const [statusFilter, setStatusFilter] = useState<StatusFilter>("todos")
     const [prioridadeFilter, setPrioridadeFilter] = useState<PrioridadeFilter>("todos")
     const [responsavelFilter, setResponsavelFilter] = useState("todos")
+    const [arquivadasFilter, setArquivadasFilter] = useState(false)
     const [agendamentoFilter, setAgendamentoFilter] = useState<Date | undefined>(undefined)
     const [inicioFilter, setInicioFilter] = useState<Date | undefined>(undefined)
     const [fimFilter, setFimFilter] = useState<Date | undefined>(undefined)
@@ -87,6 +88,7 @@ export default function Page() {
     const [lastPage, setLastPage] = useState(1)
     const [total, setTotal] = useState(0)
     const [movingTaskId, setMovingTaskId] = useState<number | null>(null)
+    const [archivingTaskId, setArchivingTaskId] = useState<number | null>(null)
     const [isViewModeReady, setIsViewModeReady] = useState(false)
     const requestIdRef = useRef(0)
 
@@ -140,6 +142,7 @@ export default function Page() {
         statusFilterOverride,
         prioridadeFilterOverride,
         responsavelFilterOverride,
+        arquivadasFilterOverride,
         agendamentoFilterOverride,
         inicioFilterOverride,
         fimFilterOverride,
@@ -151,6 +154,7 @@ export default function Page() {
         statusFilterOverride?: StatusFilter
         prioridadeFilterOverride?: PrioridadeFilter
         responsavelFilterOverride?: string
+        arquivadasFilterOverride?: boolean
         agendamentoFilterOverride?: Date | undefined
         inicioFilterOverride?: Date | undefined
         fimFilterOverride?: Date | undefined
@@ -162,6 +166,7 @@ export default function Page() {
         const statusFilterAtual = statusFilterOverride ?? statusFilter
         const prioridadeFilterAtual = prioridadeFilterOverride ?? prioridadeFilter
         const responsavelFilterAtual = responsavelFilterOverride ?? responsavelFilter
+        const arquivadasFilterAtual = arquivadasFilterOverride ?? arquivadasFilter
         const agendamentoFilterAtual = agendamentoFilterOverride ?? agendamentoFilter
         const inicioFilterAtual = inicioFilterOverride ?? inicioFilter
         const fimFilterAtual = fimFilterOverride ?? fimFilter
@@ -187,6 +192,7 @@ export default function Page() {
                     status: statusFilterAtual === "todos" ? "" : statusFilterAtual,
                     prioridade: prioridadeFilterAtual === "todos" ? "" : prioridadeFilterAtual,
                     responsavelId,
+                    arquivadas: arquivadasFilterAtual,
                     agendamento,
                     inicio,
                     fim,
@@ -210,6 +216,7 @@ export default function Page() {
                 status: statusFilterAtual === "todos" ? undefined : statusFilterAtual,
                 prioridade: prioridadeFilterAtual === "todos" ? undefined : prioridadeFilterAtual,
                 responsavelId,
+                arquivadas: arquivadasFilterAtual,
                 agendamento,
                 inicio,
                 fim,
@@ -270,6 +277,7 @@ export default function Page() {
             statusFilterOverride: "todos" as StatusFilter,
             prioridadeFilterOverride: "todos" as PrioridadeFilter,
             responsavelFilterOverride: "todos",
+            arquivadasFilterOverride: false,
             agendamentoFilterOverride: undefined,
             inicioFilterOverride: undefined,
             fimFilterOverride: undefined,
@@ -281,6 +289,7 @@ export default function Page() {
         setStatusFilter("todos")
         setPrioridadeFilter("todos")
         setResponsavelFilter("todos")
+        setArquivadasFilter(false)
         setAgendamentoFilter(undefined)
         setInicioFilter(undefined)
         setFimFilter(undefined)
@@ -397,6 +406,25 @@ export default function Page() {
         }
     }
 
+    async function handleArquivarTarefa(tarefaId: number) {
+        if (!podeGerenciarTarefa) {
+            toast.error("Voce nao tem permissao para esta operacao")
+            return
+        }
+
+        setArchivingTaskId(tarefaId)
+
+        try {
+            await arquivarTarefa(tarefaId)
+            toast.success("Tarefa arquivada.")
+            await carregarTarefas({silent: true})
+        } catch (error) {
+            toast.error(getErrorMessage(error, "Nao foi possivel arquivar a tarefa."))
+        } finally {
+            setArchivingTaskId(null)
+        }
+    }
+
     const resumo = useMemo(() => {
         if (viewMode === "kanban") {
             return {
@@ -424,6 +452,10 @@ export default function Page() {
         responsavelFilter === "todos"
             ? "Todos os responsaveis"
             : responsaveis.find((item) => String(item.id) === responsavelFilter)?.nome ?? "Todos os responsaveis"
+
+    const arquivadasSelecionadoNome = arquivadasFilter
+        ? "Somente arquivadas"
+        : "Somente nao arquivadas"
 
     return (
         <div className="flex flex-1 flex-col gap-6 p-4 lg:p-6">
@@ -597,6 +629,24 @@ export default function Page() {
                         </div>
 
                         <div className="space-y-2">
+                            <Label htmlFor="filtro-arquivadas">Arquivadas</Label>
+                            <Select
+                                value={arquivadasFilter ? "true" : "false"}
+                                onValueChange={(value) => setArquivadasFilter(value === "true")}
+                            >
+                                <SelectTrigger id="filtro-arquivadas" className="w-full">
+                                    <SelectValue placeholder="Selecione o filtro de arquivadas">
+                                        {arquivadasSelecionadoNome}
+                                    </SelectValue>
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="false">Somente nao arquivadas</SelectItem>
+                                    <SelectItem value="true">Somente arquivadas</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
+
+                        <div className="space-y-2">
                             <Label>Agendamento</Label>
                             <Popover>
                             <PopoverTrigger
@@ -706,14 +756,24 @@ export default function Page() {
                 <TarefasKanbanView
                     tarefas={tarefasKanban}
                     movingTaskId={movingTaskId}
+                    archivingTaskId={archivingTaskId}
                     onMove={handleKanbanMove}
+                    onArquivar={handleArquivarTarefa}
                 />
             ) : (
                 <>
                     {viewMode === "grade" ? (
-                        <TarefasGradeView tarefas={tarefasGrade}/>
+                        <TarefasGradeView
+                            tarefas={tarefasGrade}
+                            onArquivar={handleArquivarTarefa}
+                            archivingTaskId={archivingTaskId}
+                        />
                     ) : (
-                        <TarefasTabelaView tarefas={tarefasGrade}/>
+                        <TarefasTabelaView
+                            tarefas={tarefasGrade}
+                            onArquivar={handleArquivarTarefa}
+                            archivingTaskId={archivingTaskId}
+                        />
                     )}
                     <div className="flex items-center justify-end gap-2">
                         <Button

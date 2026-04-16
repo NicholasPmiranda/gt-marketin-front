@@ -62,6 +62,7 @@ export type ListarTarefasParams = {
   status?: TarefaStatus | ""
   prioridade?: "baixa" | "media" | "alta" | ""
   responsavelId?: number
+  arquivadas?: boolean
   agendamento?: string
   inicio?: string
   fim?: string

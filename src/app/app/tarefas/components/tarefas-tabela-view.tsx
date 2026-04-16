@@ -2,6 +2,7 @@ import Link from "next/link"
 
 import type {TarefaItem} from "@/types/tarefas"
 import {Badge} from "@/components/ui/badge"
+import {Button} from "@/components/ui/button"
 import {Card, CardContent} from "@/components/ui/card"
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table"
 import {getTarefaStatusStyles} from "./tarefas-status-styles"
@@ -46,7 +47,15 @@ function getPrioridadeClassName(prioridade: TarefaItem["prioridade"]) {
     return "bg-blue-500/10 text-blue-600 dark:text-blue-300"
 }
 
-export function TarefasTabelaView({tarefas}: { tarefas: TarefaItem[] }) {
+export function TarefasTabelaView({
+    tarefas,
+    onArquivar,
+    archivingTaskId,
+}: {
+    tarefas: TarefaItem[]
+    onArquivar: (tarefaId: number) => void
+    archivingTaskId: number | null
+}) {
     if (tarefas.length === 0) {
         return (
             <Card>
@@ -68,6 +77,7 @@ export function TarefasTabelaView({tarefas}: { tarefas: TarefaItem[] }) {
                             <TableHead>Prioridade</TableHead>
                             <TableHead>Responsavel</TableHead>
                             <TableHead>Projeto</TableHead>
+                            <TableHead className="text-right">Acoes</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -103,6 +113,27 @@ export function TarefasTabelaView({tarefas}: { tarefas: TarefaItem[] }) {
                                     </TableCell>
                                     <TableCell>{tarefa.responsaveis[0]?.name ?? "Nao definido"}</TableCell>
                                     <TableCell>{tarefa.projeto?.nome ?? "Sem projeto"}</TableCell>
+                                    <TableCell>
+                                        <div className="flex justify-end gap-2">
+                                            <Button
+                                                variant="outline"
+                                                size="sm"
+                                                render={<Link href={`/app/tarefas/${tarefa.id}`}/>}
+                                                nativeButton={false}
+                                            >
+                                                Visualizar
+                                            </Button>
+                                            <Button
+                                                type="button"
+                                                variant="outline"
+                                                size="sm"
+                                                onClick={() => onArquivar(tarefa.id)}
+                                                disabled={archivingTaskId === tarefa.id}
+                                            >
+                                                Arquivar
+                                            </Button>
+                                        </div>
+                                    </TableCell>
                                 </TableRow>
                             )
                         })}

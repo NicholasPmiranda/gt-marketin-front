@@ -193,6 +193,7 @@ export async function listarTarefas(params: ListarTarefasParams): Promise<Tarefa
       status: params.status || undefined,
       prioridade: params.prioridade || undefined,
       responsavel_id: params.responsavelId,
+      arquivadas: params.arquivadas,
       agendamento: params.agendamento || undefined,
       inicio: params.inicio || undefined,
       fim: params.fim || undefined,
@@ -220,6 +221,7 @@ export async function listarTarefasKanban({
   status,
   prioridade,
   responsavelId,
+  arquivadas,
   agendamento,
   inicio,
   fim,
@@ -229,6 +231,7 @@ export async function listarTarefasKanban({
   status?: TarefaStatus
   prioridade?: "baixa" | "media" | "alta"
   responsavelId?: number
+  arquivadas?: boolean
   agendamento?: string
   inicio?: string
   fim?: string
@@ -240,6 +243,7 @@ export async function listarTarefasKanban({
       status: status || undefined,
       prioridade: prioridade || undefined,
       responsavel_id: responsavelId,
+      arquivadas,
       agendamento: agendamento || undefined,
       inicio: inicio || undefined,
       fim: fim || undefined,
@@ -300,6 +304,11 @@ export async function atualizarStatusTarefa({
     lista_itens: listaItens,
   })
 
+  return normalizarTarefa(response.data)
+}
+
+export async function arquivarTarefa(tarefaId: number) {
+  const response = await api.post(`${endpointMap.tarefas}/arquivar-${tarefaId}`)
   return normalizarTarefa(response.data)
 }
 

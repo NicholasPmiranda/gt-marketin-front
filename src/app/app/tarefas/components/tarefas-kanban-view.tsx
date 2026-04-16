@@ -8,6 +8,7 @@ import { useSortable } from "@dnd-kit/react/sortable"
 
 import type { TarefaItem, TarefasKanban, TarefaStatus } from "@/types/tarefas"
 import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { getTarefaStatusStyles } from "./tarefas-status-styles"
 
@@ -85,13 +86,17 @@ function KanbanTaskCard({
   index,
   status,
   isSaving,
+  isArchiving,
   isDropTarget,
+  onArquivar,
 }: {
   tarefa: TarefaItem
   index: number
   status: TarefaStatus
   isSaving: boolean
+  isArchiving: boolean
   isDropTarget: boolean
+  onArquivar: (tarefaId: number) => void
 }) {
   const sortable = useSortable({
     id: `tarefa-${tarefa.id}`,
@@ -124,15 +129,30 @@ function KanbanTaskCard({
             Arrastar
           </p>
 
-          <Link
-            href={`/app/tarefas/${tarefa.id}`}
-            className="inline-flex items-center justify-center rounded-sm border p-1 text-muted-foreground transition-colors hover:bg-muted"
-            onPointerDown={(event) => event.stopPropagation()}
-            onClick={(event) => event.stopPropagation()}
-          >
-            <EyeIcon className="size-4" />
-            <span className="sr-only">Visualizar tarefa</span>
-          </Link>
+          <div className="flex items-center gap-2">
+            <Link
+              href={`/app/tarefas/${tarefa.id}`}
+              className="inline-flex items-center justify-center rounded-sm border p-1 text-muted-foreground transition-colors hover:bg-muted"
+              onPointerDown={(event) => event.stopPropagation()}
+              onClick={(event) => event.stopPropagation()}
+            >
+              <EyeIcon className="size-4" />
+              <span className="sr-only">Visualizar tarefa</span>
+            </Link>
+            <Button
+              type="button"
+              variant="outline"
+              size="xs"
+              onPointerDown={(event) => event.stopPropagation()}
+              onClick={(event) => {
+                event.stopPropagation()
+                onArquivar(tarefa.id)
+              }}
+              disabled={isSaving || isArchiving}
+            >
+              Arquivar
+            </Button>
+          </div>
         </div>
 
         <div>
@@ -275,10 +295,13 @@ function KanbanTaskDragPreview({
 export function TarefasKanbanView({
   tarefas,
   movingTaskId,
+  archivingTaskId,
   onMove,
+  onArquivar,
 }: {
   tarefas: TarefasKanban
   movingTaskId: number | null
+  archivingTaskId: number | null
   onMove: ({
     tarefaId,
     statusOrigem,
@@ -290,6 +313,7 @@ export function TarefasKanbanView({
     statusDestino: TarefaStatus
     indexDestino?: number
   }) => Promise<void>
+  onArquivar: (tarefaId: number) => void
 }) {
   const [activeTask, setActiveTask] = useState<{ tarefa: TarefaItem; status: TarefaStatus } | null>(null)
   const [highlightedStatus, setHighlightedStatus] = useState<TarefaStatus | null>(null)
@@ -466,7 +490,9 @@ export function TarefasKanbanView({
                   index={index}
                   status={coluna.status}
                   isSaving={movingTaskId === tarefa.id}
+                  isArchiving={archivingTaskId === tarefa.id}
                   isDropTarget={highlightedTaskId === tarefa.id}
+                  onArquivar={onArquivar}
                 />
               ))}
 
