@@ -312,6 +312,12 @@ export async function arquivarTarefa(tarefaId: number) {
   return normalizarTarefa(response.data)
 }
 
+export async function arquivarTarefasEmLote(tarefaIds: number[]) {
+  await api.post(`${endpointMap.tarefas}/arquivar-em-lote`, {
+    tarefa_ids: tarefaIds,
+  })
+}
+
 export async function criarComentarioTarefa(payload: CriarComentarioPayload) {
   const response = await api.post(endpointMap.comentarios, payload)
   return normalizarComentario(response.data)

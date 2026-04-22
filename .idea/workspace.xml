@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e7fddfb5-2083-46ab-a350-c03f1d2d5fb2" name="Changes" comment="Add dashboard components, data types, and API integration for analytics visualization" />
+    <list default="true" id="e7fddfb5-2083-46ab-a350-c03f1d2d5fb2" name="Changes" comment="Add dashboard components, data types, and API integration for analytics visualization">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/app/tarefas/components/tarefas-kanban-view.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app/tarefas/components/tarefas-kanban-view.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/app/tarefas/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app/tarefas/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/tarefas-api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/tarefas-api.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,7 +19,7 @@
     <execution />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="172" />
+    <option name="cachedIndexableFilesCount" value="174" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
@@ -142,6 +147,7 @@
       <workItem from="1775834002792" duration="14000" />
       <workItem from="1775834581417" duration="2167000" />
       <workItem from="1775908539647" duration="3649000" />
+      <workItem from="1776896138222" duration="652000" />
     </task>
     <task id="LOCAL-00002" summary="feat: add authentication context and integrate login/logout functionality">
       <option name="closed" value="true" />

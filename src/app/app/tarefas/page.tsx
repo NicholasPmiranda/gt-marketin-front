@@ -9,7 +9,13 @@ import {toast} from "sonner"
 import {listarUsersTodosConfig} from "@/lib/configuracoes-api"
 import { usePermissaoPerfil } from "@/hooks/use-permissao-perfil"
 import {listarProjetos} from "@/lib/projetos-api"
-import {arquivarTarefa, atualizarStatusTarefa, listarTarefas, listarTarefasKanban} from "@/lib/tarefas-api"
+import {
+    arquivarTarefa,
+    arquivarTarefasEmLote,
+    atualizarStatusTarefa,
+    listarTarefas,
+    listarTarefasKanban,
+} from "@/lib/tarefas-api"
 import type {UserConfigItem} from "@/types/configuracoes"
 import type {ProjetoItem} from "@/types/projetos"
 import type {TarefaItem, TarefasKanban, TarefaStatus} from "@/types/tarefas"
@@ -89,6 +95,7 @@ export default function Page() {
     const [total, setTotal] = useState(0)
     const [movingTaskId, setMovingTaskId] = useState<number | null>(null)
     const [archivingTaskId, setArchivingTaskId] = useState<number | null>(null)
+    const [isArchivingDoneTasks, setIsArchivingDoneTasks] = useState(false)
     const [isViewModeReady, setIsViewModeReady] = useState(false)
     const requestIdRef = useRef(0)
 
@@ -425,6 +432,32 @@ export default function Page() {
         }
     }
 
+    async function handleArquivarTarefasFinalizadas() {
+        if (!podeGerenciarTarefa) {
+            toast.error("Voce nao tem permissao para esta operacao")
+            return
+        }
+
+        const tarefaIds = tarefasKanban.finalizado.map((item) => item.id)
+
+        if (tarefaIds.length === 0) {
+            toast.error("Nao ha tarefas finalizadas para arquivar.")
+            return
+        }
+
+        setIsArchivingDoneTasks(true)
+
+        try {
+            await arquivarTarefasEmLote(tarefaIds)
+            toast.success("Tarefas finalizadas arquivadas.")
+            await carregarTarefas({silent: true})
+        } catch (error) {
+            toast.error(getErrorMessage(error, "Nao foi possivel arquivar as tarefas finalizadas."))
+        } finally {
+            setIsArchivingDoneTasks(false)
+        }
+    }
+
     const resumo = useMemo(() => {
         if (viewMode === "kanban") {
             return {
@@ -757,8 +790,10 @@ export default function Page() {
                     tarefas={tarefasKanban}
                     movingTaskId={movingTaskId}
                     archivingTaskId={archivingTaskId}
+                    isArchivingDoneTasks={isArchivingDoneTasks}
                     onMove={handleKanbanMove}
                     onArquivar={handleArquivarTarefa}
+                    onArquivarTarefasFinalizadas={handleArquivarTarefasFinalizadas}
                 />
             ) : (
                 <>

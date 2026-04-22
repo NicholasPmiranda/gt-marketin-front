@@ -48,12 +48,14 @@ function KanbanColumn({
   titulo,
   total,
   isHighlighted,
+  headerAction,
   children,
 }: {
   status: TarefaStatus
   titulo: string
   total: number
   isHighlighted: boolean
+  headerAction?: ReactNode
   children: ReactNode
 }) {
   const { ref, isDropTarget } = useDroppable({
@@ -66,9 +68,14 @@ function KanbanColumn({
     <Card
       className={`flex h-full min-h-0 overflow-hidden flex-col border-t-2 transition-colors ${styles.coluna} ${isHighlighted ? "bg-muted/20" : ""}`}
     >
-      <CardHeader className="flex-row items-center justify-between space-y-0 pb-3">
-        <CardTitle className="text-base">{titulo}</CardTitle>
-        <Badge className={styles.chip}>{total}</Badge>
+      <CardHeader className="pb-3">
+        <div className="flex w-full items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <CardTitle className="text-base">{titulo}</CardTitle>
+            <Badge className={styles.chip}>{total}</Badge>
+          </div>
+          {headerAction ? <div className="shrink-0">{headerAction}</div> : null}
+        </div>
       </CardHeader>
       <CardContent
         ref={ref}
@@ -296,12 +303,15 @@ export function TarefasKanbanView({
   tarefas,
   movingTaskId,
   archivingTaskId,
+  isArchivingDoneTasks,
   onMove,
   onArquivar,
+  onArquivarTarefasFinalizadas,
 }: {
   tarefas: TarefasKanban
   movingTaskId: number | null
   archivingTaskId: number | null
+  isArchivingDoneTasks: boolean
   onMove: ({
     tarefaId,
     statusOrigem,
@@ -314,6 +324,7 @@ export function TarefasKanbanView({
     indexDestino?: number
   }) => Promise<void>
   onArquivar: (tarefaId: number) => void
+  onArquivarTarefasFinalizadas: () => void
 }) {
   const [activeTask, setActiveTask] = useState<{ tarefa: TarefaItem; status: TarefaStatus } | null>(null)
   const [highlightedStatus, setHighlightedStatus] = useState<TarefaStatus | null>(null)
@@ -482,6 +493,19 @@ export function TarefasKanbanView({
               titulo={coluna.titulo}
               total={tarefas[coluna.status].length}
               isHighlighted={highlightedStatus === coluna.status}
+              headerAction={
+                coluna.status === "finalizado" ? (
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="xs"
+                    onClick={onArquivarTarefasFinalizadas}
+                    disabled={isArchivingDoneTasks || movingTaskId !== null || tarefas.finalizado.length === 0}
+                  >
+                    Arquivar todas
+                  </Button>
+                ) : null
+              }
             >
               {tarefas[coluna.status].map((tarefa, index) => (
                 <KanbanTaskCard
