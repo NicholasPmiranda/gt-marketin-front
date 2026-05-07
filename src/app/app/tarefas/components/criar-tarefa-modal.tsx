@@ -1,14 +1,15 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { format } from "date-fns"
 import { ptBR } from "date-fns/locale"
-import { ChevronDownIcon } from "lucide-react"
+import { CheckIcon, ChevronDownIcon, ChevronsUpDownIcon } from "lucide-react"
 import { Controller, useForm } from "react-hook-form"
 import { toast } from "sonner"
 
 import { listarEtiquetasConfig, listarUsersConfig } from "@/lib/configuracoes-api"
-import { listarProjetos } from "@/lib/projetos-api"
+import { listarProjetosTodos } from "@/lib/projetos-api"
+import { cn } from "@/lib/utils"
 import { criarTarefa } from "@/lib/tarefas-api"
 import type { EtiquetaConfigItem, UserConfigItem } from "@/types/configuracoes"
 import type { ProjetoItem } from "@/types/projetos"
@@ -71,6 +72,8 @@ export function CriarTarefaModal({ onCreated }: { onCreated: () => Promise<void>
   const [isOpen, setIsOpen] = useState(false)
   const [isLoadingDados, setIsLoadingDados] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
+  const [isProjetoComboboxOpen, setIsProjetoComboboxOpen] = useState(false)
+  const [projetoBusca, setProjetoBusca] = useState("")
   const [projetos, setProjetos] = useState<ProjetoItem[]>([])
   const [usuarios, setUsuarios] = useState<UserConfigItem[]>([])
   const [etiquetas, setEtiquetas] = useState<EtiquetaConfigItem[]>([])
@@ -97,12 +100,12 @@ export function CriarTarefaModal({ onCreated }: { onCreated: () => Promise<void>
       try {
         setIsLoadingDados(true)
         const [projetosResponse, usuariosResponse, etiquetasResponse] = await Promise.all([
-          listarProjetos({ page: 1 }),
+          listarProjetosTodos(),
           listarUsersConfig(),
           listarEtiquetasConfig(),
         ])
 
-        setProjetos(projetosResponse.data)
+        setProjetos(projetosResponse)
         setUsuarios(usuariosResponse)
         setEtiquetas(etiquetasResponse)
       } catch (error) {
@@ -114,6 +117,16 @@ export function CriarTarefaModal({ onCreated }: { onCreated: () => Promise<void>
 
     void carregarDadosModal()
   }, [isOpen])
+
+  const projetosFiltrados = useMemo(() => {
+    const termo = projetoBusca.trim().toLowerCase()
+
+    if (!termo) {
+      return projetos
+    }
+
+    return projetos.filter((projeto) => projeto.nome.toLowerCase().includes(termo))
+  }, [projetoBusca, projetos])
 
   async function onSubmit(values: CreateTarefaFormData) {
     try {
@@ -191,20 +204,44 @@ export function CriarTarefaModal({ onCreated }: { onCreated: () => Promise<void>
                   control={form.control}
                   rules={{ required: "Projeto e obrigatorio." }}
                   render={({ field }) => (
-                    <Select value={field.value ?? ""} onValueChange={field.onChange}>
-                      <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Selecione um projeto">
-                          {projetos.find((projeto) => String(projeto.id) === field.value)?.nome}
-                        </SelectValue>
-                      </SelectTrigger>
-                      <SelectContent>
-                        {projetos.map((projeto) => (
-                          <SelectItem key={projeto.id} value={String(projeto.id)}>
-                            {projeto.nome}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                    <Popover open={isProjetoComboboxOpen} onOpenChange={setIsProjetoComboboxOpen}>
+                      <PopoverTrigger
+                        render={
+                          <Button type="button" variant="outline" className="w-full justify-between">
+                            <span className="truncate">
+                              {projetos.find((projeto) => String(projeto.id) === field.value)?.nome ?? "Selecione um projeto"}
+                            </span>
+                            <ChevronsUpDownIcon data-icon="inline-end" />
+                          </Button>
+                        }
+                      />
+                      <PopoverContent className="w-[var(--anchor-width)] p-2">
+                        <FieldGroup className="gap-2">
+                          <Input
+                            placeholder="Buscar projeto"
+                            value={projetoBusca}
+                            onChange={(event) => setProjetoBusca(event.target.value)}
+                          />
+                          <div className="max-h-56 overflow-y-auto">
+                            {projetosFiltrados.map((projeto) => (
+                              <Button
+                                key={projeto.id}
+                                type="button"
+                                variant="ghost"
+                                className="w-full justify-start"
+                                onClick={() => {
+                                  field.onChange(String(projeto.id))
+                                  setIsProjetoComboboxOpen(false)
+                                }}
+                              >
+                                <CheckIcon className={cn(field.value === String(projeto.id) ? "opacity-100" : "opacity-0")} />
+                                {projeto.nome}
+                              </Button>
+                            ))}
+                          </div>
+                        </FieldGroup>
+                      </PopoverContent>
+                    </Popover>
                   )}
                 />
                 <FieldError errors={[form.formState.errors.projetoId]} />

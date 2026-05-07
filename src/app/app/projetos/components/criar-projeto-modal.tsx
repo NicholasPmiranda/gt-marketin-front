@@ -1,11 +1,12 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
+import { CheckIcon, ChevronsUpDownIcon } from "lucide-react"
 import { Controller, useForm } from "react-hook-form"
 import { toast } from "sonner"
 
-import { criarProjeto, listarUsuariosEquipe } from "@/lib/projetos-api"
-import type { ProjetoEquipeItem } from "@/types/projetos"
+import { criarProjeto, listarGruposWhatsappProjeto, listarUsuariosEquipe } from "@/lib/projetos-api"
+import type { ProjetoEquipeItem, ProjetoWhatsappGrupoItem } from "@/types/projetos"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import {
@@ -19,14 +20,18 @@ import {
 } from "@/components/ui/dialog"
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
+import { cn } from "@/lib/utils"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 
 type CreateProjetoFormData = {
   nome: string
   descricao: string
   ativo: boolean
+  contatoGrupo: string
   equipeIds: number[]
 }
+
+const SEM_GRUPO_VALUE = "sem-grupo"
 
 function getErrorMessage(error: unknown, fallback: string) {
   if (
@@ -51,13 +56,18 @@ export function CriarProjetoModal({ onCreated }: { onCreated: () => Promise<void
   const [isOpen, setIsOpen] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
   const [isLoadingEquipe, setIsLoadingEquipe] = useState(false)
+  const [isLoadingGrupos, setIsLoadingGrupos] = useState(false)
+  const [isGrupoComboboxOpen, setIsGrupoComboboxOpen] = useState(false)
+  const [grupoBusca, setGrupoBusca] = useState("")
   const [equipe, setEquipe] = useState<ProjetoEquipeItem[]>([])
+  const [gruposWhatsapp, setGruposWhatsapp] = useState<ProjetoWhatsappGrupoItem[]>([])
 
   const form = useForm<CreateProjetoFormData>({
     defaultValues: {
       nome: "",
       descricao: "",
       ativo: true,
+      contatoGrupo: SEM_GRUPO_VALUE,
       equipeIds: [],
     },
   })
@@ -70,17 +80,33 @@ export function CriarProjetoModal({ onCreated }: { onCreated: () => Promise<void
     async function carregarEquipe() {
       try {
         setIsLoadingEquipe(true)
-        const response = await listarUsuariosEquipe()
-        setEquipe(response)
+        setIsLoadingGrupos(true)
+        const [equipeResponse, gruposResponse] = await Promise.all([
+          listarUsuariosEquipe(),
+          listarGruposWhatsappProjeto(),
+        ])
+        setEquipe(equipeResponse)
+        setGruposWhatsapp(gruposResponse)
       } catch (error) {
-        toast.error(getErrorMessage(error, "Nao foi possivel carregar a equipe."))
+        toast.error(getErrorMessage(error, "Nao foi possivel carregar os dados do projeto."))
       } finally {
         setIsLoadingEquipe(false)
+        setIsLoadingGrupos(false)
       }
     }
 
     void carregarEquipe()
   }, [isOpen])
+
+  const gruposFiltrados = useMemo(() => {
+    const termo = grupoBusca.trim().toLowerCase()
+
+    if (!termo) {
+      return gruposWhatsapp
+    }
+
+    return gruposWhatsapp.filter((grupo) => grupo.nome.toLowerCase().includes(termo))
+  }, [grupoBusca, gruposWhatsapp])
 
   async function onSubmit(values: CreateProjetoFormData) {
     try {
@@ -90,6 +116,7 @@ export function CriarProjetoModal({ onCreated }: { onCreated: () => Promise<void
         nome: values.nome,
         descricao: values.descricao,
         ativo: values.ativo,
+        contato_grupo: values.contatoGrupo === SEM_GRUPO_VALUE ? undefined : values.contatoGrupo,
         equipe_ids: values.equipeIds,
       })
 
@@ -133,6 +160,68 @@ export function CriarProjetoModal({ onCreated }: { onCreated: () => Promise<void
                 id="projeto-descricao"
                 placeholder="Digite a descricao do projeto"
                 {...form.register("descricao")}
+              />
+            </Field>
+
+            <Field>
+              <FieldLabel>Grupo do WhatsApp</FieldLabel>
+              <Controller
+                control={form.control}
+                name="contatoGrupo"
+                render={({ field }) => (
+                  <Popover open={isGrupoComboboxOpen} onOpenChange={setIsGrupoComboboxOpen}>
+                    <PopoverTrigger
+                      render={
+                        <Button type="button" variant="outline" className="w-full justify-between" disabled={isLoadingGrupos}>
+                          <span className="truncate">
+                            {field.value === SEM_GRUPO_VALUE
+                              ? "Sem grupo"
+                              : gruposWhatsapp.find((grupo) => grupo.jid === field.value)?.nome ?? "Selecione um grupo"}
+                          </span>
+                          <ChevronsUpDownIcon data-icon="inline-end" />
+                        </Button>
+                      }
+                    />
+                    <PopoverContent className="w-[var(--anchor-width)] p-2">
+                      <FieldGroup className="gap-2">
+                        <Input
+                          placeholder="Buscar grupo do WhatsApp"
+                          value={grupoBusca}
+                          onChange={(event) => setGrupoBusca(event.target.value)}
+                        />
+                        <div className="max-h-56 overflow-y-auto">
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            className="w-full justify-start"
+                            onClick={() => {
+                              field.onChange(SEM_GRUPO_VALUE)
+                              setIsGrupoComboboxOpen(false)
+                            }}
+                          >
+                            <CheckIcon className={cn(field.value === SEM_GRUPO_VALUE ? "opacity-100" : "opacity-0")} />
+                            Sem grupo
+                          </Button>
+                          {gruposFiltrados.map((grupo) => (
+                            <Button
+                              key={grupo.jid}
+                              type="button"
+                              variant="ghost"
+                              className="w-full justify-start"
+                              onClick={() => {
+                                field.onChange(grupo.jid)
+                                setIsGrupoComboboxOpen(false)
+                              }}
+                            >
+                              <CheckIcon className={cn(field.value === grupo.jid ? "opacity-100" : "opacity-0")} />
+                              {grupo.nome}
+                            </Button>
+                          ))}
+                        </div>
+                      </FieldGroup>
+                    </PopoverContent>
+                  </Popover>
+                )}
               />
             </Field>
 

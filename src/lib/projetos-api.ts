@@ -4,6 +4,7 @@ import type {
   ProjetoEquipeItem,
   ProjetoItem,
   ProjetoTarefaItem,
+  ProjetoWhatsappGrupoItem,
   ProjetosPaginados,
   UpdateProjetoPayload,
 } from "@/types/projetos"
@@ -47,6 +48,7 @@ function normalizarProjeto(payload: unknown): ProjetoItem {
     nome?: string
     descricao?: string | null
     ativo?: boolean
+    contato_grupo?: string | null
     equipe?: unknown
     created_at?: string | null
     updated_at?: string | null
@@ -57,10 +59,29 @@ function normalizarProjeto(payload: unknown): ProjetoItem {
     nome: item.nome ?? "",
     descricao: item.descricao ?? null,
     ativo: Boolean(item.ativo),
+    contatoGrupo: item.contato_grupo ?? null,
     equipe: normalizarEquipe(item.equipe),
     createdAt: item.created_at ?? null,
     updatedAt: item.updated_at ?? null,
   }
+}
+
+function normalizarGruposWhatsapp(payload: unknown): ProjetoWhatsappGrupoItem[] {
+  if (!Array.isArray(payload)) {
+    return []
+  }
+
+  return payload.map((item) => {
+    const grupo = (item ?? {}) as {
+      jid?: string
+      nome?: string
+    }
+
+    return {
+      jid: grupo.jid ?? "",
+      nome: grupo.nome ?? "",
+    }
+  })
 }
 
 function normalizarProjetosPaginados(payload: unknown): ProjetosPaginados {
@@ -142,6 +163,18 @@ export async function listarProjetos({
   })
 
   return normalizarProjetosPaginados(response.data)
+}
+
+export async function listarProjetosTodos() {
+  const response = await api.get(`${endpointMap.projetos}/todos`)
+  const payload = Array.isArray(response.data) ? response.data : []
+
+  return payload.map((item) => normalizarProjeto(item))
+}
+
+export async function listarGruposWhatsappProjeto() {
+  const response = await api.get(`${endpointMap.projetos}/grupos-whatsapp`)
+  return normalizarGruposWhatsapp(response.data)
 }
 
 export async function detalharProjeto(projetoId: number) {

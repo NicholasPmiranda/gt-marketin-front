@@ -3,12 +3,13 @@
 import {useEffect, useMemo, useRef, useState} from "react"
 import {format} from "date-fns"
 import {ptBR} from "date-fns/locale"
-import {ChevronDownIcon, Columns3Icon, LayoutGridIcon, SearchIcon, Table2Icon} from "lucide-react"
+import {CheckIcon, ChevronDownIcon, ChevronsUpDownIcon, Columns3Icon, LayoutGridIcon, SearchIcon, Table2Icon} from "lucide-react"
 import {toast} from "sonner"
 
 import {listarUsersTodosConfig} from "@/lib/configuracoes-api"
 import { usePermissaoPerfil } from "@/hooks/use-permissao-perfil"
-import {listarProjetos} from "@/lib/projetos-api"
+import {listarProjetosTodos} from "@/lib/projetos-api"
+import { cn } from "@/lib/utils"
 import {
     arquivarTarefa,
     arquivarTarefasEmLote,
@@ -79,6 +80,8 @@ export default function Page() {
     const [viewMode, setViewMode] = useState<ViewMode>("grade")
     const [search, setSearch] = useState("")
     const [projetoFilter, setProjetoFilter] = useState("todos")
+    const [projetoBusca, setProjetoBusca] = useState("")
+    const [isProjetoComboboxOpen, setIsProjetoComboboxOpen] = useState(false)
     const [statusFilter, setStatusFilter] = useState<StatusFilter>("todos")
     const [prioridadeFilter, setPrioridadeFilter] = useState<PrioridadeFilter>("todos")
     const [responsavelFilter, setResponsavelFilter] = useState("todos")
@@ -99,21 +102,6 @@ export default function Page() {
     const [isViewModeReady, setIsViewModeReady] = useState(false)
     const requestIdRef = useRef(0)
 
-    async function carregarTodosProjetos() {
-        const todosProjetos: ProjetoItem[] = []
-        let paginaAtual = 1
-        let ultimaPagina = 1
-
-        do {
-            const response = await listarProjetos({page: paginaAtual})
-            todosProjetos.push(...response.data)
-            ultimaPagina = response.lastPage
-            paginaAtual += 1
-        } while (paginaAtual <= ultimaPagina)
-
-        return todosProjetos
-    }
-
     useEffect(() => {
         const savedView = localStorage.getItem(STORAGE_VIEW_KEY)
 
@@ -128,7 +116,7 @@ export default function Page() {
         async function carregarDadosFiltros() {
             try {
                 const [projetosResponse, usuariosResponse] = await Promise.all([
-                    carregarTodosProjetos(),
+                    listarProjetosTodos(),
                     listarUsersTodosConfig(),
                 ])
 
@@ -481,6 +469,16 @@ export default function Page() {
             ? "Todos os projetos"
             : projetos.find((item) => String(item.id) === projetoFilter)?.nome ?? "Todos os projetos"
 
+    const projetosFiltrados = useMemo(() => {
+        const termo = projetoBusca.trim().toLowerCase()
+
+        if (!termo) {
+            return projetos
+        }
+
+        return projetos.filter((projeto) => projeto.nome.toLowerCase().includes(termo))
+    }, [projetoBusca, projetos])
+
     const responsavelSelecionadoNome =
         responsavelFilter === "todos"
             ? "Todos os responsaveis"
@@ -595,19 +593,54 @@ export default function Page() {
                     <div className="grid gap-2 md:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-5">
                         <div className="space-y-2">
                             <Label htmlFor="filtro-projeto">Projeto</Label>
-                            <Select value={projetoFilter} onValueChange={(value) => setProjetoFilter(value ?? "todos")}>
-                                <SelectTrigger id="filtro-projeto" className="w-full">
-                                    <SelectValue placeholder="Selecione o projeto">{projetoSelecionadoNome}</SelectValue>
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="todos">Todos os projetos</SelectItem>
-                                    {projetos.map((projeto) => (
-                                        <SelectItem key={projeto.id} value={String(projeto.id)}>
-                                            {projeto.nome}
-                                        </SelectItem>
-                                    ))}
-                                </SelectContent>
-                            </Select>
+                            <Popover open={isProjetoComboboxOpen} onOpenChange={setIsProjetoComboboxOpen}>
+                                <PopoverTrigger
+                                    render={
+                                        <Button id="filtro-projeto" type="button" variant="outline" className="w-full justify-between">
+                                            <span className="truncate">{projetoSelecionadoNome}</span>
+                                            <ChevronsUpDownIcon data-icon="inline-end" />
+                                        </Button>
+                                    }
+                                />
+                                <PopoverContent className="w-[var(--anchor-width)] p-2">
+                                    <div className="flex flex-col gap-2">
+                                        <Input
+                                            placeholder="Buscar projeto"
+                                            value={projetoBusca}
+                                            onChange={(event) => setProjetoBusca(event.target.value)}
+                                        />
+                                        <div className="max-h-56 overflow-y-auto">
+                                            <Button
+                                                type="button"
+                                                variant="ghost"
+                                                className="w-full justify-start"
+                                                onClick={() => {
+                                                    setProjetoFilter("todos")
+                                                    setIsProjetoComboboxOpen(false)
+                                                }}
+                                            >
+                                                <CheckIcon className={cn(projetoFilter === "todos" ? "opacity-100" : "opacity-0")} />
+                                                Todos os projetos
+                                            </Button>
+                                            {projetosFiltrados.map((projeto) => (
+                                                <Button
+                                                    key={projeto.id}
+                                                    type="button"
+                                                    variant="ghost"
+                                                    className="w-full justify-start"
+                                                    onClick={() => {
+                                                        setProjetoFilter(String(projeto.id))
+                                                        setIsProjetoComboboxOpen(false)
+                                                    }}
+                                                >
+                                                    <CheckIcon className={cn(projetoFilter === String(projeto.id) ? "opacity-100" : "opacity-0")} />
+                                                    {projeto.nome}
+                                                </Button>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </PopoverContent>
+                            </Popover>
                         </div>
 
                         <div className="space-y-2">

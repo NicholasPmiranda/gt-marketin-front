@@ -4,11 +4,17 @@ export type ProjetoEquipeItem = {
   setorNome: string | null
 }
 
+export type ProjetoWhatsappGrupoItem = {
+  jid: string
+  nome: string
+}
+
 export type ProjetoItem = {
   id: number
   nome: string
   descricao: string | null
   ativo: boolean
+  contatoGrupo: string | null
   equipe: ProjetoEquipeItem[]
   createdAt: string | null
   updatedAt: string | null
@@ -45,6 +51,7 @@ export type CreateProjetoPayload = {
   nome: string
   descricao?: string
   ativo: boolean
+  contato_grupo?: string
   equipe_ids?: number[]
 }
 
