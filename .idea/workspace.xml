@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e7fddfb5-2083-46ab-a350-c03f1d2d5fb2" name="Changes" comment="Add bulk archiving for completed tasks with updated API integration and UI enhancements">
+    <list default="true" id="e7fddfb5-2083-46ab-a350-c03f1d2d5fb2" name="Changes" comment="Refactor `carregarEquipe` to use `Promise.allSettled` for granular error handling and update `listarUsuariosEquipe` with simplified response parsing.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -146,14 +146,6 @@
       <workItem from="1775908539647" duration="3649000" />
       <workItem from="1776896138222" duration="5556000" />
       <workItem from="1777511304424" duration="7000" />
-    </task>
-    <task id="LOCAL-00003" summary="feat: add bank logo assets">
-      <option name="closed" value="true" />
-      <created>1773445213304</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1773445213304</updated>
     </task>
     <task id="LOCAL-00004" summary="feat: implement finance management pages and UI components&#10;&#10;Add reusable UI components for dialogs and cards, integrate finance management pages for bank accounts and cards with data fetching and creation functionalities, and enhance navigation structure for seamless user experience.">
       <option name="closed" value="true" />
@@ -539,7 +531,15 @@
       <option name="project" value="LOCAL" />
       <updated>1776896825099</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="Refactor `carregarEquipe` to use `Promise.allSettled` for granular error handling and update `listarUsuariosEquipe` with simplified response parsing.">
+      <option name="closed" value="true" />
+      <created>1779202208119</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1779202208119</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -559,7 +559,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="feat: improve credit card filters with collapsible UI and month/year filtering&#10;&#10;Introduce collapsible filters in `CartaoLancamentosFiltros` for a cleaner user interface. Replace single &quot;fatura&quot; field with separate month and year filters, supported by a new `Popover` interaction. Enhance usability with a toggle for showing/hiding filters and refactor logic to align with updated design." />
     <MESSAGE value="Remove `configuracoes-page.tsx` and related components" />
     <MESSAGE value="add doc" />
     <MESSAGE value="Add project management components, structure, and API integration" />
@@ -584,7 +583,8 @@
     <MESSAGE value="Add role-based permission handling for app features and UI components" />
     <MESSAGE value="Add dashboard components, data types, and API integration for analytics visualization" />
     <MESSAGE value="Add bulk archiving for completed tasks with updated API integration and UI enhancements" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add bulk archiving for completed tasks with updated API integration and UI enhancements" />
+    <MESSAGE value="Refactor `carregarEquipe` to use `Promise.allSettled` for granular error handling and update `listarUsuariosEquipe` with simplified response parsing." />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactor `carregarEquipe` to use `Promise.allSettled` for granular error handling and update `listarUsuariosEquipe` with simplified response parsing." />
     <option name="NON_MODAL_COMMIT_POSTPONE_SLOW_CHECKS" value="false" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">

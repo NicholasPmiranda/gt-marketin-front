@@ -151,14 +151,17 @@ function normalizarTarefa(payload: unknown): ProjetoTarefaItem {
 export async function listarProjetos({
   page,
   search,
+  ativo,
 }: {
   page: number
   search?: string
+  ativo?: boolean
 }) {
   const response = await api.get(endpointMap.projetos, {
     params: {
       page,
       search: search || undefined,
+      ativo,
     },
   })
 

@@ -12,6 +12,23 @@ import { ProjetoCard } from "./components/projeto-card"
 import { ProjetosSkeleton } from "./components/projetos-skeleton"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+
+type FiltroProjetoAtivo = "todos" | "true" | "false"
+
+const filtroProjetoAtivoLabel: Record<FiltroProjetoAtivo, string> = {
+  todos: "Todos",
+  true: "Ativados",
+  false: "Desativados",
+}
 
 function getErrorMessage(error: unknown, fallback: string) {
   if (
@@ -38,10 +55,11 @@ export default function Page() {
   const [isRefreshing, setIsRefreshing] = useState(false)
   const [projetos, setProjetos] = useState<ProjetoItem[]>([])
   const [search, setSearch] = useState("")
+  const [ativoFilter, setAtivoFilter] = useState<FiltroProjetoAtivo>("todos")
   const [page, setPage] = useState(1)
   const [lastPage, setLastPage] = useState(1)
 
-  async function carregarProjetos(isSilent = false) {
+  async function carregarProjetos(pageAtual = page, isSilent = false) {
     try {
       if (isSilent) {
         setIsRefreshing(true)
@@ -50,8 +68,9 @@ export default function Page() {
       }
 
       const response = await listarProjetos({
-        page,
+        page: pageAtual,
         search,
+        ativo: ativoFilter === "todos" ? undefined : ativoFilter === "true",
       })
 
       setProjetos(response.data)
@@ -65,32 +84,55 @@ export default function Page() {
   }
 
   useEffect(() => {
-    void carregarProjetos()
+    void carregarProjetos(page)
   }, [page])
 
   function handleBuscar() {
     setPage(1)
-    void carregarProjetos(true)
+    void carregarProjetos(1, true)
   }
 
   return (
     <div className="flex flex-1 flex-col gap-6 p-4 lg:p-6">
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-        <div className="flex w-full gap-2 md:max-w-lg">
-          <Input
-            value={search}
-            onChange={(event) => setSearch(event.target.value)}
-            placeholder="Busque por nome ou descricao"
-          />
+        <div className="flex w-full flex-col gap-4 md:max-w-3xl md:flex-row md:items-end">
+          <div className="flex-1">
+            <Label htmlFor="busca-projeto">Busca</Label>
+            <Input
+              id="busca-projeto"
+              value={search}
+              onChange={(event) => setSearch(event.target.value)}
+              placeholder="Busque por nome ou descricao"
+            />
+          </div>
+
+          <div className="w-full md:max-w-56">
+            <Label htmlFor="filtro-projeto-ativo">Status</Label>
+            <Select value={ativoFilter} onValueChange={(value) => setAtivoFilter(value as FiltroProjetoAtivo)}>
+              <SelectTrigger id="filtro-projeto-ativo" className="w-full">
+                <SelectValue placeholder="Selecione o status">
+                  {filtroProjetoAtivoLabel[ativoFilter]}
+                </SelectValue>
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectItem value="todos">Todos</SelectItem>
+                  <SelectItem value="true">Ativados</SelectItem>
+                  <SelectItem value="false">Desativados</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
+
           <Button type="button" variant="outline" onClick={handleBuscar} disabled={isRefreshing}>
-            <SearchIcon className="size-4" />
+            <SearchIcon data-icon="inline-start" />
             Buscar
           </Button>
         </div>
 
         {podeCriarProjeto ? (
           <div className="ml-auto">
-            <CriarProjetoModal onCreated={() => carregarProjetos(true)} />
+            <CriarProjetoModal onCreated={() => carregarProjetos(page, true)} />
           </div>
         ) : null}
       </div>
@@ -102,7 +144,7 @@ export default function Page() {
           Nenhum projeto encontrado.
         </div>
       ) : (
-        <div className="space-y-4">
+        <div className="flex flex-col gap-4">
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {projetos.map((projeto) => (
               <ProjetoCard key={projeto.id} projeto={projeto} />
