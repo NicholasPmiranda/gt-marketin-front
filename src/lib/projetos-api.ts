@@ -12,7 +12,7 @@ import type {
 const endpointMap = {
   projetos: "/api/projeto",
   tarefas: "/api/tarefa",
-  usuarios: "/api/config/user",
+  usuarios: "/api/config/user/todos",
 } as const
 
 function normalizarEquipe(payload: unknown): ProjetoEquipeItem[] {
@@ -194,17 +194,7 @@ export async function atualizarProjeto(projetoId: number, payload: UpdateProjeto
 
 export async function listarUsuariosEquipe() {
   const response = await api.get(endpointMap.usuarios)
-  const payload = response.data as { data?: unknown[] } | unknown[]
-
-  if (Array.isArray(payload)) {
-    return normalizarEquipe(payload)
-  }
-
-  if (typeof payload === "object" && payload !== null && Array.isArray(payload.data)) {
-    return normalizarEquipe(payload.data)
-  }
-
-  return []
+  return normalizarEquipe(response.data)
 }
 
 export async function listarTarefasProjeto(projetoId: number) {

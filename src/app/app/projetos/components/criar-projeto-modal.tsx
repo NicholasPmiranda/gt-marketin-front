@@ -78,17 +78,28 @@ export function CriarProjetoModal({ onCreated }: { onCreated: () => Promise<void
     }
 
     async function carregarEquipe() {
+      setIsLoadingEquipe(true)
+      setIsLoadingGrupos(true)
+
       try {
-        setIsLoadingEquipe(true)
-        setIsLoadingGrupos(true)
-        const [equipeResponse, gruposResponse] = await Promise.all([
+        const [equipeResponse, gruposResponse] = await Promise.allSettled([
           listarUsuariosEquipe(),
           listarGruposWhatsappProjeto(),
         ])
-        setEquipe(equipeResponse)
-        setGruposWhatsapp(gruposResponse)
-      } catch (error) {
-        toast.error(getErrorMessage(error, "Nao foi possivel carregar os dados do projeto."))
+
+        if (equipeResponse.status === "fulfilled") {
+          setEquipe(equipeResponse.value)
+        } else {
+          setEquipe([])
+          toast.error(getErrorMessage(equipeResponse.reason, "Nao foi possivel carregar a equipe."))
+        }
+
+        if (gruposResponse.status === "fulfilled") {
+          setGruposWhatsapp(gruposResponse.value)
+        } else {
+          setGruposWhatsapp([])
+          toast.error(getErrorMessage(gruposResponse.reason, "Nao foi possivel carregar os grupos do WhatsApp."))
+        }
       } finally {
         setIsLoadingEquipe(false)
         setIsLoadingGrupos(false)
