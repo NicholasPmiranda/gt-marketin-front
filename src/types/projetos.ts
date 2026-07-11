@@ -13,6 +13,7 @@ export type ProjetoItem = {
   id: number
   nome: string
   descricao: string | null
+  accountId: string | null
   ativo: boolean
   contatoGrupo: string | null
   equipe: ProjetoEquipeItem[]
@@ -50,6 +51,7 @@ export type ProjetosPaginados = {
 export type CreateProjetoPayload = {
   nome: string
   descricao?: string
+  account_id: string
   ativo: boolean
   contato_grupo?: string
   equipe_ids?: number[]

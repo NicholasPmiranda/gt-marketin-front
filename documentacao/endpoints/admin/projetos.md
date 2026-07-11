@@ -57,6 +57,7 @@ Cria um projeto e associa equipe (quando enviada).
 {
   "nome": "Novo Site",
   "descricao": "Projeto institucional",
+  "account_id": "conta-123",
   "ativo": true,
   "equipe_ids": [1, 2]
 }
@@ -65,6 +66,7 @@ Cria um projeto e associa equipe (quando enviada).
 **Regras de Validacao:**
 - `nome` - obrigatorio, string, maximo 255 caracteres
 - `descricao` - opcional, string
+- `account_id` - obrigatorio, string
 - `ativo` - obrigatorio, booleano
 - `equipe_ids` - opcional, array, minimo 1 item
 - `equipe_ids.*` - inteiro, deve existir em `users.id`
@@ -146,6 +148,7 @@ Atualiza dados do projeto e sincroniza equipe quando `equipe_ids` for enviado.
 {
   "nome": "Novo Site v2",
   "descricao": "Projeto institucional atualizado",
+  "account_id": "conta-123",
   "ativo": false,
   "equipe_ids": [2, 3]
 }
@@ -154,6 +157,7 @@ Atualiza dados do projeto e sincroniza equipe quando `equipe_ids` for enviado.
 **Regras de Validacao:**
 - `nome` - obrigatorio, string, maximo 255 caracteres
 - `descricao` - opcional, string
+- `account_id` - obrigatorio, string
 - `ativo` - obrigatorio, booleano
 - `equipe_ids` - opcional, array, minimo 1 item
 - `equipe_ids.*` - inteiro, deve existir em `users.id`

@@ -47,6 +47,7 @@ function normalizarProjeto(payload: unknown): ProjetoItem {
     id?: number
     nome?: string
     descricao?: string | null
+    account_id?: string | null
     ativo?: boolean
     contato_grupo?: string | null
     equipe?: unknown
@@ -58,6 +59,7 @@ function normalizarProjeto(payload: unknown): ProjetoItem {
     id: item.id ?? 0,
     nome: item.nome ?? "",
     descricao: item.descricao ?? null,
+    accountId: item.account_id ?? null,
     ativo: Boolean(item.ativo),
     contatoGrupo: item.contato_grupo ?? null,
     equipe: normalizarEquipe(item.equipe),

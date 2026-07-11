@@ -30,6 +30,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 type EditProjetoFormData = {
   nome: string
   descricao: string
+  accountId: string
   ativo: boolean
   contatoGrupo: string
   equipeIds: number[]
@@ -76,6 +77,7 @@ export function EditarProjetoModal({
     defaultValues: {
       nome: projeto.nome,
       descricao: projeto.descricao ?? "",
+      accountId: projeto.accountId ?? "",
       ativo: projeto.ativo,
       contatoGrupo: projeto.contatoGrupo ?? SEM_GRUPO_VALUE,
       equipeIds: projeto.equipe.map((membro) => membro.id),
@@ -86,6 +88,7 @@ export function EditarProjetoModal({
     form.reset({
       nome: projeto.nome,
       descricao: projeto.descricao ?? "",
+      accountId: projeto.accountId ?? "",
       ativo: projeto.ativo,
       contatoGrupo: projeto.contatoGrupo ?? SEM_GRUPO_VALUE,
       equipeIds: projeto.equipe.map((membro) => membro.id),
@@ -146,6 +149,7 @@ export function EditarProjetoModal({
       await atualizarProjeto(projeto.id, {
         nome: values.nome,
         descricao: values.descricao,
+        account_id: values.accountId,
         ativo: values.ativo,
         contato_grupo: values.contatoGrupo === SEM_GRUPO_VALUE ? undefined : values.contatoGrupo,
         equipe_ids: values.equipeIds,
@@ -190,6 +194,15 @@ export function EditarProjetoModal({
                 id="editar-projeto-descricao"
                 placeholder="Digite a descricao do projeto"
                 {...form.register("descricao")}
+              />
+            </Field>
+
+            <Field>
+              <FieldLabel htmlFor="editar-projeto-account-id">Account ID</FieldLabel>
+              <Input
+                id="editar-projeto-account-id"
+                placeholder="Digite o account ID"
+                {...form.register("accountId")}
               />
             </Field>
 

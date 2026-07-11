@@ -26,6 +26,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 type CreateProjetoFormData = {
   nome: string
   descricao: string
+  accountId: string
   ativo: boolean
   contatoGrupo: string
   equipeIds: number[]
@@ -66,6 +67,7 @@ export function CriarProjetoModal({ onCreated }: { onCreated: () => Promise<void
     defaultValues: {
       nome: "",
       descricao: "",
+      accountId: "",
       ativo: true,
       contatoGrupo: SEM_GRUPO_VALUE,
       equipeIds: [],
@@ -126,6 +128,7 @@ export function CriarProjetoModal({ onCreated }: { onCreated: () => Promise<void
       await criarProjeto({
         nome: values.nome,
         descricao: values.descricao,
+        account_id: values.accountId,
         ativo: values.ativo,
         contato_grupo: values.contatoGrupo === SEM_GRUPO_VALUE ? undefined : values.contatoGrupo,
         equipe_ids: values.equipeIds,
@@ -171,6 +174,15 @@ export function CriarProjetoModal({ onCreated }: { onCreated: () => Promise<void
                 id="projeto-descricao"
                 placeholder="Digite a descricao do projeto"
                 {...form.register("descricao")}
+              />
+            </Field>
+
+            <Field>
+              <FieldLabel htmlFor="projeto-account-id">Account ID</FieldLabel>
+              <Input
+                id="projeto-account-id"
+                placeholder="Digite o account ID"
+                {...form.register("accountId")}
               />
             </Field>
 
