@@ -18,6 +18,10 @@ export function SiteHeader() {
         ? "Tarefas"
         : pathname.startsWith("/app/projetos")
           ? "Projetos"
+      : pathname.startsWith("/app/atas-reuniao")
+        ? "Atas de reuniao"
+      : pathname.startsWith("/app/reunioes")
+        ? "Reunioes"
       : pathname.startsWith("/app/contas-bancarias")
         ? "Contas bancarias"
       : pathname.startsWith("/app/cartoes")

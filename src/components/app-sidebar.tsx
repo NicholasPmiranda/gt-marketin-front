@@ -17,6 +17,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import {
+  FileTextIcon,
   FolderKanbanIcon,
   KeyRoundIcon,
   LayoutDashboardIcon,
@@ -64,6 +65,11 @@ const data = {
       title: "Reunioes",
       url: "/app/reunioes",
       icon: <VideoIcon />,
+    },
+    {
+      title: "Atas de reuniao",
+      url: "/app/atas-reuniao",
+      icon: <FileTextIcon />,
     },
     {
       title: "Configuracoes",
